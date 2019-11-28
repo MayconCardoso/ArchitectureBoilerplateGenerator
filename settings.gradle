@@ -1,0 +1,2 @@
+include ':app', ':library', ':domain', ':data'
+rootProject.name='Architecture Generator'
