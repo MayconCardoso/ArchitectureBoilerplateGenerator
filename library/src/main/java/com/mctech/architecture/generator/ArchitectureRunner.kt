@@ -1,58 +1,29 @@
 package com.mctech.architecture.generator
 
-import com.mctech.architecture.generator.class_contract.Parameter
-import com.mctech.architecture.generator.class_contract.Type
+import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.generator.FeatureGenerator
 import com.mctech.architecture.generator.generator.newFeature
+import com.mctech.architecture.generator.settings.FeatureSettings
 import com.mctech.architecture.generator.settings.ProjectSettings
+import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
 fun main() {
+
     val projectSettings = ProjectSettings(
-        basePackageName = "com.mctech.sample",
+        basePackageName = Package("com.mctech.architecture"),
         isTheProjectModularized = true
     )
 
-    FeatureGenerator(
+    val featureSettins = FeatureSettings(
         projectSettings = projectSettings,
-        featureName = "Investment",
-        createDependencyInjectionModules = false
-    ).newFeature {
+        createDependencyInjectionModules = false,
+        fileDuplicatedStrategy = FileDuplicatedStrategy.Replace
+    )
 
-        generateUseCase(
-            name = "SaveInvestment"
-        )
-
-        generateUseCase(
-            name = "GetBalance",
-            returnType = Type.Float
-        )
-
-        generateUseCase(
-            name = "GetAllInvestments",
-            returnType = Type.GeneratedEntity,
-            parameters = listOf(
-                Parameter(
-                    name = "token",
-                    type = Type.String
-                ),
-                Parameter(
-                    name = "userId",
-                    type = Type.Int
-                )
-            )
-        )
-
-        generateLiveData(
-            name = "testeLiveData",
-            dataType = Type.Int
-        )
-
-        generateLiveData(
-            name = "allInvestments",
-            dataType = Type.ListOfGeneratedEntity
-        )
-    }
+    FeatureGenerator(featureSettins, "Investment").newFeature {}
+    FeatureGenerator(featureSettins, "Withdraw").newFeature {}
+    FeatureGenerator(featureSettins, "Balance").newFeature {}
 }

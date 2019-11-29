@@ -32,4 +32,8 @@ sealed class Type {
     object ListOfGeneratedEntity : Type() {
         override fun getType() = " : List<${GlobalSettings.currentFeatureName.toEntityName()}>"
     }
+
+    data class ResultOf(val type : Type) : Type(){
+        override fun getType() = "Result<${type.getType()}>"
+    }
 }

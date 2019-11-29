@@ -1,11 +1,13 @@
 package com.mctech.architecture.generator.settings
 
+import com.mctech.architecture.generator.class_contract.Package
+
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class ProjectSettings constructor(
+data class ProjectSettings (
     val baseAndroidProjectPath : String = "",
-    val basePackageName : String,
+    val basePackageName : Package,
     val isTheProjectModularized : Boolean = false
 ){
     init {
