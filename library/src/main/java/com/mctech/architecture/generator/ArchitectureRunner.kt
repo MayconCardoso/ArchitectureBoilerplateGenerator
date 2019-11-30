@@ -24,6 +24,4 @@ fun main() {
     )
 
     FeatureGenerator(featureSettins, "Investment").newFeature {}
-    FeatureGenerator(featureSettins, "Withdraw").newFeature {}
-    FeatureGenerator(featureSettins, "Balance").newFeature {}
 }

@@ -1,8 +1,8 @@
 package com.mctech.architecture.generator.path
 
-import com.mctech.architecture.generator.alias.toSegmentalName
 import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.settings.GlobalSettings
+import com.mctech.architecture.generator.settings.featureSegment
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
@@ -10,7 +10,7 @@ import com.mctech.architecture.generator.settings.GlobalSettings
 class ModuleFilePath(
     val packageValue: Package,
     val moduleName: String,
-    val type: ModuleFilePathType = ModuleFilePathType.Java
+    val type: ModuleFilePathType = ModuleFilePathType.Kotlin
 ) : FilePath {
     override fun getPath(): String {
         return "$moduleName/${type.folderName}/${packageValue.getSegmentedPackage()}/"
@@ -36,21 +36,21 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object Data : ModuleDefaultLayers(
         ModuleFilePath(
             moduleName = "data",
-            packageValue = Package("$projectPackage.data")
+            packageValue = Package("${projectPackage}.data")
         )
     )
 
     object Domain : ModuleDefaultLayers(
         ModuleFilePath(
             moduleName = "domain",
-            packageValue = Package("$projectPackage.domain")
+            packageValue = Package("${projectPackage}.domain")
         )
     )
 
     object GeneratedFeature : ModuleDefaultLayers(
         ModuleFilePath(
-            moduleName = "feature/${GlobalSettings.currentFeatureName.toSegmentalName()}",
-            packageValue = Package("$projectPackage.${GlobalSettings.currentFeatureName.toSegmentalName()}")
+            moduleName = "feature-${featureSegment()}",
+            packageValue = Package("${projectPackage}.feature.${featureSegment()}")
         )
     )
 }

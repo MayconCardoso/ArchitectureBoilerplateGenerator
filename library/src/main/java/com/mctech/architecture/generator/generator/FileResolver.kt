@@ -16,7 +16,6 @@ fun writeFile(filePath : FilePath, writerFileBlock : (out : PrintWriter) -> Unit
     if(shouldCancelOperation(file))
         return
 
-
     // Log output
     println("Generating file: " + file.absolutePath)
 
@@ -42,6 +41,10 @@ fun createFileFolder(file: File) {
             folder?.parentFile
         }
     }while (currentFile != null)
+}
+
+fun PrintWriter.blankLine() {
+    println("")
 }
 
 private fun shouldCancelOperation(file: File): Boolean

@@ -1,5 +1,8 @@
 apply plugin: 'kotlin'
 
 dependencies {
+
+    implementation project(path: ":domain")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
