@@ -13,7 +13,7 @@ import java.io.PrintWriter
  */
 class RepositoryTemplate(modulePath: ModuleFilePath) : Template(modulePath) {
     override val folder: String
-        get() = ""
+        get() = "repository"
 
     override val className: String
         get() = "${featureEntityName()}Repository"

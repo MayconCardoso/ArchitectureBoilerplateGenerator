@@ -76,17 +76,29 @@ open class UseCaseTemplate(val useCase: UseCase, modulePath: ModuleFilePath) :
     }
 
     protected open fun generateExecutionMethodBodyWithReturn(output: PrintWriter) {
-        output.printTabulate(countTabulate = 2, value = "try{")
+        output.printTabulate(countTabulate = 2, value = "return try{")
 
-        output.printTabulate(
-            countTabulate = 3,
-            value = "return Result.Success(service.${getServiceMethodName()}${createParametersAsParameter()})"
-        )
-
+        if(useCase.returnType is Type.ResultOf){
+            output.printTabulate(
+                countTabulate = 3,
+                value = "Result.Success(service.${useCase.getMethodName()}${createParametersAsParameter()})"
+            )
+        }
+        else{
+            output.printTabulate(
+                countTabulate = 3,
+                value = "service.${useCase.getMethodName()}${createParametersAsParameter()}"
+            )
+        }
         output.printTabulate(countTabulate = 2, value = "}")
         output.printTabulate(countTabulate = 2, value = "catch (ex : Exception){")
         output.printTabulate(countTabulate = 3, value = "ex.printStackTrace()")
-        output.printTabulate(countTabulate = 3, value = "return Result.Failure(ex)")
+        if(useCase.returnType is Type.ResultOf){
+            output.printTabulate(countTabulate = 3, value = "Result.Failure(ex)")
+        }
+        else{
+            output.printTabulate(countTabulate = 3, value = "null")
+        }
         output.printTabulate(countTabulate = 2, value = "}")
     }
 
@@ -95,7 +107,7 @@ open class UseCaseTemplate(val useCase: UseCase, modulePath: ModuleFilePath) :
 
         output.printTabulate(
             countTabulate = 3,
-            value = "service.${getServiceMethodName()}${createParametersAsParameter()}"
+            value = "service.${useCase.getMethodName()}${createParametersAsParameter()}"
         )
 
         output.printTabulate(countTabulate = 2, value = "}")
@@ -113,10 +125,12 @@ open class UseCaseTemplate(val useCase: UseCase, modulePath: ModuleFilePath) :
     }
 
     protected open fun createReturnType(): String {
+        val optional = if(useCase.returnType is Type.ResultOf) "" else "?"
+
         if (useCase.returnType is Type.Unit) {
             return ""
         }
-        return ": " + useCase.returnType.getType()
+        return ": " + useCase.returnType.getType() + optional
     }
 
     protected open fun createParametersSignature(): String {
@@ -162,10 +176,5 @@ open class UseCaseTemplate(val useCase: UseCase, modulePath: ModuleFilePath) :
     private fun hasInteractionResultEntity(): Boolean {
         return useCase.returnType is Type.ResultOf
                 || useCase.parameters.any { it.type is Type.ResultOf }
-    }
-
-    private fun getServiceMethodName() : String{
-        val methodName = useCase.name.removeSuffix("Case")
-        return methodName
     }
 }

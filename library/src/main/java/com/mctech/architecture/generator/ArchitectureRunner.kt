@@ -45,6 +45,7 @@ fun main() {
         addUseCase(
             name = "TestMultipleParameters",
             isDaggerInjetable = true,
+            returnType = Type.GeneratedEntity,
             parameters = listOf(
                 Parameter(
                     name = "balance",
