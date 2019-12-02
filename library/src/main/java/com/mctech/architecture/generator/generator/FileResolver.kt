@@ -43,9 +43,19 @@ fun createFileFolder(file: File) {
     }while (currentFile != null)
 }
 
-fun PrintWriter.blankLine() {
-    println("")
-}
-
 private fun shouldCancelOperation(file: File): Boolean
         = file.exists() && GlobalSettings.fileDuplicatedStrategy.shouldCancelOperation(file)
+
+
+fun PrintWriter.blankLine() = println("")
+fun PrintWriter.printPackage(value : String) = println(value)
+fun PrintWriter.printImport(value : String) = println(value)
+fun PrintWriter.printTabulate(value : String, countTabulate : Int = 1) = println(getTabulateString(countTabulate) + value)
+
+private fun getTabulateString(count : Int) : String{
+    var tabulate = ""
+    for (i in 0 until count){
+        tabulate += "\t"
+    }
+    return tabulate
+}

@@ -1,10 +1,8 @@
 package com.mctech.architecture.generator.templates.data
 
-import com.mctech.architecture.generator.context.FeatureContext
-import com.mctech.architecture.generator.context.localDataSourcePacakge
-import com.mctech.architecture.generator.context.remoteDataSourcePacakge
-import com.mctech.architecture.generator.context.servicePackage
+import com.mctech.architecture.generator.context.*
 import com.mctech.architecture.generator.generator.blankLine
+import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
 import com.mctech.architecture.generator.templates.Template
@@ -21,16 +19,24 @@ class RepositoryTemplate(modulePath: ModuleFilePath) : Template(modulePath) {
         get() = "${featureEntityName()}Repository"
 
     override fun generate(output: PrintWriter) {
-        val localDataSourceFeatureName = FeatureContext.featureGenerator.localDataSourceGenerator.className
-        val remoteDataSourceFeatureName = FeatureContext.featureGenerator.remoteDataSourceGenerator.className
-
+        output.println("${servicePackage()}.$serviceFeatureName")
         output.println("${localDataSourcePacakge()}.$localDataSourceFeatureName")
-        output.println("${remoteDataSourcePacakge()}.$remoteDataSourceFeatureName")
+
+        if(FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources){
+            output.println("${remoteDataSourcePacakge()}.$remoteDataSourceFeatureName")
+        }
         output.blankLine()
 
         output.println("class $className(")
-        output.println("\tprivate val localDataSource: $localDataSourceFeatureName,")
-        output.println("\tprivate val remoteDataSource: $remoteDataSourceFeatureName")
-        output.println(")")
+        output.printTabulate("private val localDataSource: $localDataSourceFeatureName" + getCommaOrNot())
+        if(FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources){
+            output.printTabulate("private val remoteDataSource: $remoteDataSourceFeatureName")
+        }
+        output.println(") : $serviceFeatureName")
     }
+
+    private fun getCommaOrNot() = if(FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources)
+        ","
+    else
+        ""
 }

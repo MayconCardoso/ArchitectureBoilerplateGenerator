@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.templates
 
 import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.generator.FileGenerator
+import com.mctech.architecture.generator.generator.printPackage
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.FilePath
 import com.mctech.architecture.generator.path.ModuleFilePath
@@ -16,17 +17,31 @@ abstract class Template(private val moduleFilePath: ModuleFilePath) : FilePath, 
     abstract val className: String
     protected abstract fun generate(output: PrintWriter)
 
+    final override fun getPath(): String {
+        if(folder.isEmpty()){
+            return moduleFilePath.getPath() + className + ".kt"
+        }
+        return moduleFilePath.getPath() + featureSegment() + getFolderSegment() + className + ".kt"
+    }
+
     fun getPackage() = Package(
-        moduleFilePath.packageValue.getPackageLine() + "." + featureSegment() + "." + folder
+        if(folder.isEmpty())
+            moduleFilePath.packageValue.getPackageLine()
+        else
+            moduleFilePath.packageValue.getPackageLine() + "." + featureSegment() + getFolderPackageSegment()
     )
 
-    final override fun getPath(): String {
-        return moduleFilePath.getPath() + featureSegment() + "/${folder}/" + className + ".kt"
+    private fun getFolderSegment(): String {
+        return if(folder.isBlank())  "/" else "/${folder}/"
+    }
+
+    private fun getFolderPackageSegment(): String {
+        return if(folder.isBlank()) "" else ".$folder"
     }
 
     final override fun generate() = writeFile(this) { output ->
         // Write Package
-        output.println(getPackage().getPackageLine().removeSuffix("."))
+        output.printPackage(getPackage().getPackageLine().removeSuffix("."))
 
         // Write empty class
         output.println("")

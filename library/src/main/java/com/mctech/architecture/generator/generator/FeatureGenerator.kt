@@ -4,7 +4,7 @@ import com.mctech.architecture.generator.alias.*
 import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.context.FeatureContext
-import com.mctech.architecture.generator.generator.usecase.UseCaseGenerator
+import com.mctech.architecture.generator.generator.usecase.UseCase
 import com.mctech.architecture.generator.path.ModuleDefaultLayers
 import com.mctech.architecture.generator.settings.FeatureSettings
 import com.mctech.architecture.generator.settings.GlobalSettings
@@ -13,12 +13,13 @@ import com.mctech.architecture.generator.templates.data.LocalDataSourceTemplate
 import com.mctech.architecture.generator.templates.data.RemoteDataSourceTemplate
 import com.mctech.architecture.generator.templates.data.RepositoryTemplate
 import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemplate
+import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class FeatureGenerator(settings: FeatureSettings, featureName: FeatureName) {
+class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) {
     init {
         // Set global settings with the current feature.
         GlobalSettings.projectSettings = settings.projectSettings
@@ -36,42 +37,44 @@ class FeatureGenerator(settings: FeatureSettings, featureName: FeatureName) {
     var featureModulePath = ModuleDefaultLayers.GeneratedFeature.moduleFile
 
     // Generators
-    var entityGenerator             : FeatureEntity = EmptyEntityTemplate(domainModulePath)
-    var serviceGenerator            : FeatureService = ServiceInterfaceTemplate(domainModulePath)
-    var serviceGeneratorImpl        : FeatureServiceImpl = RepositoryTemplate(dataModulePath)
-    var dataSourceGenerator         : FeatureDataSource = DataSourceInterfaceTemplate(dataModulePath)
-    var localDataSourceGenerator    : FeatureDataSource = LocalDataSourceTemplate(dataModulePath)
-    var remoteDataSourceGenerator   : FeatureDataSource = RemoteDataSourceTemplate(dataModulePath)
+    var entityTemplateGenerator             : FeatureEntityTemplate = EmptyEntityTemplate(domainModulePath)
+    var serviceGenerator                    : FeatureServiceTemplate = ServiceInterfaceTemplate(domainModulePath)
+    var serviceGeneratorImplTemplate        : FeatureServiceImplTemplate = RepositoryTemplate(dataModulePath)
+    var dataSourceTemplateGenerator         : FeatureDataSourceTemplate = DataSourceInterfaceTemplate(dataModulePath)
+    var localDataSourceTemplateGenerator    : FeatureLocalDataSourceTemplate = LocalDataSourceTemplate(dataModulePath)
+    var remoteDataSourceTemplateGenerator   : FeatureRemoteDataSourceTemplate = RemoteDataSourceTemplate(dataModulePath)
 
     // Use cases
-    private val listOfUseCases = mutableListOf<UseCaseGenerator>()
+    private val listOfUseCases = mutableListOf<UseCase>()
 
     // Live data
     private val listOfLiveData = mutableListOf<String>()
 
-    fun generateUseCase(
+    fun addUseCase(
         name: String,
         returnType: Type = Type.Unit,
-        parameters: List<Parameter> = listOf()
+        parameters: List<Parameter> = listOf(),
+        isDaggerInjetable : Boolean = false
     ) {
         listOfUseCases.add(
-            UseCaseGenerator(
-                domainModulePath,
-                name,
-                returnType,
-                parameters
+            UseCase(
+                modulePath = domainModulePath,
+                name = name,
+                returnType = returnType,
+                parameters = parameters,
+                isDaggerInjectable = isDaggerInjetable
             )
         )
     }
 
-    fun generateLiveData(
+    fun addLiveData(
         name: String,
         dataType: Type = Type.Unit
     ) {
 
     }
 
-    fun generateComponentState(
+    fun addComponentState(
         name: String,
         dataType: Type = Type.Unit
     ) {
@@ -83,16 +86,18 @@ class FeatureGenerator(settings: FeatureSettings, featureName: FeatureName) {
         FeatureContext.featureGenerator = this
 
         // Generate files
-        entityGenerator.generate()
+        entityTemplateGenerator.generate()
         serviceGenerator.generate()
-        serviceGeneratorImpl.generate()
-        dataSourceGenerator.generate()
-        localDataSourceGenerator.generate()
-        remoteDataSourceGenerator.generate()
+        serviceGeneratorImplTemplate.generate()
+        dataSourceTemplateGenerator.generate()
+        localDataSourceTemplateGenerator.generate()
+        if(settings.createBothRemoteAndLocalDataSources){
+            remoteDataSourceTemplateGenerator.generate()
+        }
 
         // Create all UseCases
         listOfUseCases.forEach {
-            it.generate()
+            UseCaseTemplate(it, domainModulePath).generate()
         }
     }
 }

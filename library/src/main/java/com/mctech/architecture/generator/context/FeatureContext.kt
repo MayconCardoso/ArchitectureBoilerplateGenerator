@@ -11,8 +11,13 @@ class FeatureContext {
     }
 }
 
-fun entityPackage()             = FeatureContext.featureGenerator.entityGenerator.getPackage().getImportLine()
+fun entityPackage()             = FeatureContext.featureGenerator.entityTemplateGenerator.getPackage().getImportLine()
 fun servicePackage()            = FeatureContext.featureGenerator.serviceGenerator.getPackage().getImportLine()
-fun dataSourcePackage()         = FeatureContext.featureGenerator.dataSourceGenerator.getPackage().getImportLine()
-fun localDataSourcePacakge()    = FeatureContext.featureGenerator.localDataSourceGenerator.getPackage().getImportLine()
-fun remoteDataSourcePacakge()   = FeatureContext.featureGenerator.remoteDataSourceGenerator.getPackage().getImportLine()
+fun dataSourcePackage()         = FeatureContext.featureGenerator.dataSourceTemplateGenerator.getPackage().getImportLine()
+fun localDataSourcePacakge()    = FeatureContext.featureGenerator.localDataSourceTemplateGenerator.getPackage().getImportLine()
+fun remoteDataSourcePacakge()   = FeatureContext.featureGenerator.remoteDataSourceTemplateGenerator.getPackage().getImportLine()
+
+
+val serviceFeatureName          = FeatureContext.featureGenerator.serviceGenerator.className
+val localDataSourceFeatureName  = FeatureContext.featureGenerator.localDataSourceTemplateGenerator.className
+val remoteDataSourceFeatureName = FeatureContext.featureGenerator.remoteDataSourceTemplateGenerator.className
