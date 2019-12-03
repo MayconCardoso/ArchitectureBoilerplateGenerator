@@ -41,6 +41,16 @@ fun main() {
 
         addUseCase {
             UseCaseBuilder(
+                name = "GetAllBalancesCase",
+                isDaggerInjectable = true,
+                returnType = Type.ResultOf(
+                    Type.ListOfGeneratedEntity
+                )
+            )
+        }
+
+        addUseCase {
+            UseCaseBuilder(
                 name = "SaveBalanceCase",
                 isDaggerInjectable = true,
                 parameters = listOf(

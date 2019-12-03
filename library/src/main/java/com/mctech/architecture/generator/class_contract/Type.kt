@@ -26,12 +26,20 @@ sealed class Type {
         override fun getType() = "Float"
     }
 
+    object Double : Type() {
+        override fun getType() = "Double"
+    }
+
     object GeneratedEntity : Type() {
         override fun getType() = GlobalSettings.currentFeatureName.toEntityName()
     }
 
     object ListOfGeneratedEntity : Type() {
         override fun getType() = "List<${GlobalSettings.currentFeatureName.toEntityName()}>"
+    }
+
+    data class ListOf(val type : Type) : Type(){
+        override fun getType() = "List<${type.getType()}>"
     }
 
     data class ResultOf(val type : Type) : Type(){

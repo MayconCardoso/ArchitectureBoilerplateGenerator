@@ -30,8 +30,15 @@ data class UseCaseBuilder(
 
     fun hasGeneratedEntity(): Boolean {
         return returnType is Type.GeneratedEntity
+                || returnType is Type.ListOfGeneratedEntity
+                || (returnType is Type.ResultOf && returnType.type is Type.GeneratedEntity)
+                || (returnType is Type.ResultOf && returnType.type is Type.ListOfGeneratedEntity)
+                || (returnType is Type.ListOf && returnType.type is Type.GeneratedEntity)
+
                 || parameters.any { it.type is Type.GeneratedEntity }
+                || parameters.any { it.type is Type.ListOfGeneratedEntity }
                 || parameters.any { if (it.type is Type.ResultOf) it.type.type is Type.GeneratedEntity else false }
+                || parameters.any { if (it.type is Type.ListOf) it.type.type is Type.GeneratedEntity else false }
     }
 
     fun hasInteractionResultEntity(): Boolean {
