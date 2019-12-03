@@ -18,6 +18,11 @@ class ModuleFilePath(
 }
 
 sealed class ModuleFilePathType(val folderName: String) {
+
+    fun getResFolder()      = "src/main/res/"
+    fun getMainFolder()     = "src/main/"
+    fun getSourceFolder()   = folderName
+
     /**
      * This is a JAVA module, so our path is 'src/main/java/....'
      */

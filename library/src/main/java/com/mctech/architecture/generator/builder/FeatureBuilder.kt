@@ -14,6 +14,11 @@ import com.mctech.architecture.generator.templates.data.repository.RepositoryTem
 import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemplate
 import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
+import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
+import com.mctech.architecture.generator.templates.presentation.module.GradleModuleTemplate
+import com.mctech.architecture.generator.templates.presentation.resource.ActivityLayoutTemplate
+import com.mctech.architecture.generator.templates.presentation.resource.FragmentLayoutTemplate
+import com.mctech.architecture.generator.templates.presentation.resource.StringTemplate
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
@@ -99,6 +104,14 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         listOfUseCases.forEach {
             UseCaseTemplate(it, domainModulePath).generate()
         }
+
+
+        // Create templates of the feature module.
+        GradleModuleTemplate(featureModulePath).generate()
+        AndroidManifestTemplate(featureModulePath).generate()
+        StringTemplate(featureModulePath).generate()
+        ActivityLayoutTemplate(featureModulePath).generate()
+        FragmentLayoutTemplate(featureModulePath).generate()
     }
 }
 
