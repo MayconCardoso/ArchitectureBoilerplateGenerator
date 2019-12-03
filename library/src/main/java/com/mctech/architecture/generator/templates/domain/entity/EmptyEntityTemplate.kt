@@ -8,7 +8,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class EmptyEntityTemplate(modulePath: ModuleFilePath) : Template(modulePath) {
+class EmptyEntityTemplate(modulePath: ModuleFilePath) : Template(modulePath, false) {
 
     override val folder: String
         get() = "entity"
@@ -16,7 +16,11 @@ class EmptyEntityTemplate(modulePath: ModuleFilePath) : Template(modulePath) {
     override val className: String
         get() = featureEntityName()
 
-    override fun generate(output: PrintWriter) {
+    override fun generateImports(output: PrintWriter) = Unit
+
+    override fun generateClassName(output: PrintWriter) {
         output.println("class $className")
     }
+
+    override fun generateClassBody(output: PrintWriter) = Unit
 }

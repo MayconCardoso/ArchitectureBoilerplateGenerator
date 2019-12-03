@@ -29,8 +29,14 @@ sealed class ModuleFilePathType(val folderName: String) {
     object Kotlin : ModuleFilePathType("src/main/kotlin/")
 }
 
-val projectPackage = GlobalSettings.projectSettings.basePackageName.value
 
+// This is the base package of the architecture.
+private val projectPackage = GlobalSettings.projectSettings.basePackageName.value
+
+/**
+ * These are the defaults layers implementation of the project.
+ * You can change it when generating your feature by changing the layers variables.
+ */
 sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
 
     object Data : ModuleDefaultLayers(

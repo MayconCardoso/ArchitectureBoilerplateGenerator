@@ -16,10 +16,13 @@ open class ResultTemplate :
     override val className: String
         get() = "Result"
 
-    override fun generate(output: PrintWriter) {
+    override fun generateImports(output: PrintWriter) = Unit
+    override fun generateClassName(output: PrintWriter) {
         output.println("sealed class Result<out T> {")
+    }
+
+    override fun generateClassBody(output: PrintWriter) {
         output.printTabulate("data class Success<T>(val result: T) : Result<T>()")
         output.printTabulate("data class Failure(val throwable: Throwable) : Result<Nothing>()")
-        output.println("}")
     }
 }

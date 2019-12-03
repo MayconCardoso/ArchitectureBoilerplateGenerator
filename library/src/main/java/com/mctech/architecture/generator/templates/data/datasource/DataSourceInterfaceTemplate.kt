@@ -1,6 +1,5 @@
-package com.mctech.architecture.generator.templates.data
+package com.mctech.architecture.generator.templates.data.datasource
 
-import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.serviceFeatureName
 import com.mctech.architecture.generator.context.servicePackage
 import com.mctech.architecture.generator.generator.blankLine
@@ -12,17 +11,21 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : Template(modulePath) {
+class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : Template(modulePath, false) {
     override val folder: String
         get() = "datasource"
 
     override val className: String
         get() = "${featureEntityName()}DataSource"
 
-    override fun generate(output: PrintWriter) {
+    override fun generateImports(output: PrintWriter) {
         output.println("${servicePackage()}.$serviceFeatureName")
         output.blankLine()
+    }
 
+    override fun generateClassName(output: PrintWriter) {
         output.println("interface $className : $serviceFeatureName")
     }
+
+    override fun generateClassBody(output: PrintWriter) = Unit
 }

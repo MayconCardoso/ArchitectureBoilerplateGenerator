@@ -9,9 +9,9 @@ import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
  */
 data class FeatureSettings(
     val projectSettings: ProjectSettings,
-    val fileDuplicatedStrategy: FileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
-    val createDependencyInjectionModules: Boolean = false,
-    val createBothRemoteAndLocalDataSources: Boolean = true
+    var fileDuplicatedStrategy: FileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
+    var createDependencyInjectionModules: Boolean = false,
+    var createBothRemoteAndLocalDataSources: Boolean = true
 )
 
 fun featureEntityName()         = GlobalSettings.currentFeatureName.toEntityName()
