@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.path
 
 import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.settings.GlobalSettings
+import com.mctech.architecture.generator.settings.featurePackage
 import com.mctech.architecture.generator.settings.featureSegment
 
 /**
@@ -61,7 +62,7 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object GeneratedFeature : ModuleDefaultLayers(
         ModuleFilePath(
             moduleName = "feature-${featureSegment()}",
-            packageValue = Package("${projectPackage}.feature.${featureSegment()}")
+            packageValue = Package("${projectPackage}.feature.${featurePackage()}")
         )
     )
 }

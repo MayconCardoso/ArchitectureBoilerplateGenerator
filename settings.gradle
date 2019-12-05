@@ -1,2 +1,6 @@
-include ':app', ':library', ':domain', ':data'
 rootProject.name='Architecture Generator'
+
+include ':app'
+include ':library'
+include ':domain'
+include ':data'

@@ -15,6 +15,7 @@ import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemp
 import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
 import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
+import com.mctech.architecture.generator.templates.presentation.module.AddFeatureOnSettingsFileTemplate
 import com.mctech.architecture.generator.templates.presentation.module.GradleModuleTemplate
 import com.mctech.architecture.generator.templates.presentation.resource.ActivityLayoutTemplate
 import com.mctech.architecture.generator.templates.presentation.resource.FragmentLayoutTemplate
@@ -107,6 +108,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
 
 
         // Create templates of the feature module.
+        AddFeatureOnSettingsFileTemplate().generate()
         GradleModuleTemplate(featureModulePath).generate()
         AndroidManifestTemplate(featureModulePath).generate()
         StringTemplate(featureModulePath).generate()

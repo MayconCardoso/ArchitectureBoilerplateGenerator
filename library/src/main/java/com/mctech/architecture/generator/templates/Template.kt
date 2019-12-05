@@ -6,7 +6,7 @@ import com.mctech.architecture.generator.generator.printPackage
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.FilePath
 import com.mctech.architecture.generator.path.ModuleFilePath
-import com.mctech.architecture.generator.settings.featureSegment
+import com.mctech.architecture.generator.settings.featurePackage
 import java.io.PrintWriter
 
 /**
@@ -23,14 +23,14 @@ abstract class Template(
         if (folder.isEmpty()) {
             return moduleFilePath.getPath() + className + ".kt"
         }
-        return moduleFilePath.getPath() + featureSegment() + getFolderSegment() + className + ".kt"
+        return moduleFilePath.getPath() + featurePackage() + getFolderSegment() + className + ".kt"
     }
 
     fun getPackage() = Package(
         if (folder.isEmpty())
             moduleFilePath.packageValue.getPackageLine()
         else
-            moduleFilePath.packageValue.getPackageLine() + "." + featureSegment() + getFolderPackageSegment()
+            moduleFilePath.packageValue.getPackageLine() + "." + featurePackage() + getFolderPackageSegment()
     )
 
     private fun getFolderSegment(): String {
