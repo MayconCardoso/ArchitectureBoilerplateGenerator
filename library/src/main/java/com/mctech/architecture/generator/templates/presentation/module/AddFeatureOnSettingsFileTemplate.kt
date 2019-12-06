@@ -1,17 +1,16 @@
 package com.mctech.architecture.generator.templates.presentation.module
 
-import com.mctech.architecture.generator.generator.FileGenerator
 import com.mctech.architecture.generator.generator.readFile
 import com.mctech.architecture.generator.generator.writeFile
-import com.mctech.architecture.generator.path.FilePath
 import com.mctech.architecture.generator.settings.GlobalSettings
 import com.mctech.architecture.generator.settings.featureSegment
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
+import com.mctech.architecture.generator.templates.Template
 
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class AddFeatureOnSettingsFileTemplate : FilePath, FileGenerator {
+class AddFeatureOnSettingsFileTemplate : Template() {
     override fun getPath(): String {
         return GlobalSettings.projectSettings.baseAndroidProjectPath + "settings.gradle"
     }
