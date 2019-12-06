@@ -7,6 +7,7 @@ import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.settings.FeatureSettings
+import com.mctech.architecture.generator.settings.PresentationMode
 import com.mctech.architecture.generator.settings.ProjectSettings
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
@@ -23,12 +24,13 @@ fun main() {
     val featureSettings = FeatureSettings(
         projectSettings = projectSettings,
         createDependencyInjectionModules = false,
-        fileDuplicatedStrategy = FileDuplicatedStrategy.Replace
+        fileDuplicatedStrategy = FileDuplicatedStrategy.Replace,
+        presentationViewModel = PresentationMode.ActivityAndFragment
     )
 
     FeatureGenerator(
         featureSettings,
-        "Balance"
+        "BalanceTeste"
     ).newFeature {
 
         addUseCase {

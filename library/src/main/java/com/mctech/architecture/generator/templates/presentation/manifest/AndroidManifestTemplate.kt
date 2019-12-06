@@ -1,11 +1,12 @@
 package com.mctech.architecture.generator.templates.presentation.manifest
 
+import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.generator.FileGenerator
+import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.FilePath
 import com.mctech.architecture.generator.path.ModuleFilePath
-import com.mctech.architecture.generator.settings.featurePackage
 import com.mctech.architecture.generator.settings.featureSegment
 
 /**
@@ -17,14 +18,24 @@ class AndroidManifestTemplate(private val moduleFilePath: ModuleFilePath) : File
     }
 
     override fun generate() = writeFile(this){ output ->
-        output.println("<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"")
-        output.printTabulate("package=\"${featurePackage()}\">")
 
-        output.printTabulate("<application>")
-        output.printTabulate(countTabulate = 2, value = "<activity android:name=\".TesteActivity\" />")
-        output.printTabulate("</application>")
 
-        output.println("</manifest>")
+        if(FeatureContext.featureGenerator.settings.presentationViewModel.hasActivity){
+            val completedFeaturePackage = moduleFilePath.packageValue.value
 
+            output.println("<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"")
+            output.printTabulate("package=\"${completedFeaturePackage}\">")
+
+            output.blankLine()
+            output.printTabulate("<application>")
+            output.printTabulate(countTabulate = 2, value = "<activity android:name=\".TesteActivity\" />")
+            output.printTabulate("</application>")
+
+            output.blankLine()
+            output.println("</manifest>")
+        }
+        else{
+            output.println("<manifest package=\"com.mctech.architecture.feature.balance_teste\"/>")
+        }
     }
 }
