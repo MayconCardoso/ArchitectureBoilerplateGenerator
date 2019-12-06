@@ -22,7 +22,7 @@ sealed class ModuleFilePathType(val folderName: String) {
 
     fun getResFolder()      = "src/main/res/"
     fun getMainFolder()     = "src/main/"
-    fun getSourceFolder()   = folderName
+    fun getSourceFolder()   = ""
 
     /**
      * This is a JAVA module, so our path is 'src/main/java/....'

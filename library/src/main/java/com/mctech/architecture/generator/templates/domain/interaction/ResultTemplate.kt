@@ -2,14 +2,14 @@ package com.mctech.architecture.generator.templates.domain.interaction
 
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.generator.printTabulate
-import com.mctech.architecture.generator.templates.Template
+import com.mctech.architecture.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
 open class ResultTemplate :
-    Template(FeatureContext.featureGenerator.domainModulePath) {
+    KotlinTemplate(FeatureContext.featureGenerator.domainModulePath) {
     override val folder: String
         get() = ""
 

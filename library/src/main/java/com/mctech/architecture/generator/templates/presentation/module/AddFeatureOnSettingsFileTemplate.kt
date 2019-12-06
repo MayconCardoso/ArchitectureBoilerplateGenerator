@@ -19,12 +19,15 @@ class AddFeatureOnSettingsFileTemplate : FilePath, FileGenerator {
     override fun generate() {
         val linesOfFile = readFile(this).toMutableList()
 
+        val moduleName = "include 'features:feature-${featureSegment()}'"
         // Add new module on the of the file.
-        linesOfFile.add("include 'features:feature-${featureSegment()}'")
+        if (linesOfFile.contains(moduleName).not()) {
+            linesOfFile.add(moduleName)
+        }
 
         // Print
-        writeFile(this, FileDuplicatedStrategy.Replace){ output ->
-            linesOfFile.forEach{ line ->
+        writeFile(this, FileDuplicatedStrategy.Replace) { output ->
+            linesOfFile.forEach { line ->
                 output.println(line)
             }
         }

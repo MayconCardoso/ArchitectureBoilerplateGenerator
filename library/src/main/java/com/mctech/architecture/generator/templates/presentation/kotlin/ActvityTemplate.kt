@@ -2,13 +2,13 @@ package com.mctech.architecture.generator.templates.presentation.kotlin
 
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
-import com.mctech.architecture.generator.templates.Template
+import com.mctech.architecture.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class ActvityTemplate(modulePath: ModuleFilePath) : Template(modulePath, false) {
+class ActvityTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
 
     override val folder: String
         get() = "entity"

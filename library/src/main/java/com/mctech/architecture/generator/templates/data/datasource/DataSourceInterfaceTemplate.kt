@@ -5,13 +5,13 @@ import com.mctech.architecture.generator.context.servicePackage
 import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
-import com.mctech.architecture.generator.templates.Template
+import com.mctech.architecture.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : Template(modulePath, false) {
+class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
     override val folder: String
         get() = "datasource"
 

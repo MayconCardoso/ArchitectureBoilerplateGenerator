@@ -1,16 +1,18 @@
 package com.mctech.architecture.generator.alias
 
+import com.mctech.architecture.generator.templates.KotlinTemplate
 import com.mctech.architecture.generator.templates.Template
 
 typealias FeatureName = String
 
-typealias FeatureEntityTemplate = Template
-typealias FeatureServiceTemplate = Template
-typealias FeatureServiceImplTemplate = Template
-typealias FeatureDataSourceTemplate = Template
-typealias FeatureLocalDataSourceTemplate = Template
-typealias FeatureRemoteDataSourceTemplate = Template
-typealias FeatureRetrofitAPITemplate = Template
+typealias FeatureEntityTemplate             = KotlinTemplate
+typealias FeatureServiceTemplate            = KotlinTemplate
+typealias FeatureServiceImplTemplate        = KotlinTemplate
+typealias FeatureDataSourceTemplate         = KotlinTemplate
+typealias FeatureLocalDataSourceTemplate    = KotlinTemplate
+typealias FeatureRemoteDataSourceTemplate   = KotlinTemplate
+typealias FeatureRetrofitAPITemplate        = KotlinTemplate
+typealias FeaturePresentationBuildGradle    = Template
 
 fun FeatureName.toEntityName() = this
 

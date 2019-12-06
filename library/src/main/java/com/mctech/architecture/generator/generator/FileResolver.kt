@@ -40,9 +40,6 @@ fun readFile(filePath: FilePath): List<String> {
     if (file.exists().not())
         return listOf()
 
-    // Log output
-    println("Opening file: " + file.absolutePath)
-
     // Read file
     return file.readLines()
 }

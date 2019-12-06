@@ -41,14 +41,19 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     var domainModulePath    = ModuleDefaultLayers.Domain.moduleFile
     var featureModulePath   = ModuleDefaultLayers.GeneratedFeature.moduleFile
 
-    // Templates Generators
-    var entityTemplateGenerator             : FeatureEntityTemplate             = EmptyEntityTemplate(domainModulePath)
-    var serviceGenerator                    : FeatureServiceTemplate            = ServiceInterfaceTemplate(domainModulePath)
-    var serviceGeneratorImplTemplate        : FeatureServiceImplTemplate        = RepositoryTemplate(dataModulePath)
-    var dataSourceTemplateGenerator         : FeatureDataSourceTemplate         = DataSourceInterfaceTemplate(dataModulePath)
-    var localDataSourceTemplateGenerator    : FeatureLocalDataSourceTemplate    = LocalDataSourceTemplate(dataModulePath)
-    var remoteDataSourceTemplateGenerator   : FeatureRemoteDataSourceTemplate   = RemoteDataSourceTemplate(dataModulePath)
-    var retrofitAPITemplateGenerator        : FeatureRetrofitAPITemplate        = RetrofitAPITemplate(dataModulePath)
+    // Templates domain Generators
+    var domainEntityTemplateGenerator           : FeatureEntityTemplate             = EmptyEntityTemplate(domainModulePath)
+    var domainServiceGenerator                  : FeatureServiceTemplate            = ServiceInterfaceTemplate(domainModulePath)
+
+    // Templates data Generators
+    var dataServiceGeneratorImplTemplate        : FeatureServiceImplTemplate        = RepositoryTemplate(dataModulePath)
+    var dataDataSourceTemplateGenerator         : FeatureDataSourceTemplate         = DataSourceInterfaceTemplate(dataModulePath)
+    var dataLocalDataSourceTemplateGenerator    : FeatureLocalDataSourceTemplate    = LocalDataSourceTemplate(dataModulePath)
+    var dataRemoteDataSourceTemplateGenerator   : FeatureRemoteDataSourceTemplate   = RemoteDataSourceTemplate(dataModulePath)
+    var dataRetrofitAPITemplateGenerator        : FeatureRetrofitAPITemplate        = RetrofitAPITemplate(dataModulePath)
+
+    // Template presentation Generators
+    var presentationBuildGradle                 : FeaturePresentationBuildGradle    = GradleModuleTemplate(featureModulePath)
 
     // Use cases
     val listOfUseCases = mutableListOf<UseCaseBuilder>()
@@ -89,16 +94,16 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         FeatureContext.featureGenerator = this
 
         // Generate files
-        entityTemplateGenerator.generate()
-        serviceGenerator.generate()
-        serviceGeneratorImplTemplate.generate()
-        dataSourceTemplateGenerator.generate()
-        localDataSourceTemplateGenerator.generate()
+        domainEntityTemplateGenerator.generate()
+        domainServiceGenerator.generate()
+        dataServiceGeneratorImplTemplate.generate()
+        dataDataSourceTemplateGenerator.generate()
+        dataLocalDataSourceTemplateGenerator.generate()
 
         // Only if the feature has remote dataSource.
         if(settings.createBothRemoteAndLocalDataSources){
-            remoteDataSourceTemplateGenerator.generate()
-            retrofitAPITemplateGenerator.generate()
+            dataRemoteDataSourceTemplateGenerator.generate()
+            dataRetrofitAPITemplateGenerator.generate()
         }
 
         // Create all UseCases
@@ -107,11 +112,12 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         }
 
 
-        // Create templates of the feature module.
+        // Create final templates of the feature module.
         AddFeatureOnSettingsFileTemplate().generate()
-        GradleModuleTemplate(featureModulePath).generate()
         AndroidManifestTemplate(featureModulePath).generate()
         StringTemplate(featureModulePath).generate()
+
+        presentationBuildGradle.generate()
         ActivityLayoutTemplate(featureModulePath).generate()
         FragmentLayoutTemplate(featureModulePath).generate()
     }
