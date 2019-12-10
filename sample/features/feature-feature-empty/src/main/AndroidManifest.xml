@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.mctech.architecture.feature.feature_empty">
+
+	<application>
+		<activity android:name=".TesteActivity" />
+	</application>
+
+</manifest>
