@@ -2,7 +2,7 @@ apply plugin: 'kotlin'
 
 dependencies {
 
-    implementation project(path: ":domain")
+    implementation project(path: ":sample:domain")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.dagger:dagger:2.21'

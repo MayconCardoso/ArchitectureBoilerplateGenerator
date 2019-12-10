@@ -37,7 +37,10 @@ data class FeatureSettings(
     val presentationViewModel: PresentationMode
 )
 
-enum class PresentationMode(val hasActivity: Boolean, val hasFragment: Boolean) {
+enum class PresentationMode(
+    val hasActivity: Boolean,
+    val hasFragment: Boolean
+) {
     /**
      * The activity class and its layout are gonna be generated.
      */
