@@ -9,7 +9,7 @@ We had to separate the app, initially,  into three layers which are: the ```doma
 
 Since the code was very tightly coupled, I decided, at first, to place all application entities within the ```domain layer```.
 
-However, we know how many boilerplate we need to write to create a new ```feature-module```, don't we? So in order to turn this process easier, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
+However, we know how many boilerplate we need to write to create a new ```feature-module```, don't we? ```ViewModel```, ```Activity or Fragment```, ```UseCases```, ```Many interfaces```, ```Datasources and Repositories``` and so on. So in order to turn this process easier, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
 
 ## How to use this generator
 
