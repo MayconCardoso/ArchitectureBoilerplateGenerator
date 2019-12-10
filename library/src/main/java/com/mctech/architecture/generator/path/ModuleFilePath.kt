@@ -10,9 +10,10 @@ import com.mctech.architecture.generator.settings.featureSegment
  */
 class ModuleFilePath(
     val packageValue: Package,
-    val moduleName: String,
-    val type: ModuleFilePathType = ModuleFilePathType.Kotlin
+    val moduleName: String
 ) : FilePath {
+    val type: ModuleFilePathType = ModuleFilePathType.Kotlin
+
     override fun getPath(): String {
         return "$moduleName/${type.folderName}/${packageValue.getSegmentedPackage()}/"
     }
@@ -25,19 +26,14 @@ sealed class ModuleFilePathType(val folderName: String) {
     fun getSourceFolder()   = ""
 
     /**
-     * This is a JAVA module, so our path is 'src/main/java/....'
-     */
-    object Java : ModuleFilePathType("src/main/java/")
-
-    /**
-     * This is a KOTLIN module, so our path is 'src/main/java/....'
+     * This is a KOTLIN module, so our path is 'src/main/kotlin/....'
      */
     object Kotlin : ModuleFilePathType("src/main/kotlin/")
 }
 
 
 // This is the base package of the architecture.
-private val projectPackage = GlobalSettings.projectSettings.basePackageName.value
+val projectPackage = GlobalSettings.projectSettings.basePackageName.value
 
 /**
  * These are the defaults layers implementation of the project.

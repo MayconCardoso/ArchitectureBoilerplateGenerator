@@ -5,6 +5,7 @@ import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.FilePath
 import com.mctech.architecture.generator.path.ModuleFilePath
+import com.mctech.architecture.generator.settings.baseProjectPath
 import com.mctech.architecture.generator.settings.featureSegment
 
 /**
@@ -12,7 +13,7 @@ import com.mctech.architecture.generator.settings.featureSegment
  */
 class StringTemplate(private val moduleFilePath: ModuleFilePath) : FilePath, FileGenerator {
     override fun getPath(): String {
-        return "features/feature-${featureSegment()}/${moduleFilePath.type.getResFolder()}values/strings.xml"
+        return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getResFolder()}values/strings.xml"
     }
 
     override fun generate() = writeFile(this) { output ->

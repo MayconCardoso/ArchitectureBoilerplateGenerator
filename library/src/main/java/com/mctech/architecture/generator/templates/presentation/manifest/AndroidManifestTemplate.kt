@@ -5,6 +5,7 @@ import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.ModuleFilePath
+import com.mctech.architecture.generator.settings.baseProjectPath
 import com.mctech.architecture.generator.settings.featureSegment
 import com.mctech.architecture.generator.templates.Template
 
@@ -13,7 +14,7 @@ import com.mctech.architecture.generator.templates.Template
  */
 class AndroidManifestTemplate(private val moduleFilePath: ModuleFilePath) : Template() {
     override fun getPath(): String {
-        return "features/feature-${featureSegment()}/${moduleFilePath.type.getMainFolder()}AndroidManifest.xml"
+        return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getMainFolder()}AndroidManifest.xml"
     }
 
     override fun generate() = writeFile(this) { output ->

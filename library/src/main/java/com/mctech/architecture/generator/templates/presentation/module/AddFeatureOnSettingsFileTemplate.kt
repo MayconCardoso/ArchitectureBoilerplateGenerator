@@ -2,7 +2,7 @@ package com.mctech.architecture.generator.templates.presentation.module
 
 import com.mctech.architecture.generator.generator.readFile
 import com.mctech.architecture.generator.generator.writeFile
-import com.mctech.architecture.generator.settings.GlobalSettings
+import com.mctech.architecture.generator.settings.baseProjectPath
 import com.mctech.architecture.generator.settings.featureSegment
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 import com.mctech.architecture.generator.templates.Template
@@ -12,7 +12,7 @@ import com.mctech.architecture.generator.templates.Template
  */
 class AddFeatureOnSettingsFileTemplate : Template() {
     override fun getPath(): String {
-        return GlobalSettings.projectSettings.baseAndroidProjectPath + "settings.gradle"
+        return baseProjectPath + "settings.gradle"
     }
 
     override fun generate() {

@@ -18,3 +18,5 @@ data class ProjectSettings (
      */
     val basePackageName : Package
 )
+
+val baseProjectPath = GlobalSettings.projectSettings.baseAndroidProjectPath

@@ -4,6 +4,7 @@ import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.generator.printPackage
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.path.ModuleFilePath
+import com.mctech.architecture.generator.settings.baseProjectPath
 import com.mctech.architecture.generator.settings.featurePackage
 import java.io.PrintWriter
 
@@ -19,9 +20,9 @@ abstract class KotlinTemplate(
 
     final override fun getPath(): String {
         if (folder.isEmpty()) {
-            return moduleFilePath.getPath() + className + ".kt"
+            return baseProjectPath + moduleFilePath.getPath() + className + ".kt"
         }
-        return moduleFilePath.getPath() + featurePackage() + getFolderSegment() + className + ".kt"
+        return baseProjectPath + moduleFilePath.getPath() + featurePackage() + getFolderSegment() + className + ".kt"
     }
 
     fun getPackage() = Package(
