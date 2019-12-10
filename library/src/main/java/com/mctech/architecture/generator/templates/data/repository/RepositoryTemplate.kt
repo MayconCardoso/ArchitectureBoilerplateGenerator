@@ -51,7 +51,7 @@ class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath
             output.printTabulate("private val remoteDataSource: $remoteDataSourceFeatureName")
         }
 
-        output.println(") : ${serviceFeatureName}${createDelegationWhenRemoteDataSourceDoesNotExist()}")
+        output.println(") : $serviceFeatureName${createDelegationWhenRemoteDataSourceDoesNotExist()}")
     }
 
     private fun createDelegationWhenRemoteDataSourceDoesNotExist(): String {
