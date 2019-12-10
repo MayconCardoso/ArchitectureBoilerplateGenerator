@@ -117,9 +117,15 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         AndroidManifestTemplate(featureModulePath).generate()
         StringTemplate(featureModulePath).generate()
 
+        if(settings.presentationViewModel.hasActivity){
+            ActivityLayoutTemplate(featureModulePath).generate()
+        }
+
+        if(settings.presentationViewModel.hasFragment){
+            FragmentLayoutTemplate(featureModulePath).generate()
+        }
+
         presentationBuildGradle.generate()
-        ActivityLayoutTemplate(featureModulePath).generate()
-        FragmentLayoutTemplate(featureModulePath).generate()
     }
 }
 
