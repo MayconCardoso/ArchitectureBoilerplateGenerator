@@ -10,12 +10,12 @@ import com.mctech.architecture.generator.settings.featureSegment
  */
 class ModuleFilePath(
     val packageValue: Package,
-    val moduleName: String
+    val moduleLocation: String
 ) : FilePath {
     val type: ModuleFilePathType = ModuleFilePathType.Kotlin
 
     override fun getPath(): String {
-        return "$moduleName/${type.folderName}/${packageValue.getSegmentedPackage()}/"
+        return "$moduleLocation/${type.folderName}/${packageValue.getSegmentedPackage()}/"
     }
 }
 
@@ -43,21 +43,21 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
 
     object Data : ModuleDefaultLayers(
         ModuleFilePath(
-            moduleName = "data",
+            moduleLocation = "data",
             packageValue = Package("${projectPackage}.data")
         )
     )
 
     object Domain : ModuleDefaultLayers(
         ModuleFilePath(
-            moduleName = "domain",
+            moduleLocation = "domain",
             packageValue = Package("${projectPackage}.domain")
         )
     )
 
     object GeneratedFeature : ModuleDefaultLayers(
         ModuleFilePath(
-            moduleName = "feature-${featureSegment()}",
+            moduleLocation = "feature-${featureSegment()}",
             packageValue = Package("${projectPackage}.feature.${featurePackage()}")
         )
     )

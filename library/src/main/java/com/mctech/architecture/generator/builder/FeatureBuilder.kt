@@ -14,6 +14,7 @@ import com.mctech.architecture.generator.templates.data.repository.RepositoryTem
 import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemplate
 import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
+import com.mctech.architecture.generator.templates.presentation.kotlin.ActvityTemplate
 import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
 import com.mctech.architecture.generator.templates.presentation.module.AddFeatureOnSettingsFileTemplate
 import com.mctech.architecture.generator.templates.presentation.module.GradleModuleTemplate
@@ -54,6 +55,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
 
     // Template presentation Generators
     var presentationBuildGradle                 : FeaturePresentationBuildGradle    = GradleModuleTemplate(featureModulePath)
+    var presentationActivity                    : FeaturePresentationActivity       = ActvityTemplate(featureModulePath)
 
     // Use cases
     val listOfUseCases = mutableListOf<UseCaseBuilder>()
@@ -126,6 +128,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         }
 
         presentationBuildGradle.generate()
+        presentationActivity.generate()
     }
 }
 

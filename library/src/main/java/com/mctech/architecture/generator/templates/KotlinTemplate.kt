@@ -18,7 +18,7 @@ abstract class KotlinTemplate(
     abstract val folder: String
     abstract val className: String
 
-    final override fun getPath(): String {
+    override fun getPath(): String {
         if (folder.isEmpty()) {
             return baseProjectPath + moduleFilePath.getPath() + className + ".kt"
         }
@@ -42,7 +42,7 @@ abstract class KotlinTemplate(
 
     final override fun generate() = writeFile(this) { output ->
         // Write Package
-        output.printPackage(getPackage().getPackageLine().removeSuffix("."))
+        generatePackage(output)
 
         // Write empty class
         output.println("")
@@ -60,6 +60,10 @@ abstract class KotlinTemplate(
         if(doesTheClassHaveBody){
             output.println("}")
         }
+    }
+
+    protected open fun generatePackage(output: PrintWriter) {
+        output.printPackage(getPackage().getPackageLine().removeSuffix("."))
     }
 
     abstract fun generateImports(output: PrintWriter)
