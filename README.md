@@ -63,3 +63,11 @@ Presentation Layer (New Module)
 * [fragment_feature_empty.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/res/layout/fragment_feature_empty.xml)
 * [FeatureEmptyActivity.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/java/com/mctech/architecture/feature/feature_empty/FeatureEmptyActivity.kt)
 * [FeatureEmptyViewModel.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/java/com/mctech/architecture/feature/feature_empty/FeatureEmptyViewModel.kt)
+
+## Roadmap
+
+* Improve code (Yeah, I know the code is not good, but again, this library was a personal generator before it became open source) :P
+* Make the generator easier to be used
+* Improve the templates logic.
+* Create an extension library and organize all existing functions.
+* Create all unit tests.
