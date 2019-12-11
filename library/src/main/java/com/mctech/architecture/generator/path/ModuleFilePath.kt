@@ -49,21 +49,28 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object Data : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "data",
-            packageValue = Package("${projectPackage}.data")
+            packageValue = Package("$projectPackage.data")
         )
     )
 
     object Domain : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "domain",
-            packageValue = Package("${projectPackage}.domain")
+            packageValue = Package("$projectPackage.domain")
+        )
+    )
+
+    object BaseArchitecture : ModuleDefaultLayers(
+        ModuleFilePath(
+            moduleLocation = "libraries/library-shared-feature-arq",
+            packageValue = Package("$projectPackage.feature.arq")
         )
     )
 
     object GeneratedFeature : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "feature-${featureSegment()}",
-            packageValue = Package("${projectPackage}.feature.${featurePackage()}")
+            packageValue = Package("$projectPackage.feature.${featurePackage()}")
         )
     )
 }

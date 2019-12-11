@@ -38,9 +38,10 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     }
 
     // Architecture layers
-    var dataModulePath      = ModuleDefaultLayers.Data.moduleFile
-    var domainModulePath    = ModuleDefaultLayers.Domain.moduleFile
-    var featureModulePath   = ModuleDefaultLayers.GeneratedFeature.moduleFile
+    var dataModulePath          = ModuleDefaultLayers.Data.moduleFile
+    var domainModulePath        = ModuleDefaultLayers.Domain.moduleFile
+    var featureModulePath       = ModuleDefaultLayers.GeneratedFeature.moduleFile
+    var baseArchitecturePath    = ModuleDefaultLayers.GeneratedFeature.moduleFile
 
     // Templates domain Generators
     var domainEntityTemplateGenerator           : FeatureEntityTemplate             = EmptyEntityTemplate(domainModulePath)
