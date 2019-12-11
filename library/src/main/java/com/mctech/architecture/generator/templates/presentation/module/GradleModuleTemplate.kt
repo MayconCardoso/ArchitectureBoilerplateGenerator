@@ -41,20 +41,27 @@ class GradleModuleTemplate(private val moduleFilePath: ModuleFilePath) : Templat
         output.printTabulate("}")
         output.println("}")
 
-        val architectureModuleName = FeatureContext.featureGenerator.baseArchitecturePath.moduleLocation.replace("/", ":")
+        val architectureModuleName  = FeatureContext.featureGenerator.baseArchitecturePath.gradleModuleName
+        val domainModule            = FeatureContext.featureGenerator.domainModulePath.gradleModuleName
 
         output.blankLine()
         output.println("dependencies {")
-        output.printTabulate("implementation project(path: \":$architectureModuleName\")")
+        output.printTabulate("implementation project(path: \"$domainModule\")")
+        output.printTabulate("implementation project(path: \"$architectureModuleName\")")
+        output.blankLine()
 
         output.printTabulate("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'")
+        output.blankLine()
 
         output.printTabulate("implementation 'androidx.appcompat:appcompat:1.1.0'")
         output.printTabulate("implementation 'androidx.core:core-ktx:1.1.0'")
+        output.blankLine()
+
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03'")
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc03'")
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03'")
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'")
+        output.blankLine()
 
         output.printTabulate("implementation 'com.google.dagger:dagger:2.21'")
         output.println("}")

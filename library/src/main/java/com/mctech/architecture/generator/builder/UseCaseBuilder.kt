@@ -2,7 +2,9 @@ package com.mctech.architecture.generator.builder
 
 import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.class_contract.Type
+import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.FilePath
+import com.mctech.architecture.generator.settings.featurePackage
 import java.util.*
 
 /**
@@ -18,6 +20,10 @@ data class UseCaseBuilder(
     fun getMethodName(): String {
         val methodName = name.removeSuffix("Case")
         return methodName.substring(0, 1).toLowerCase(Locale.getDefault()) + methodName.substring(1)
+    }
+
+    fun getImportPath() : String{
+        return FeatureContext.featureGenerator.domainModulePath.packageValue.getImportLine() + ".${featurePackage()}.interaction.$name"
     }
 
     fun createDaggerInjectable(): String {
@@ -45,7 +51,6 @@ data class UseCaseBuilder(
         return returnType is Type.ResultOf
                 || parameters.any { it.type is Type.ResultOf }
     }
-
 
     fun createReturnTypeForUseCases(): String {
         val optional = if(returnType is Type.ResultOf) "" else "?"

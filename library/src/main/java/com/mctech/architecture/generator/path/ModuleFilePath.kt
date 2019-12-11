@@ -10,6 +10,7 @@ import com.mctech.architecture.generator.settings.featureSegment
  */
 class ModuleFilePath(
     val packageValue: Package,
+    val gradleModuleName : String,
     val moduleLocation: String
 ) : FilePath {
     val type: ModuleFilePathType = ModuleFilePathType.Java
@@ -49,6 +50,7 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object Data : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "data",
+            gradleModuleName = ":data",
             packageValue = Package("$projectPackage.data")
         )
     )
@@ -56,6 +58,7 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object Domain : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "domain",
+            gradleModuleName = ":domain",
             packageValue = Package("$projectPackage.domain")
         )
     )
@@ -63,6 +66,7 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object BaseArchitecture : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "libraries/library-shared-feature-arq",
+            gradleModuleName = ":libraries:library-shared-feature-arq",
             packageValue = Package("$projectPackage.feature.arq")
         )
     )
@@ -70,6 +74,7 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
     object GeneratedFeature : ModuleDefaultLayers(
         ModuleFilePath(
             moduleLocation = "feature-${featureSegment()}",
+            gradleModuleName = ":features:feature-${featureSegment()}",
             packageValue = Package("$projectPackage.feature.${featurePackage()}")
         )
     )

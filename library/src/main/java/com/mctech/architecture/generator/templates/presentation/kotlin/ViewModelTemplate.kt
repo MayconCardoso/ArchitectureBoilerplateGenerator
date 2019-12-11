@@ -25,20 +25,41 @@ class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate
         output.printImport("import kotlinx.coroutines.launch")
         output.printImport("import java.util.*")
         output.printImport("import javax.inject.Inject")
+        output.printImport("${FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()}.BaseViewModel")
 
-        val defaultImport = FeatureContext.featureGenerator.domainModulePath.packageValue.getImportLine() + "."
         foreachUseCase {
-            output.printImport(defaultImport + it.name)
+            output.printImport(it.getImportPath())
         }
 
         output.blankLine()
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class $className")
+        output.println("class $className @Inject constructor(${getConstructorParameters()}")
     }
 
     override fun generateClassBody(output: PrintWriter) {
-
+        output.blankLine()
     }
+
+    private fun getConstructorParameters(): String {
+        if(FeatureContext.featureGenerator.listOfUseCases.isEmpty()){
+            return ") : BaseViewModel() {"
+        }
+
+        return FeatureContext.featureGenerator.listOfUseCases
+            // Create variable name foreach use case
+            .map {
+                "\n\tprivate val ${it.getMethodName()}Case: ${it.name},"
+            }
+            // Reduce it to an string.
+            .reduce {
+                    acc, useCaseVariable ->  acc + useCaseVariable
+            }
+            // Remove last comma
+            .removeSuffix(",")
+            // Finish constructor method.
+            .plus("\n) : BaseViewModel() {")
+    }
+
 }

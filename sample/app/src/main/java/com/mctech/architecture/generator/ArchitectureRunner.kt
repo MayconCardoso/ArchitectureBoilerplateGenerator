@@ -4,6 +4,7 @@ import com.mctech.architecture.generator.builder.FeatureGenerator
 import com.mctech.architecture.generator.builder.newFeature
 import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.path.ModuleFilePath
+import com.mctech.architecture.generator.path.projectPackage
 import com.mctech.architecture.generator.settings.FeatureSettings
 import com.mctech.architecture.generator.settings.PresentationMode
 import com.mctech.architecture.generator.settings.ProjectSettings
@@ -28,9 +29,17 @@ fun main() {
         featureName = "FeatureEmpty"
     ).newFeature {
         baseArchitecturePath = ModuleFilePath(
-            moduleLocation = "sample/sample-architecture",
-            packageValue = Package("com.mctech.samplesample_architecture")
+            moduleLocation      = "sample/sample-architecture",
+            gradleModuleName    = ":sample:sample-architecture",
+            packageValue        = Package("com.mctech.samplesample_architecture")
         )
+
+        domainModulePath = ModuleFilePath(
+            moduleLocation = "domain",
+            gradleModuleName = ":sample:domain",
+            packageValue = Package("$projectPackage.domain")
+        )
+
     }
 
     // Here is a complex feature with use cases and different liveData.
