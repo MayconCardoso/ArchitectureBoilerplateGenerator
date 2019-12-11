@@ -12,9 +12,6 @@ import java.io.PrintWriter
  */
 class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
 
-    override val folder: String
-        get() = "presentation"
-
     override val className: String
         get() = "${featureEntityName()}Activity"
 
@@ -26,6 +23,24 @@ class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(m
 
     override fun generateClassName(output: PrintWriter) {
         output.println("class $className : AppCompatActivity() {")
+
+//        import android.os.Bundle
+//                import androidx.appcompat.app.AppCompatActivity
+//                import com.mctech.samplesample_architecture.BaseActivity
+//                import com.mctech.samplesample_architecture.ComponentState
+//                import com.mctech.samplesample_architecture.extentions.bindState
+//                import com.mctech.samplesample_architecture.extentions.daggerViewModel
+//
+//        class FeatureEmptyActivity : BaseActivity() {
+//
+//            private val viewModel : FindAgencyViewModel by daggerViewModel(FindAgencyViewModel::class.java)
+//
+//            override fun onCreate(savedInstanceState: Bundle?) {
+//                super.onCreate(savedInstanceState)
+//                setContentView(R.layout.activity_feature_empty)
+//            }
+//        }
+
     }
 
     override fun generateClassBody(output: PrintWriter) {

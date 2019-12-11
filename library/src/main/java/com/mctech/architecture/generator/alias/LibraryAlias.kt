@@ -14,6 +14,7 @@ typealias FeatureRemoteDataSourceTemplate   = KotlinTemplate
 typealias FeatureRetrofitAPITemplate        = KotlinTemplate
 typealias FeaturePresentationBuildGradle    = Template
 typealias FeaturePresentationActivity       = KotlinTemplate
+typealias FeaturePresentationViewModel      = KotlinTemplate
 
 fun FeatureName.toEntityName() = this
 

@@ -28,7 +28,7 @@ fun main() {
         featureName = "FeatureEmpty"
     ).newFeature {
         baseArchitecturePath = ModuleFilePath(
-            moduleLocation = "sample-architecture",
+            moduleLocation = "sample/sample-architecture",
             packageValue = Package("com.mctech.samplesample_architecture")
         )
     }

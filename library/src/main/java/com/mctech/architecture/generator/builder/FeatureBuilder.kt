@@ -15,6 +15,7 @@ import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemp
 import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.ActvityTemplate
+import com.mctech.architecture.generator.templates.presentation.kotlin.ViewModelTemplate
 import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
 import com.mctech.architecture.generator.templates.presentation.module.AddFeatureOnSettingsFileTemplate
 import com.mctech.architecture.generator.templates.presentation.module.GradleModuleTemplate
@@ -41,7 +42,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     var dataModulePath          = ModuleDefaultLayers.Data.moduleFile
     var domainModulePath        = ModuleDefaultLayers.Domain.moduleFile
     var featureModulePath       = ModuleDefaultLayers.GeneratedFeature.moduleFile
-    var baseArchitecturePath    = ModuleDefaultLayers.GeneratedFeature.moduleFile
+    var baseArchitecturePath    = ModuleDefaultLayers.BaseArchitecture.moduleFile
 
     // Templates domain Generators
     var domainEntityTemplateGenerator           : FeatureEntityTemplate             = EmptyEntityTemplate(domainModulePath)
@@ -57,6 +58,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     // Template presentation Generators
     var presentationBuildGradle                 : FeaturePresentationBuildGradle    = GradleModuleTemplate(featureModulePath)
     var presentationActivity                    : FeaturePresentationActivity       = ActvityTemplate(featureModulePath)
+    var presentationViewModel                   : FeaturePresentationViewModel      = ViewModelTemplate(featureModulePath)
 
     // Use cases
     val listOfUseCases = mutableListOf<UseCaseBuilder>()
@@ -130,6 +132,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
 
         presentationBuildGradle.generate()
         presentationActivity.generate()
+        presentationViewModel.generate()
     }
 }
 
@@ -140,4 +143,14 @@ inline fun FeatureGenerator.newFeature(block: FeatureGenerator.() -> Unit): Feat
     block()
     generate()
     return this
+}
+
+/**
+ * Iterate on each use case to facilitate routines of generating code with use cases.
+ */
+inline fun foreachUseCase(block: (useCase : UseCaseBuilder) -> Unit) {
+    val useCases = FeatureContext.featureGenerator.listOfUseCases
+    for (position in 0 until useCases.size) {
+        block(useCases[position])
+    }
 }
