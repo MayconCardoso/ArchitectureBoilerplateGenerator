@@ -13,14 +13,13 @@ class FeatureEmptyActivity : BaseActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_feature_empty)
 
-		bindCommand(viewModel){
-			handleCommand(it)
-		}
+		bindCommand(viewModel){ handleCommand(it) }
+
 	}
 
 	private fun handleCommand(it: ViewCommand) {
 		when(it){
-
+			//TODO()
 		}
 	}
 

@@ -15,9 +15,8 @@ class FeatureEmptyFragment : BaseFragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		bindCommand(viewModel){
-			handleCommand(it)
-		}
+		bindCommand(viewModel){ handleCommand(it) }
+
 	}
 
 	private fun handleCommand(it: ViewCommand) {
