@@ -12,7 +12,7 @@ class ModuleFilePath(
     val packageValue: Package,
     val moduleLocation: String
 ) : FilePath {
-    val type: ModuleFilePathType = ModuleFilePathType.Kotlin
+    val type: ModuleFilePathType = ModuleFilePathType.Java
 
     override fun getPath(): String {
         return "$moduleLocation/${type.folderName}/${packageValue.getSegmentedPackage()}/"
@@ -26,7 +26,12 @@ sealed class ModuleFilePathType(val folderName: String) {
     fun getSourceFolder()   = ""
 
     /**
-     * This is a KOTLIN module, so our path is 'src/main/kotlin/....'
+     * This is a JAVA module, so our path is 'src/main/java/....'
+     */
+    object Java : ModuleFilePathType("src/main/java/")
+
+    /**
+     * This is a KOTLIN module, so our path is 'src/main/java/....'
      */
     object Kotlin : ModuleFilePathType("src/main/kotlin/")
 }
