@@ -74,5 +74,6 @@ private fun getTabulateString(count: Int): String {
 fun PrintWriter.blankLine() = println("")
 fun PrintWriter.printPackage(value: String) = println(value)
 fun PrintWriter.printImport(value: String) = println(value)
-fun PrintWriter.printTabulate(value: String, countTabulate: Int = 1) =
-    println(getTabulateString(countTabulate) + value)
+fun PrintWriter.printTabulate(value: String, countTabulate: Int = 1) = println(getTabulateString(countTabulate) + value)
+fun PrintWriter.printDoubleTabulate(value: String) = printTabulate(value, 2)
+fun PrintWriter.printTripleTabulate(value: String) = printTabulate(value, 3)
