@@ -18,9 +18,10 @@ fun main() {
 
     val featureSettings = FeatureSettings(
         createDependencyInjectionModules = false,
+        createBothRemoteAndLocalDataSources = true,
+        presentationViewModel   = PresentationMode.ActivityAndFragment,
         projectSettings         = projectSettings,
-        fileDuplicatedStrategy  = FileDuplicatedStrategy.Replace,
-        presentationViewModel   = PresentationMode.ActivityAndFragment
+        fileDuplicatedStrategy  = FileDuplicatedStrategy.Replace
     )
 
     // Here is an empty feature generated
