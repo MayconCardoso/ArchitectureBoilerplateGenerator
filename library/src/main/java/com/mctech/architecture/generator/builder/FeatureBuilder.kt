@@ -15,6 +15,7 @@ import com.mctech.architecture.generator.templates.domain.entity.EmptyEntityTemp
 import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTemplate
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.ActvityTemplate
+import com.mctech.architecture.generator.templates.presentation.kotlin.FragmentTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.ViewModelTemplate
 import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
 import com.mctech.architecture.generator.templates.presentation.module.AddFeatureOnSettingsFileTemplate
@@ -58,6 +59,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     // Template presentation Generators
     var presentationBuildGradle                 : FeaturePresentationBuildGradle    = GradleModuleTemplate(featureModulePath)
     var presentationActivity                    : FeaturePresentationActivity       = ActvityTemplate(featureModulePath)
+    var presentationFragment                    : FeaturePresentationFragment       = FragmentTemplate(featureModulePath)
     var presentationViewModel                   : FeaturePresentationViewModel      = ViewModelTemplate(featureModulePath)
 
     // Use cases
@@ -124,14 +126,15 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
 
         if(settings.presentationViewModel.hasActivity){
             ActivityLayoutTemplate(featureModulePath).generate()
+            presentationActivity.generate()
         }
 
         if(settings.presentationViewModel.hasFragment){
             FragmentLayoutTemplate(featureModulePath).generate()
+            presentationFragment.generate()
         }
 
         presentationBuildGradle.generate()
-        presentationActivity.generate()
         presentationViewModel.generate()
     }
 }

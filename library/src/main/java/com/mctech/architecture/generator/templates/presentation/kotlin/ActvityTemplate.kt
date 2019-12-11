@@ -25,6 +25,7 @@ class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(m
         output.printImport("$baseArchitecturePackage.ComponentState")
         output.printImport("$baseArchitecturePackage.ViewCommand")
         output.printImport("$baseArchitecturePackage.extentions.bindState")
+        output.printImport("$baseArchitecturePackage.extentions.bindData")
         output.printImport("$baseArchitecturePackage.extentions.bindCommand")
         output.printImport("$baseArchitecturePackage.extentions.daggerViewModel")
 
