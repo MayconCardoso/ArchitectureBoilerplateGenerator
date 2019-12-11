@@ -44,21 +44,23 @@ fun main() {
     }
 
     // Here is a complex feature with use cases and different liveData.
-//    FeatureGenerator(
-//        settings    = featureSettings,
-//        featureName = "ComplexFeature"
-//    ).newFeature {
-//
-//        // Override the domain layer
-//        domainModulePath = ModuleFilePath(
-//            moduleLocation   = "sample/domain",
-//            packageValue = Package("${projectPackage}domain")
-//        )
-//
-//        // Override the data layer
-//        dataModulePath = ModuleFilePath(
-//            moduleLocation   = "sample/data",
-//            packageValue = Package("${projectPackage}data")
-//        )
-//    }
+    FeatureGenerator(
+        settings    = featureSettings,
+        featureName = "ComplexFeature"
+    ).newFeature {
+        // Override the domain layer
+        baseArchitecturePath = ModuleFilePath(
+            moduleLocation      = "sample/sample-architecture",
+            gradleModuleName    = ":sample:sample-architecture",
+            packageValue        = Package("com.mctech.samplesample_architecture")
+        )
+
+        domainModulePath = ModuleFilePath(
+            moduleLocation = "domain",
+            gradleModuleName = ":sample:domain",
+            packageValue = Package("$projectPackage.domain")
+        )
+
+
+    }
 }
