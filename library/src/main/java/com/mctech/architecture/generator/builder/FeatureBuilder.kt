@@ -66,7 +66,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     val listOfUseCases = mutableListOf<UseCaseBuilder>()
 
     // Live data
-    val listOfLiveData = mutableListOf<String>()
+    val listOfLiveData = mutableListOf<LiveDataBuilder>()
 
     /**
      * Every UseCase added on the feature will create the following code:
@@ -79,11 +79,13 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         })
     }
 
-    fun addLiveData(
-        name: String,
-        dataType: Type = Type.Unit
-    ) {
-
+    /**
+     * Every UseCase added on the feature will create the following code:
+     * - Use case file
+     * - Method signature on services, repositories, data sources and API files.
+     */
+    fun addLiveData(block: () -> LiveDataBuilder) {
+        listOfLiveData.add(block.invoke())
     }
 
     fun addComponentState(
@@ -149,10 +151,20 @@ inline fun FeatureGenerator.newFeature(block: FeatureGenerator.() -> Unit): Feat
 }
 
 /**
- * Iterate on each use case to facilitate routines of generating code with use cases.
+ * Iterate on each use case to facilitate routines of generating code with it.
  */
 inline fun foreachUseCase(block: (useCase : UseCaseBuilder) -> Unit) {
     val useCases = FeatureContext.featureGenerator.listOfUseCases
+    for (position in 0 until useCases.size) {
+        block(useCases[position])
+    }
+}
+
+/**
+ * Iterate on each liveData to facilitate routines of generating code with it.
+ */
+inline fun foreachLiveData(block: (useCase : LiveDataBuilder) -> Unit) {
+    val useCases = FeatureContext.featureGenerator.listOfLiveData
     for (position in 0 until useCases.size) {
         block(useCases[position])
     }

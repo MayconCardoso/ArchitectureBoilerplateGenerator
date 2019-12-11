@@ -1,6 +1,8 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
+import com.mctech.architecture.generator.builder.foreachLiveData
 import com.mctech.architecture.generator.context.FeatureContext
+import com.mctech.architecture.generator.context.entityPackage
 import com.mctech.architecture.generator.generator.*
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
@@ -29,6 +31,9 @@ class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(m
         output.printImport("$baseArchitecturePackage.extentions.bindCommand")
         output.printImport("$baseArchitecturePackage.extentions.daggerViewModel")
 
+        if(hasGeneratedEntity()){
+            output.printImport("${entityPackage()}.${featureEntityName()}")
+        }
 
         output.blankLine()
     }
@@ -48,9 +53,13 @@ class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(m
         output.printDoubleTabulate("setContentView(R.layout.activity_${featurePackage().toLowerCase()})")
         output.blankLine()
 
-        output.printDoubleTabulate("bindCommand(viewModel){")
-        output.printTripleTabulate("handleCommand(it)")
-        output.printDoubleTabulate("}")
+        output.printDoubleTabulate("bindCommand(viewModel){ handleCommand(it) }")
+        output.blankLine()
+
+        // Create observable to data.
+        foreachLiveData {
+            output.printDoubleTabulate("bindData(viewModel.${it.name}){ handle${it.getMethodName()}Data(it) }")
+        }
 
         output.printTabulate("}")
         output.blankLine()
@@ -58,9 +67,23 @@ class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(m
         // The command handler method
         output.printTabulate("private fun handleCommand(it: ViewCommand) {")
         output.printDoubleTabulate("when(it){")
-        output.blankLine()
+        output.printTripleTabulate("//TODO()")
         output.printDoubleTabulate("}")
         output.printTabulate("}")
         output.blankLine()
+
+        // Create observable to data handlers.
+        foreachLiveData {
+            output.printTabulate("private fun handle${it.getMethodName()}Data(it: ${it.type.getType()}) {")
+            output.printDoubleTabulate("TODO()")
+            output.printTabulate("}")
+            output.blankLine()
+        }
+    }
+
+    private fun hasGeneratedEntity() : Boolean{
+        return FeatureContext.featureGenerator.listOfLiveData.any {
+            it.hasGeneratedEntity()
+        }
     }
 }

@@ -2,7 +2,7 @@
 	package="com.mctech.architecture.feature.feature_empty">
 
 	<application>
-		<activity android:name=".TesteActivity" />
+		<activity android:name=".FeatureEmptyActivity" />
 	</application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.mctech.architecture.generator.templates.data.repository
 
 import com.mctech.architecture.generator.builder.UseCaseBuilder
+import com.mctech.architecture.generator.builder.foreachUseCase
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.context.*
 import com.mctech.architecture.generator.generator.blankLine
@@ -69,9 +70,8 @@ class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath
 
         output.blankLine()
 
-        val useCases = FeatureContext.featureGenerator.listOfUseCases
-        for (position in 0 until useCases.size) {
-            createMethodSignature(useCases[position], output)
+        foreachUseCase {
+            createMethodSignature(it, output)
         }
     }
 

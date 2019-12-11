@@ -1,10 +1,12 @@
 package com.mctech.architecture.generator.templates.data.datasource
 
 import com.mctech.architecture.generator.builder.UseCaseBuilder
+import com.mctech.architecture.generator.builder.foreachUseCase
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.dataSourceFeatureName
 import com.mctech.architecture.generator.context.entityPackage
 import com.mctech.architecture.generator.generator.blankLine
+import com.mctech.architecture.generator.generator.printDoubleTabulate
 import com.mctech.architecture.generator.generator.printImport
 import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.path.ModuleFilePath
@@ -35,9 +37,8 @@ abstract class BaseDataSourceImplementationTemplate(modulePath: ModuleFilePath) 
     }
 
     override fun generateClassBody(output: PrintWriter) {
-        val useCases = FeatureContext.featureGenerator.listOfUseCases
-        for (position in 0 until useCases.size) {
-            createMethodSignature(useCases[position], output)
+        foreachUseCase {
+            createMethodSignature(it, output)
         }
     }
 
@@ -49,10 +50,7 @@ abstract class BaseDataSourceImplementationTemplate(modulePath: ModuleFilePath) 
 
     private fun createMethodSignature(useCase: UseCaseBuilder, output: PrintWriter) {
         output.printTabulate("override suspend fun ${useCase.getMethodName()}${useCase.createParametersSignature()}${useCase.createReturnTypeForServices()}{")
-        output.printTabulate(
-            countTabulate = 2,
-            value = "TODO()"
-        )
+        output.printDoubleTabulate("TODO()")
         output.printTabulate("}")
         output.blankLine()
     }
