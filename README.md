@@ -75,38 +75,78 @@ To start your generator you will need a [ProjectSettings](https://github.com/May
 
 ```kotlin
 fun main() {
+
     ...
     
     FeatureGenerator(
         settings    = featureSettings,
         featureName = "ComplexFeature"
-    ).newFeature {}
+    ).newFeature {
+
+        // Create an use case that will call the repository and delegate it to the data sources and so on.
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadAllItemsCase",
+                returnType  = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadItemDetailCase",
+                returnType  = Type.ResultOf(Type.GeneratedEntity),
+                parameters  = listOf(
+                    Parameter(
+                        name = "item",
+                        type = Type.GeneratedEntity
+                    )
+                )
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "items",
+                type = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "userName",
+                type = Type.String
+            )
+        }
+        
+    }
 }
 ```
 
 ## Generated files
 
 ### Domain Layer
-* [ComplexFeature.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/feature_empty/entity/FeatureEmpty.kt)
-* [ComplexFeatureService.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/feature_empty/service/FeatureEmptyService.kt)
+* [ComplexFeature.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/complex_feature/entity/ComplexFeature.kt)
+* [ComplexFeatureService.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/complex_feature/service/ComplexFeatureService.kt) - With delegation methods of use cases
+* [LoadAllItemsCase.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/complex_feature/interaction/LoadAllItemsCase.kt)
+* [LoadItemDetailCase.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/domain/src/main/java/com/mctech/architecture/domain/complex_feature/interaction/LoadItemDetailCase.kt)
 
 ### Data Layer
-* [ComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/feature_empty/datasource/FeatureEmptyDataSource.kt)
-* [LocalComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/feature_empty/datasource/LocalFeatureEmptyDataSource.kt)
-* [RemoteComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/feature_empty/datasource/RemoteFeatureEmptyDataSource.kt) - Check out ```createBothRemoteAndLocalDataSources``` on ```FeatureSettings```
-* [ComplexFeatureRepository.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/feature_empty/repository/FeatureEmptyRepository.kt)
-* [ComplexFeatureAPI.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/feature_empty/api/FeatureEmptyAPI.kt) - Check out ```createBothRemoteAndLocalDataSources``` on ```FeatureSettings```
+* [ComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/complex_feature/datasource/ComplexFeatureDataSource.kt) - With delegation methods of use cases
+* [LocalComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/complex_feature/datasource/LocalComplexFeatureDataSource.kt) - With delegation methods of use cases
+* [RemoteComplexFeatureDataSource.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/complex_feature/datasource/RemoteComplexFeatureDataSource.kt) - With delegation methods of use cases
+* [ComplexFeatureRepository.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/complex_feature/repository/ComplexFeatureRepository.kt) - With delegation methods of use cases
+* [ComplexFeatureAPI.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/data/src/main/java/com/mctech/architecture/data/complex_feature/api/ComplexFeatureAPI.kt) - With delegation methods of use cases
 
 ### Presentation Layer (New Module)
 * [settings.gradle](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/settings.gradle) - Add new module on the current project file.
-* [build.gradle](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/build.gradle)
-* [AndroidManifest.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/AndroidManifest.xml)
-* [strings.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/res/values/strings.xml)
-* [activity_complex_feature.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/res/layout/activity_feature_empty.xml) - Check out ```PresentationMode``` on ```FeatureSettings```
-* [fragment_complex_feature.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/res/layout/fragment_feature_empty.xml) - Check out ```PresentationMode``` on ```FeatureSettings```
-* [ComplexFeatureActivity.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/java/com/mctech/architecture/feature/feature_empty/FeatureEmptyActivity.kt)- Check out ```PresentationMode``` on ```FeatureSettings```
-* [ComplexFeatureFragment.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/java/com/mctech/architecture/feature/feature_empty/FeatureEmptyFragment.kt) - Check out ```PresentationMode``` on ```FeatureSettings```
-* [ComplexFeatureViewModel.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-feature-empty/src/main/java/com/mctech/architecture/feature/feature_empty/FeatureEmptyViewModel.kt)
+* [build.gradle](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/build.gradle)
+* [AndroidManifest.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/AndroidManifest.xml)
+* [strings.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/res/values/strings.xml)
+* [activity_complex_feature.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/res/layout/activity_complex_feature.xml)
+* [fragment_complex_feature.xml](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/res/layout/fragment_complex_feature.xml)
+* [ComplexFeatureActivity.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureActivity.kt) - With delegation methods of LiveData
+* [ComplexFeatureFragment.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureFragment.kt)  - With delegation methods of LiveData
+* [ComplexFeatureViewModel.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureViewModel.kt) - With delegation methods of LiveData
 
 ## Roadmap
 
