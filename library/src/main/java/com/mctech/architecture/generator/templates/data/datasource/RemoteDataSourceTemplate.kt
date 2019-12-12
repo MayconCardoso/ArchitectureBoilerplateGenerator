@@ -19,7 +19,7 @@ class RemoteDataSourceTemplate(modulePath: ModuleFilePath) :
     override fun createClassParameters(): String = "(private val api : ${featureEntityName()}API)"
 
     override fun generateImports(output: PrintWriter) {
-        output.printImport("${retrofitAPIPackage()}.${retrofitApiFeatureName}")
+        output.printImport("${retrofitAPIPackage()}.${retrofitApiFeatureName()}")
         super.generateImports(output)
     }
 }

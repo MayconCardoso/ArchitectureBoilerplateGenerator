@@ -11,15 +11,15 @@ class FeatureContext {
     }
 }
 
-fun entityPackage()             = FeatureContext.featureGenerator.domainEntityTemplateGenerator.getPackage().getImportLine()
-fun servicePackage()            = FeatureContext.featureGenerator.domainServiceGenerator.getPackage().getImportLine()
-fun dataSourcePackage()         = FeatureContext.featureGenerator.dataDataSourceTemplateGenerator.getPackage().getImportLine()
-fun localDataSourcePackage()    = FeatureContext.featureGenerator.dataLocalDataSourceTemplateGenerator.getPackage().getImportLine()
-fun remoteDataSourcePackage()   = FeatureContext.featureGenerator.dataRemoteDataSourceTemplateGenerator.getPackage().getImportLine()
-fun retrofitAPIPackage()        = FeatureContext.featureGenerator.dataRetrofitAPITemplateGenerator.getPackage().getImportLine()
+fun entityPackage()                 = FeatureContext.featureGenerator.domainEntityTemplateGenerator.getPackage().getImportLine()
+fun servicePackage()                = FeatureContext.featureGenerator.domainServiceGenerator.getPackage().getImportLine()
+fun dataSourcePackage()             = FeatureContext.featureGenerator.dataDataSourceTemplateGenerator.getPackage().getImportLine()
+fun localDataSourcePackage()        = FeatureContext.featureGenerator.dataLocalDataSourceTemplateGenerator.getPackage().getImportLine()
+fun remoteDataSourcePackage()       = FeatureContext.featureGenerator.dataRemoteDataSourceTemplateGenerator.getPackage().getImportLine()
+fun retrofitAPIPackage()            = FeatureContext.featureGenerator.dataRetrofitAPITemplateGenerator.getPackage().getImportLine()
 
-val serviceFeatureName          = FeatureContext.featureGenerator.domainServiceGenerator.className
-val dataSourceFeatureName       = FeatureContext.featureGenerator.dataDataSourceTemplateGenerator.className
-val localDataSourceFeatureName  = FeatureContext.featureGenerator.dataLocalDataSourceTemplateGenerator.className
-val remoteDataSourceFeatureName = FeatureContext.featureGenerator.dataRemoteDataSourceTemplateGenerator.className
-val retrofitApiFeatureName      = FeatureContext.featureGenerator.dataRetrofitAPITemplateGenerator.className
+fun serviceFeatureName()            = FeatureContext.featureGenerator.domainServiceGenerator.className
+fun dataSourceFeatureName()         = FeatureContext.featureGenerator.dataDataSourceTemplateGenerator.className
+fun localDataSourceFeatureName()    = FeatureContext.featureGenerator.dataLocalDataSourceTemplateGenerator.className
+fun remoteDataSourceFeatureName()   = FeatureContext.featureGenerator.dataRemoteDataSourceTemplateGenerator.className
+fun retrofitApiFeatureName()        = FeatureContext.featureGenerator.dataRetrofitAPITemplateGenerator.className

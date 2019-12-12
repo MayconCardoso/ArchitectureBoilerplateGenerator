@@ -48,12 +48,12 @@ open class UseCaseTemplate(val useCase: UseCaseBuilder, modulePath: ModuleFilePa
             output.printImport("${entityPackage()}.${featureEntityName()}")
         }
 
-        output.printImport("${servicePackage()}.$serviceFeatureName")
+        output.printImport("${servicePackage()}.${serviceFeatureName()}")
         output.blankLine()
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class ${className}${useCase.createDaggerInjectable()}(private val service : ${serviceFeatureName}){")
+        output.println("class ${className}${useCase.createDaggerInjectable()}(private val service : ${serviceFeatureName()}){")
     }
 
     override fun generateClassBody(output: PrintWriter) {

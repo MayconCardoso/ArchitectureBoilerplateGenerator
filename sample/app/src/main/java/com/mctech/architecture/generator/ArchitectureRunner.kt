@@ -1,8 +1,12 @@
 package com.mctech.architecture.generator
 
 import com.mctech.architecture.generator.builder.FeatureGenerator
+import com.mctech.architecture.generator.builder.LiveDataBuilder
+import com.mctech.architecture.generator.builder.UseCaseBuilder
 import com.mctech.architecture.generator.builder.newFeature
 import com.mctech.architecture.generator.class_contract.Package
+import com.mctech.architecture.generator.class_contract.Parameter
+import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.path.projectPackage
 import com.mctech.architecture.generator.settings.FeatureSettings
@@ -61,6 +65,39 @@ fun main() {
             packageValue = Package("$projectPackage.domain")
         )
 
+        // Create an use case that will call the repository and delegate it to the data sources and so on.
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadAllItemsCase",
+                returnType  = Type.ListOfGeneratedEntity
+            )
+        }
 
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadItemDetailCase",
+                returnType  = Type.ResultOf(Type.GeneratedEntity),
+                parameters  = listOf(
+                    Parameter(
+                        name = "item",
+                        type = Type.GeneratedEntity
+                    )
+                )
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "items",
+                type = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "userName",
+                type = Type.String
+            )
+        }
     }
 }

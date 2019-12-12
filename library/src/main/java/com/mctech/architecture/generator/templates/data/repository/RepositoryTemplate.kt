@@ -23,11 +23,11 @@ class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath
         get() = "${featureEntityName()}Repository"
 
     override fun generateImports(output: PrintWriter) {
-        output.printImport("${servicePackage()}.$serviceFeatureName")
-        output.printImport("${localDataSourcePackage()}.$localDataSourceFeatureName")
+        output.printImport("${servicePackage()}.${serviceFeatureName()}")
+        output.printImport("${localDataSourcePackage()}.${localDataSourceFeatureName()}")
 
         if (FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources) {
-            output.printImport("${remoteDataSourcePackage()}.$remoteDataSourceFeatureName")
+            output.printImport("${remoteDataSourcePackage()}.${remoteDataSourceFeatureName()}")
         }
 
         // There is a generated entity as a type return or a parameter.
@@ -45,14 +45,14 @@ class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath
         output.println("class ${className}(")
 
         // Local dataSource
-        output.printTabulate("private val localDataSource: $localDataSourceFeatureName" + getCommaOrNot())
+        output.printTabulate("private val localDataSource: ${localDataSourceFeatureName()}" + getCommaOrNot())
 
         // Remote datSource
         if (FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources) {
-            output.printTabulate("private val remoteDataSource: $remoteDataSourceFeatureName")
+            output.printTabulate("private val remoteDataSource: ${remoteDataSourceFeatureName()}")
         }
 
-        output.println(") : $serviceFeatureName${createDelegationWhenRemoteDataSourceDoesNotExist()}")
+        output.println(") : ${serviceFeatureName()}${createDelegationWhenRemoteDataSourceDoesNotExist()}")
     }
 
     private fun createDelegationWhenRemoteDataSourceDoesNotExist(): String {

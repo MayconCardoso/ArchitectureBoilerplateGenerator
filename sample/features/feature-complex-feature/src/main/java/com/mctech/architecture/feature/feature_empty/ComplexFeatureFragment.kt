@@ -10,23 +10,34 @@ import com.mctech.samplesample_architecture.extentions.bindState
 import com.mctech.samplesample_architecture.extentions.bindData
 import com.mctech.samplesample_architecture.extentions.bindCommand
 import com.mctech.samplesample_architecture.extentions.sharedViewModel
+import com.mctech.architecture.domain.complex_feature.entity.ComplexFeature
 
-class FeatureEmptyFragment : BaseFragment() {
-	private val viewModel : FeatureEmptyViewModel by sharedViewModel(FeatureEmptyViewModel::class.java)
+class ComplexFeatureFragment : BaseFragment() {
+	private val viewModel : ComplexFeatureViewModel by sharedViewModel(ComplexFeatureViewModel::class.java)
 
-	override fun getLayoutId() = R.layout.fragment_feature_empty
+	override fun getLayoutId() = R.layout.fragment_complex_feature
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
 		bindCommand(viewModel){ handleCommand(it) }
 
+		bindData(viewModel.items){ handleItemsData(it) }
+		bindData(viewModel.userName){ handleUserNameData(it) }
 	}
 
 	private fun handleCommand(it: ViewCommand) {
 		when(it){
 
 		}
+	}
+
+	private fun handleItemsData(it: List<ComplexFeature>) {
+		TODO()
+	}
+
+	private fun handleUserNameData(it: String) {
+		TODO()
 	}
 
 }

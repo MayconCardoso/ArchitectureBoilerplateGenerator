@@ -32,7 +32,7 @@ abstract class BaseDataSourceImplementationTemplate(modulePath: ModuleFilePath) 
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class ${className}${createClassParameters()} : $dataSourceFeatureName{")
+        output.println("class ${className}${createClassParameters()} : ${dataSourceFeatureName()}{")
         output.blankLine()
     }
 

@@ -19,12 +19,12 @@ class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(m
         get() = "${featureEntityName()}DataSource"
 
     override fun generateImports(output: PrintWriter) {
-        output.println("${servicePackage()}.$serviceFeatureName")
+        output.println("${servicePackage()}.${serviceFeatureName()}")
         output.blankLine()
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("interface $className : $serviceFeatureName")
+        output.println("interface $className : ${serviceFeatureName()}")
     }
 
     override fun generateClassBody(output: PrintWriter) = Unit
