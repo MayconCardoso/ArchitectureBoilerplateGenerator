@@ -1,0 +1,30 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+    bintrayRepo = 'ArchitectureBoilerplateGenerator'
+    bintrayName = 'com.mctech.architecture.generator'
+
+    libraryName = 'library'
+
+    publishedGroupId = 'com.mctech.architecture'
+    artifact = 'boilerplategenerator'
+    libraryVersion = '1.0.0'
+
+    libraryDescription = 'Create all files of all layers of your application connecting all of them. It also create a new module for each feature generated.'
+    siteUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator'
+    gitUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator.git'
+
+    developerId = 'mayconcardoso'
+    developerName = 'Maycon Cardoso'
+    developerEmail = 'maycon.santos.cardoso@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+if(project.rootProject.file('local.properties').exists()){
+    apply from : 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from : 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+}

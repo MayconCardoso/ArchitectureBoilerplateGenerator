@@ -11,9 +11,9 @@ Since the code was very tightly coupled, I decided, at first, to place all appli
 
 However, we know how many boilerplate we need to write to create a new ```feature-module```, don't we? ```ViewModel```, ```Activity or Fragment```, ```UseCases```, ```Many interfaces```, ```Datasources and Repositories``` and so on. So in order to turn this process easier, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
 
-## How to use this generator
+## Download Generator
 
-TODO
+```implementation 'com.mctech.architecture:boilerplategenerator:1.0.0'```
 
 Creating an empty feature
 =
