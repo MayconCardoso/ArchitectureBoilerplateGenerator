@@ -15,7 +15,7 @@ However, we know how many boilerplate we need to write to create a new ```featur
 
 ```groovy
 // WARNING - It is being uploaded and may not be available yet. Just wait a few hours
-implementation 'com.mctech.architecture:boilerplategenerator:1.0.0'
+implementation 'com.mctech.architecture:generator:1.0.0'
 ```
 
 Creating an empty feature
