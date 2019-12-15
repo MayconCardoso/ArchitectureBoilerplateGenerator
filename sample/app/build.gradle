@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.mctech.architecture.generator"
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ":library")
+    implementation 'com.mctech.architecture:generator:1.0.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

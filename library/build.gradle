@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
@@ -31,7 +33,7 @@ ext {
     siteUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator'
     gitUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'mayconcardoso'
     developerName = 'Maycon Cardoso'
