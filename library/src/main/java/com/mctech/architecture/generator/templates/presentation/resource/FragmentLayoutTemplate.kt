@@ -9,7 +9,7 @@ import java.util.*
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class FragmentLayoutTemplate(moduleFilePath: ModuleFilePath) : BaseLayoutTemplate(moduleFilePath) {
+open class FragmentLayoutTemplate(moduleFilePath: ModuleFilePath) : BaseLayoutTemplate(moduleFilePath) {
     override fun getPath(): String {
         return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getResFolder()}layout/fragment_${featurePackage().toLowerCase(
             Locale.getDefault()

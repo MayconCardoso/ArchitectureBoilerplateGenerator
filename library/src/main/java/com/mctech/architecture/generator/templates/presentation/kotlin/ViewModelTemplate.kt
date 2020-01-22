@@ -15,7 +15,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
+open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
 
     override val className: String
         get() = "${featureEntityName()}ViewModel"

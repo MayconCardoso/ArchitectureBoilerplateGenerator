@@ -14,7 +14,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class RetrofitAPITemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
+open class RetrofitAPITemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
     override val folder: String
         get() = "api"
 

@@ -11,7 +11,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
+open class DataSourceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
     override val folder: String
         get() = "datasource"
 

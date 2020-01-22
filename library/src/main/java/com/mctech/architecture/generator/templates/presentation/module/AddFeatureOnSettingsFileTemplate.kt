@@ -10,7 +10,7 @@ import com.mctech.architecture.generator.templates.Template
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class AddFeatureOnSettingsFileTemplate : Template() {
+open class AddFeatureOnSettingsFileTemplate : Template() {
     override fun getPath(): String {
         return baseProjectPath + "settings.gradle"
     }
@@ -18,7 +18,7 @@ class AddFeatureOnSettingsFileTemplate : Template() {
     override fun generate() {
         val linesOfFile = readFile(this).toMutableList()
 
-        val moduleName = "include 'features:feature-${featureSegment()}'"
+        val moduleName = "include ':features:feature-${featureSegment()}'"
         // Add new module on the of the file.
         if (linesOfFile.contains(moduleName).not()) {
             linesOfFile.add(moduleName)

@@ -15,7 +15,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
+open class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
     override val folder: String
         get() = "repository"
 

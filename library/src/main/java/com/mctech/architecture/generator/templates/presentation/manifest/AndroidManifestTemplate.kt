@@ -13,7 +13,7 @@ import com.mctech.architecture.generator.templates.Template
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class AndroidManifestTemplate(private val moduleFilePath: ModuleFilePath) : Template() {
+open class AndroidManifestTemplate(private val moduleFilePath: ModuleFilePath) : Template() {
     override fun getPath(): String {
         return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getMainFolder()}AndroidManifest.xml"
     }

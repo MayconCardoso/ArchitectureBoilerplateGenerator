@@ -13,7 +13,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
+open class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
 
     override val className: String
         get() = "${featureEntityName()}Activity"

@@ -12,7 +12,7 @@ import com.mctech.architecture.generator.templates.Template
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class GradleModuleTemplate(private val moduleFilePath: ModuleFilePath) : Template() {
+open class GradleModuleTemplate(private val moduleFilePath: ModuleFilePath) : Template() {
     override fun getPath(): String {
         return "$baseProjectPath${moduleFilePath.type.getSourceFolder()}features/feature-${featureSegment()}/build.gradle"
     }

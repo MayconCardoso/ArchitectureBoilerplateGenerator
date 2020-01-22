@@ -10,7 +10,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class RemoteDataSourceTemplate(modulePath: ModuleFilePath) :
+open class RemoteDataSourceTemplate(modulePath: ModuleFilePath) :
     BaseDataSourceImplementationTemplate(modulePath) {
 
     override val className: String

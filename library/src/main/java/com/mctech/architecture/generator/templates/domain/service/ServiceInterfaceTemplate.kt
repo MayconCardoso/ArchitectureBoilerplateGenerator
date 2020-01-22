@@ -12,7 +12,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-28.
  */
-class ServiceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
+open class ServiceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath) {
     override val folder: String
         get() = "service"
 

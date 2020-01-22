@@ -11,7 +11,7 @@ import com.mctech.architecture.generator.settings.featureSegment
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class StringTemplate(private val moduleFilePath: ModuleFilePath) : FilePath, FileGenerator {
+open class StringTemplate(private val moduleFilePath: ModuleFilePath) : FilePath, FileGenerator {
     override fun getPath(): String {
         return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getResFolder()}values/strings.xml"
     }

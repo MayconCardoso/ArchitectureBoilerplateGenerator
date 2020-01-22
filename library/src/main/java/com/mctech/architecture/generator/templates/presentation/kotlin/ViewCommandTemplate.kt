@@ -8,7 +8,7 @@ import java.io.PrintWriter
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class ViewCommandTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
+open class ViewCommandTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
 
     override val folder: String
         get() = "entity"

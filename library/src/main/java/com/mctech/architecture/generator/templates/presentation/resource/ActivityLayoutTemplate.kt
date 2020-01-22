@@ -9,7 +9,7 @@ import java.util.*
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-class ActivityLayoutTemplate(moduleFilePath: ModuleFilePath) : BaseLayoutTemplate(moduleFilePath) {
+open class ActivityLayoutTemplate(moduleFilePath: ModuleFilePath) : BaseLayoutTemplate(moduleFilePath) {
     override fun getPath(): String {
         return "${baseProjectPath}features/feature-${featureSegment()}/${moduleFilePath.type.getResFolder()}layout/activity_${featurePackage().toLowerCase(
             Locale.getDefault()
