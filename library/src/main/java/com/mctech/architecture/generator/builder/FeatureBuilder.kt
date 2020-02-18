@@ -1,7 +1,6 @@
 package com.mctech.architecture.generator.builder
 
 import com.mctech.architecture.generator.alias.*
-import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.ModuleDefaultLayers
 import com.mctech.architecture.generator.settings.FeatureSettings
@@ -68,6 +67,9 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     // Live data
     val listOfLiveData = mutableListOf<LiveDataBuilder>()
 
+    // Component State
+    val listOfComponentState = mutableListOf<ComponentStateBuilder>()
+
     /**
      * Every UseCase added on the feature will create the following code:
      * - Use case file
@@ -80,19 +82,21 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
     }
 
     /**
-     * Every UseCase added on the feature will create the following code:
-     * - Use case file
-     * - Method signature on services, repositories, data sources and API files.
+     * Every LiveDataBuilder added on the feature will create the following code:
+     * - The LiveData private and public inside the ViewModel
+     * - Method signature on activity and service calling it.
      */
     fun addLiveData(block: () -> LiveDataBuilder) {
         listOfLiveData.add(block.invoke())
     }
 
-    fun addComponentState(
-        name: String,
-        dataType: Type = Type.Unit
-    ) {
-
+    /**
+     * Every ComponentStateBuilder added on the feature will create the following code:
+     * - The LiveData private and public inside the ViewModel
+     * - Method signature on activity and service calling it.
+     */
+    fun addComponentState(block: () -> ComponentStateBuilder) {
+        listOfComponentState.add(block.invoke())
     }
 
     /**
@@ -154,9 +158,8 @@ inline fun FeatureGenerator.newFeature(block: FeatureGenerator.() -> Unit): Feat
  * Iterate on each use case to facilitate routines of generating code with it.
  */
 inline fun foreachUseCase(block: (useCase : UseCaseBuilder) -> Unit) {
-    val useCases = FeatureContext.featureGenerator.listOfUseCases
-    for (position in 0 until useCases.size) {
-        block(useCases[position])
+    FeatureContext.featureGenerator.listOfUseCases.forEach {
+        block(it)
     }
 }
 
@@ -164,8 +167,16 @@ inline fun foreachUseCase(block: (useCase : UseCaseBuilder) -> Unit) {
  * Iterate on each liveData to facilitate routines of generating code with it.
  */
 inline fun foreachLiveData(block: (useCase : LiveDataBuilder) -> Unit) {
-    val useCases = FeatureContext.featureGenerator.listOfLiveData
-    for (position in 0 until useCases.size) {
-        block(useCases[position])
+    FeatureContext.featureGenerator.listOfLiveData.forEach {
+        block(it)
+    }
+}
+
+/**
+ * Iterate on each ComponentState to facilitate routines of generating code with it.
+ */
+inline fun foreachComponentState(block: (useCase : ComponentStateBuilder) -> Unit) {
+    FeatureContext.featureGenerator.listOfComponentState.forEach {
+        block(it)
     }
 }

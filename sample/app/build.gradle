@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.mctech.architecture:generator:1.0.1'
+    implementation 'com.mctech.architecture:generator:1.0.3'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -1,5 +1,6 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
+import com.mctech.architecture.generator.builder.foreachComponentState
 import com.mctech.architecture.generator.builder.foreachLiveData
 import com.mctech.architecture.generator.builder.foreachUseCase
 import com.mctech.architecture.generator.context.FeatureContext
@@ -21,13 +22,16 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
         get() = "${featureEntityName()}ViewModel"
 
     override fun generateImports(output: PrintWriter) {
+        val baseArchitecturePackage = FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()
+
         output.printImport("import androidx.lifecycle.LiveData")
         output.printImport("import androidx.lifecycle.MutableLiveData")
         output.printImport("import androidx.lifecycle.viewModelScope")
         output.printImport("import kotlinx.coroutines.launch")
         output.printImport("import java.util.*")
         output.printImport("import javax.inject.Inject")
-        output.printImport("${FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()}.BaseViewModel")
+        output.printImport("$baseArchitecturePackage.BaseViewModel")
+        output.printImport("$baseArchitecturePackage.ComponentState")
         output.blankLine()
 
         if(hasGeneratedEntity()){
@@ -48,11 +52,22 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
     override fun generateClassBody(output: PrintWriter) {
         output.blankLine()
 
+        // Livedata
         foreachLiveData {
             output.printTabulate("private val _${it.name} = MutableLiveData<${it.type.getType()}>()")
             output.printTabulate("val ${it.name} : LiveData<${it.type.getType()}> = _${it.name}")
             output.blankLine()
         }
+
+        output.blankLine()
+
+        // Components
+        foreachComponentState {
+            output.printTabulate("private val _${it.name} = MutableLiveData<ComponentState<${it.type.getType()}>()")
+            output.printTabulate("val ${it.name} : LiveData<ComponentState<${it.type.getType()}>> = _${it.name}")
+            output.blankLine()
+        }
+
     }
 
     private fun getConstructorParameters(): String {
@@ -77,6 +92,8 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
 
     private fun hasGeneratedEntity() : Boolean{
         return FeatureContext.featureGenerator.listOfLiveData.any {
+            it.hasGeneratedEntity()
+        } ||  FeatureContext.featureGenerator.listOfComponentState.any {
             it.hasGeneratedEntity()
         }
     }

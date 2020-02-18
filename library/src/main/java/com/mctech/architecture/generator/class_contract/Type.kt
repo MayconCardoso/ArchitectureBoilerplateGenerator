@@ -30,6 +30,10 @@ sealed class Type {
         override fun getType() = "Double"
     }
 
+    object Boolean : Type() {
+        override fun getType() = "Boolean"
+    }
+
     object GeneratedEntity : Type() {
         override fun getType() = GlobalSettings.currentFeatureName.toEntityName()
     }

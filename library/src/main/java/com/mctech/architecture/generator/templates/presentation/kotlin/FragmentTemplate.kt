@@ -1,12 +1,10 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
+import com.mctech.architecture.generator.builder.foreachComponentState
 import com.mctech.architecture.generator.builder.foreachLiveData
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
-import com.mctech.architecture.generator.generator.blankLine
-import com.mctech.architecture.generator.generator.printDoubleTabulate
-import com.mctech.architecture.generator.generator.printImport
-import com.mctech.architecture.generator.generator.printTabulate
+import com.mctech.architecture.generator.generator.*
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
 import com.mctech.architecture.generator.settings.featurePackage
@@ -67,6 +65,11 @@ open class FragmentTemplate(modulePath: ModuleFilePath)  : PresentationKotlinTem
             output.printDoubleTabulate("bindData(viewModel.${it.name}){ handle${it.getMethodName()}Data(it) }")
         }
 
+        // Create observable to states.
+        foreachComponentState {
+            output.printDoubleTabulate("bindState(viewModel.${it.name}){ handle${it.getMethodName()}State(it) }")
+        }
+
         output.printTabulate("}")
         output.blankLine()
 
@@ -85,10 +88,25 @@ open class FragmentTemplate(modulePath: ModuleFilePath)  : PresentationKotlinTem
             output.printTabulate("}")
             output.blankLine()
         }
+
+        // Create observable to states handlers.
+        foreachComponentState {
+            output.printTabulate("private fun handle${it.getMethodName()}Data(state: ${it.type.getType()}) {")
+            output.printDoubleTabulate("when(state){")
+            output.printTripleTabulate("is ComponentState.Initializing -> TODO()")
+            output.printTripleTabulate("is ComponentState.Loading -> TODO()")
+            output.printTripleTabulate("is ComponentState.Error -> TODO()")
+            output.printTripleTabulate("is ComponentState.Success -> TODO()")
+            output.printDoubleTabulate("}")
+            output.printTabulate("}")
+            output.blankLine()
+        }
     }
 
     private fun hasGeneratedEntity() : Boolean{
         return FeatureContext.featureGenerator.listOfLiveData.any {
+            it.hasGeneratedEntity()
+        } || FeatureContext.featureGenerator.listOfComponentState.any {
             it.hasGeneratedEntity()
         }
     }

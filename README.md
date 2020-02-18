@@ -16,7 +16,7 @@ However, we know how many boilerplate we need to write to create a new ```featur
 ## Download Generator
 
 ```groovy
-implementation 'com.mctech.architecture:generator:1.0.2'
+implementation 'com.mctech.architecture:generator:1.0.3'
 ```
 
 Creating an empty feature
