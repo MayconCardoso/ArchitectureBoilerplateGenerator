@@ -63,7 +63,7 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
 
         // Components
         foreachComponentState {
-            output.printTabulate("private val _${it.name} = MutableLiveData<ComponentState<${it.type.getType()}>()")
+            output.printTabulate("private val _${it.name} : MutableLiveData<ComponentState<${it.type.getType()}>> = MutableLiveData(ComponentState.Initializing)")
             output.printTabulate("val ${it.name} : LiveData<ComponentState<${it.type.getType()}>> = _${it.name}")
             output.blankLine()
         }

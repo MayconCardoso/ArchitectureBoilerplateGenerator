@@ -89,7 +89,7 @@ open class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTempl
 
         // Create observable to states handlers.
         foreachComponentState {
-            output.printTabulate("private fun handle${it.getMethodName()}Data(state: ${it.type.getType()}) {")
+            output.printTabulate("private fun handle${it.getMethodName()}State(state: ComponentState<${it.type.getType()}>) {")
             output.printDoubleTabulate("when(state){")
             output.printTripleTabulate("is ComponentState.Initializing -> TODO()")
             output.printTripleTabulate("is ComponentState.Loading -> TODO()")
