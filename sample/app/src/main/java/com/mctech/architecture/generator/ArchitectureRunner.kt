@@ -16,7 +16,6 @@ import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
 fun main() {
     val projectSettings = ProjectSettings(
-        baseAndroidProjectPath = "C:/Dev/Personal/ArchitectureGenerator/sample/",
         basePackageName = Package("com.mctech.architecture")
     )
 

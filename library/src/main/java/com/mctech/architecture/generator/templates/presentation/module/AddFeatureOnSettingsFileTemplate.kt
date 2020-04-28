@@ -10,7 +10,7 @@ import com.mctech.architecture.generator.templates.Template
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-object AddFeatureOnSettingsFileTemplate : Template() {
+class AddFeatureOnSettingsFileTemplate : Template() {
 
     private val moduleName by lazy {
         "include ':features:feature-${featureSegment()}'"

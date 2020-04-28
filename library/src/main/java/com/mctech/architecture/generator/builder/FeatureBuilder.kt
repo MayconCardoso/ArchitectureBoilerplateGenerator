@@ -39,6 +39,9 @@ class FeatureGenerator(
         if (settings.createDependencyInjectionModules) {
             throw RuntimeException("The library does not support Dependency Injection generation yet.")
         }
+
+        // Set context
+        FeatureContext.featureGenerator = this
     }
 
     // Architecture layers
@@ -112,8 +115,9 @@ class FeatureGenerator(
         // Need to ignore feature
         if(
             settings.featureDuplicatedStrategy is FileDuplicatedStrategy.Ignore
-            && AddFeatureOnSettingsFileTemplate.containsFeature()
+            && AddFeatureOnSettingsFileTemplate().containsFeature()
         ){
+            println("Ignoring feature: ${FeatureContext.featureGenerator.featureName}")
             return
         }
 
@@ -137,7 +141,7 @@ class FeatureGenerator(
 
 
         // Create final templates of the feature module.
-        AddFeatureOnSettingsFileTemplate.generate()
+        AddFeatureOnSettingsFileTemplate().generate()
         AndroidManifestTemplate(featureModulePath).generate()
         StringTemplate(featureModulePath).generate()
 
