@@ -10,15 +10,20 @@ import com.mctech.architecture.generator.templates.Template
 /**
  * @author MAYCON CARDOSO on 2019-12-02.
  */
-open class AddFeatureOnSettingsFileTemplate : Template() {
+object AddFeatureOnSettingsFileTemplate : Template() {
+
+    private val moduleName by lazy {
+        "include ':features:feature-${featureSegment()}'"
+    }
+    private val linesOfFile by lazy {
+        readFile(this).toMutableList()
+    }
+
     override fun getPath(): String {
         return baseProjectPath + "settings.gradle"
     }
 
     override fun generate() {
-        val linesOfFile = readFile(this).toMutableList()
-
-        val moduleName = "include ':features:feature-${featureSegment()}'"
         // Add new module on the of the file.
         if (linesOfFile.contains(moduleName).not()) {
             linesOfFile.add(moduleName)
@@ -30,5 +35,9 @@ open class AddFeatureOnSettingsFileTemplate : Template() {
                 output.println(line)
             }
         }
+    }
+
+    fun containsFeature() : Boolean {
+        return linesOfFile.contains(moduleName)
     }
 }

@@ -5,6 +5,7 @@ import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.ModuleDefaultLayers
 import com.mctech.architecture.generator.settings.FeatureSettings
 import com.mctech.architecture.generator.settings.GlobalSettings
+import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 import com.mctech.architecture.generator.templates.data.api.RetrofitAPITemplate
 import com.mctech.architecture.generator.templates.data.datasource.DataSourceInterfaceTemplate
 import com.mctech.architecture.generator.templates.data.datasource.LocalDataSourceTemplate
@@ -106,6 +107,14 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
         // Set context
         FeatureContext.featureGenerator = this
 
+        // Need to ignore feature
+        if(
+            settings.featureDuplicatedStrategy is FileDuplicatedStrategy.Ignore
+            && AddFeatureOnSettingsFileTemplate.containsFeature()
+        ){
+            return
+        }
+
         // Generate files
         domainEntityTemplateGenerator.generate()
         domainServiceGenerator.generate()
@@ -126,7 +135,7 @@ class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) 
 
 
         // Create final templates of the feature module.
-        AddFeatureOnSettingsFileTemplate().generate()
+        AddFeatureOnSettingsFileTemplate.generate()
         AndroidManifestTemplate(featureModulePath).generate()
         StringTemplate(featureModulePath).generate()
 

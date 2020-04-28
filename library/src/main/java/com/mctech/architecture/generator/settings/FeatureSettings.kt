@@ -20,6 +20,11 @@ data class FeatureSettings(
     var fileDuplicatedStrategy: FileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
 
     /**
+     * The duplicate feature strategy. It says the generator how handle when a feature that is being generated already exists.
+     */
+    var featureDuplicatedStrategy: FileDuplicatedStrategy = FileDuplicatedStrategy.Ignore,
+
+    /**
      * When true the generator will create all of the use cases with @Inject annotation on the constructor.
      * So basically all of the UseCases will be auto-injectable by dagger.
      */
