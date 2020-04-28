@@ -1,7 +1,7 @@
 package com.mctech.architecture.generator.class_contract
 
 import com.mctech.architecture.generator.alias.toEntityName
-import com.mctech.architecture.generator.settings.GlobalSettings
+import com.mctech.architecture.generator.context.FeatureContext
 import java.io.PrintWriter
 
 /**
@@ -35,11 +35,11 @@ sealed class Type {
     }
 
     object GeneratedEntity : Type() {
-        override fun getType() = GlobalSettings.currentFeatureName.toEntityName()
+        override fun getType() = FeatureContext.featureGenerator.featureName.toEntityName()
     }
 
     object ListOfGeneratedEntity : Type() {
-        override fun getType() = "List<${GlobalSettings.currentFeatureName.toEntityName()}>"
+        override fun getType() = "List<${FeatureContext.featureGenerator.featureName.toEntityName()}>"
     }
 
     data class ListOf(val type : Type) : Type(){

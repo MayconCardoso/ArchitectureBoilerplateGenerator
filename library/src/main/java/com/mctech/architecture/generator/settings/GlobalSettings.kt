@@ -1,6 +1,5 @@
 package com.mctech.architecture.generator.settings
 
-import com.mctech.architecture.generator.alias.FeatureName
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
 /**
@@ -8,6 +7,5 @@ import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
  */
 object GlobalSettings {
     lateinit var projectSettings: ProjectSettings
-    lateinit var currentFeatureName: FeatureName
     lateinit var fileDuplicatedStrategy: FileDuplicatedStrategy
 }

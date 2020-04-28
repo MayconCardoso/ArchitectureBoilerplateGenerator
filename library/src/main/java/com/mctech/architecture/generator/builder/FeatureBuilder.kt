@@ -27,11 +27,13 @@ import com.mctech.architecture.generator.templates.presentation.resource.StringT
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-class FeatureGenerator(val settings: FeatureSettings, featureName: FeatureName) {
+class FeatureGenerator(
+    val settings: FeatureSettings,
+    val featureName: FeatureName
+) {
     init {
         // Set global settings with the current feature.
         GlobalSettings.projectSettings = settings.projectSettings
-        GlobalSettings.currentFeatureName = featureName
         GlobalSettings.fileDuplicatedStrategy = settings.fileDuplicatedStrategy
 
         if (settings.createDependencyInjectionModules) {

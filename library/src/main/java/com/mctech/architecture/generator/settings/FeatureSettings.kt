@@ -3,6 +3,7 @@ package com.mctech.architecture.generator.settings
 import com.mctech.architecture.generator.alias.toEntityName
 import com.mctech.architecture.generator.alias.toPackageName
 import com.mctech.architecture.generator.alias.toSegmentalName
+import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
 /**
@@ -70,16 +71,16 @@ enum class PresentationMode(
 /**
  * Return the domain entity name
  */
-fun featureEntityName() = GlobalSettings.currentFeatureName.toEntityName()
+fun featureEntityName() = FeatureContext.featureGenerator.featureName.toEntityName()
 
 /**
  * It is gonna return the segmental name of the feature.
  * For example, for the feature name 'TestCamelCase' will return 'test-camel-case'
  */
-fun featureSegment() = GlobalSettings.currentFeatureName.toSegmentalName()
+fun featureSegment() = FeatureContext.featureGenerator.featureName.toSegmentalName()
 
 /**
  * It is gonna return the package name of the feature.
  * For example, for the feature name 'TestCamelCase' will return 'test_camel_case'
  */
-fun featurePackage() = GlobalSettings.currentFeatureName.toPackageName()
+fun featurePackage() = FeatureContext.featureGenerator.featureName.toPackageName()

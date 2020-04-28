@@ -33,7 +33,7 @@ ext {
     siteUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator'
     gitUrl = 'https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.1.1'
 
     developerId = 'mayconcardoso'
     developerName = 'Maycon Cardoso'
