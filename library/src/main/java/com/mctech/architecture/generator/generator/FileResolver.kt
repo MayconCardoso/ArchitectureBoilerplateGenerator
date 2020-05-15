@@ -58,10 +58,9 @@ private fun createFileFolder(file: File) {
     } while (currentFile != null)
 }
 
-private fun shouldCancelOperation(
-    file: File,
-    fileDuplicatedStrategy: FileDuplicatedStrategy
-): Boolean = file.exists() && fileDuplicatedStrategy.shouldCancelOperation(file)
+private fun shouldCancelOperation(file: File, fileDuplicatedStrategy: FileDuplicatedStrategy): Boolean {
+    return file.exists() && fileDuplicatedStrategy.shouldCancelOperation(file)
+}
 
 private fun getTabulateString(count: Int): String {
     var tabulate = ""

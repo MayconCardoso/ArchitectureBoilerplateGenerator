@@ -65,9 +65,9 @@ sealed class ModuleDefaultLayers(val moduleFile: ModuleFilePath) {
 
     object BaseArchitecture : ModuleDefaultLayers(
         ModuleFilePath(
-            moduleLocation = "libraries/library-shared-feature-arq",
-            gradleModuleName = ":libraries:library-shared-feature-arq",
-            packageValue = Package("$projectPackage.feature.arq")
+            moduleLocation = "",
+            gradleModuleName = "",
+            packageValue = Package("com.mctech.architecture.mvvm.x.core")
         )
     )
 

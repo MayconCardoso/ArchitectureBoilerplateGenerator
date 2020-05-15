@@ -1,26 +1,56 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
+import com.mctech.architecture.generator.context.FeatureContext
+import com.mctech.architecture.generator.context.entityPackage
+import com.mctech.architecture.generator.generator.printImport
+import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
-import com.mctech.architecture.generator.templates.KotlinTemplate
+import com.mctech.architecture.generator.templates.presentation.PresentationKotlinTemplate
 import java.io.PrintWriter
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
  */
-open class ViewInteractionTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
+open class ViewInteractionTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
 
-    override val folder: String
-        get() = "entity"
+    private val interactions = FeatureContext.featureGenerator.listOfUserInteraction
 
     override val className: String
-        get() = "${featureEntityName()}ViewModel"
+        get() = "${featureEntityName()}UserInteraction"
 
-    override fun generateImports(output: PrintWriter) = Unit
+    override fun generateImports(output: PrintWriter) {
+        val baseArchitecturePackage = FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()
+        output.printImport("$baseArchitecturePackage.UserInteraction")
 
-    override fun generateClassName(output: PrintWriter) {
-        output.println("class $className")
+        if(interactions.any { it.hasGeneratedEntity() }){
+            output.printImport("${entityPackage()}.${featureEntityName()}")
+        }
     }
 
-    override fun generateClassBody(output: PrintWriter) = Unit
+    override fun generateClassName(output: PrintWriter) {
+        output.println("sealed class $className: UserInteraction(){")
+    }
+
+    override fun generateClassBody(output: PrintWriter)  {
+        interactions.forEach { it ->
+            if(it.parameters.isEmpty()){
+                output.printTabulate("object ${it.name} : $className()")
+            }
+            else{
+                output.printTabulate("data class ${it.name}(")
+                output.println(
+                    it.parameters
+                        .map {
+                            "\tval ${it.name} : ${it.type.getType()},\n"
+                        }
+                        .reduce {
+                                acc, useCaseVariable ->  acc + useCaseVariable
+                        }
+                        .removeSuffix(",\n")
+                )
+                output.printTabulate(") : $className()")
+            }
+        }
+    }
 }

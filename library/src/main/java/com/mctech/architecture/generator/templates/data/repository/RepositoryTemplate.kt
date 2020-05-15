@@ -24,10 +24,10 @@ open class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modul
 
     override fun generateImports(output: PrintWriter) {
         output.printImport("${servicePackage()}.${serviceFeatureName()}")
-        output.printImport("${localDataSourcePackage()}.${localDataSourceFeatureName()}")
+        output.printImport("${dataSourcePackage()}.${localDataSourceFeatureName()}")
 
         if (FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources) {
-            output.printImport("${remoteDataSourcePackage()}.${remoteDataSourceFeatureName()}")
+            output.printImport("${dataSourcePackage()}.${remoteDataSourceFeatureName()}")
         }
 
         // There is a generated entity as a type return or a parameter.

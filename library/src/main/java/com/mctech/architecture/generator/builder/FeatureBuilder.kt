@@ -1,8 +1,10 @@
 package com.mctech.architecture.generator.builder
 
 import com.mctech.architecture.generator.alias.*
+import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.ModuleDefaultLayers
+import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.FeatureSettings
 import com.mctech.architecture.generator.settings.GlobalSettings
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
@@ -16,6 +18,7 @@ import com.mctech.architecture.generator.templates.domain.interaction.UseCaseTem
 import com.mctech.architecture.generator.templates.domain.service.ServiceInterfaceTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.ActvityTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.FragmentTemplate
+import com.mctech.architecture.generator.templates.presentation.kotlin.ViewInteractionTemplate
 import com.mctech.architecture.generator.templates.presentation.kotlin.ViewModelTemplate
 import com.mctech.architecture.generator.templates.presentation.manifest.AndroidManifestTemplate
 import com.mctech.architecture.generator.templates.presentation.module.AddFeatureOnSettingsFileTemplate
@@ -45,9 +48,15 @@ class FeatureGenerator(
     }
 
     // Architecture layers
-    var dataModulePath          = ModuleDefaultLayers.Data.moduleFile
-    var domainModulePath        = ModuleDefaultLayers.Domain.moduleFile
-    var featureModulePath       = ModuleDefaultLayers.GeneratedFeature.moduleFile
+    var dataModulePath  = ModuleDefaultLayers.Data.moduleFile
+        set(value) { setUpDataTemplates(value) }
+
+    var domainModulePath = ModuleDefaultLayers.Domain.moduleFile
+        set(value) { setUpDomainTemplates(value) }
+
+    var featureModulePath = ModuleDefaultLayers.GeneratedFeature.moduleFile
+        set(value) { setUpFeatureTemplates(value) }
+
     var baseArchitecturePath    = ModuleDefaultLayers.BaseArchitecture.moduleFile
 
     // Templates domain Generators
@@ -67,6 +76,9 @@ class FeatureGenerator(
     var presentationFragment                    : FeaturePresentationFragment       = FragmentTemplate(featureModulePath)
     var presentationViewModel                   : FeaturePresentationViewModel      = ViewModelTemplate(featureModulePath)
 
+    // Entity fields
+    val listOfFieldsOnEntity = mutableListOf<Parameter>()
+
     // Use cases
     val listOfUseCases = mutableListOf<UseCaseBuilder>()
 
@@ -75,6 +87,19 @@ class FeatureGenerator(
 
     // Component State
     val listOfComponentState = mutableListOf<ComponentStateBuilder>()
+
+    // Interactions
+    val listOfUserInteraction = mutableListOf<UserInteractionBuilder>()
+
+    // View commands.
+    val listOfViewCommand = mutableListOf<ViewCommandBuilder>()
+
+    /**
+     * Add fields on entity
+     */
+    fun addEntityField(field : Parameter) {
+        listOfFieldsOnEntity.add(field)
+    }
 
     /**
      * Every UseCase added on the feature will create the following code:
@@ -106,6 +131,29 @@ class FeatureGenerator(
     }
 
     /**
+     * Add user interactions.
+     */
+    fun addUserInteraction(block: () -> UserInteractionBuilder) {
+        listOfUserInteraction.add(block.invoke())
+    }
+
+    /**
+     * Add user interactions.
+     */
+    fun addViewCommand(block: () -> ViewCommandBuilder) {
+        listOfViewCommand.add(block.invoke())
+    }
+
+    /**
+     * Return the use case by its name.
+     */
+    fun findUseCaseByName(name : String) : UseCaseBuilder{
+        return listOfUseCases.first {
+            it.name == name
+        }
+    }
+
+    /**
      * Called in order to perform the code generation and create all of the files.
      */
     fun generate() {
@@ -121,23 +169,24 @@ class FeatureGenerator(
             return
         }
 
-        // Generate files
+
+        // Generate DOMAIN files
         domainEntityTemplateGenerator.generate()
         domainServiceGenerator.generate()
+        listOfUseCases.forEach {
+            UseCaseTemplate(it, domainModulePath).generate()
+        }
+
+
+        // Generate DATA files
         dataServiceGeneratorImplTemplate.generate()
         dataDataSourceTemplateGenerator.generate()
         dataLocalDataSourceTemplateGenerator.generate()
-
-        // Only if the feature has remote dataSource.
         if(settings.createBothRemoteAndLocalDataSources){
             dataRemoteDataSourceTemplateGenerator.generate()
             dataRetrofitAPITemplateGenerator.generate()
         }
 
-        // Create all UseCases
-        listOfUseCases.forEach {
-            UseCaseTemplate(it, domainModulePath).generate()
-        }
 
 
         // Create final templates of the feature module.
@@ -157,6 +206,30 @@ class FeatureGenerator(
 
         presentationBuildGradle.generate()
         presentationViewModel.generate()
+        if(listOfUserInteraction.isNotEmpty()){
+            ViewInteractionTemplate(featureModulePath).generate()
+        }
+    }
+
+
+    private fun setUpDataTemplates(dataModulePath: ModuleFilePath) {
+        dataServiceGeneratorImplTemplate        = RepositoryTemplate(dataModulePath)
+        dataDataSourceTemplateGenerator         = DataSourceInterfaceTemplate(dataModulePath)
+        dataLocalDataSourceTemplateGenerator    = LocalDataSourceTemplate(dataModulePath)
+        dataRemoteDataSourceTemplateGenerator   = RemoteDataSourceTemplate(dataModulePath)
+        dataRetrofitAPITemplateGenerator        = RetrofitAPITemplate(dataModulePath)
+    }
+
+    private fun setUpDomainTemplates(domainModulePath: ModuleFilePath) {
+        domainEntityTemplateGenerator   = EmptyEntityTemplate(domainModulePath)
+        domainServiceGenerator          = ServiceInterfaceTemplate(domainModulePath)
+    }
+
+    private fun setUpFeatureTemplates(featureModulePath: ModuleFilePath) {
+        presentationBuildGradle     = GradleModuleTemplate(featureModulePath)
+        presentationActivity        = ActvityTemplate(featureModulePath)
+        presentationFragment        = FragmentTemplate(featureModulePath)
+        presentationViewModel       = ViewModelTemplate(featureModulePath)
     }
 }
 

@@ -46,7 +46,7 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class $className @Inject constructor(${getConstructorParameters()}")
+        output.println("class $className (${getConstructorParameters()}")
     }
 
     override fun generateClassBody(output: PrintWriter) {
