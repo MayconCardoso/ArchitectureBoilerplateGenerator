@@ -22,6 +22,10 @@ sealed class Type {
         override fun getType() = "Int"
     }
 
+    object Long : Type() {
+        override fun getType() = "Long"
+    }
+
     object Float : Type() {
         override fun getType() = "Float"
     }

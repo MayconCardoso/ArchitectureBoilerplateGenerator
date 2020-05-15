@@ -1,5 +1,6 @@
 package com.mctech.architecture.generator.templates.domain.entity
 
+import com.mctech.architecture.generator.class_contract.customTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
@@ -17,7 +18,11 @@ open class EmptyEntityTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modu
     override val className: String
         get() = featureEntityName()
 
-    override fun generateImports(output: PrintWriter) = Unit
+    private val fields = FeatureContext.featureGenerator.listOfFieldsOnEntity
+
+    override fun generateImports(output: PrintWriter) {
+        customTypeImport(output, fields)
+    }
 
     override fun generateClassName(output: PrintWriter) {
         // There is no field.

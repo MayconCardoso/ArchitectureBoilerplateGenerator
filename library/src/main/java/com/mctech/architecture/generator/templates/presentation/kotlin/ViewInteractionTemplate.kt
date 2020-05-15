@@ -1,5 +1,6 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
+import com.mctech.architecture.generator.class_contract.customTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
 import com.mctech.architecture.generator.generator.printImport
@@ -26,6 +27,13 @@ open class ViewInteractionTemplate(modulePath: ModuleFilePath) : PresentationKot
         if(interactions.any { it.hasGeneratedEntity() }){
             output.printImport("${entityPackage()}.${featureEntityName()}")
         }
+
+        interactions
+            .filter { it.parameters.isNotEmpty() }
+            .map { it.parameters }
+            .forEach {
+                customTypeImport(output, it)
+            }
     }
 
     override fun generateClassName(output: PrintWriter) {
