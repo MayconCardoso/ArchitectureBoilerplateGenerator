@@ -1,6 +1,7 @@
 package com.mctech.architecture.generator.templates.data.api
 
 import com.mctech.architecture.generator.builder.foreachUseCase
+import com.mctech.architecture.generator.builder.printCustomTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
 import com.mctech.architecture.generator.generator.blankLine
@@ -22,6 +23,9 @@ open class RetrofitAPITemplate(modulePath: ModuleFilePath) : KotlinTemplate(modu
         get() = "${featureEntityName()}API"
 
     override fun generateImports(output: PrintWriter) {
+        // Print custom types
+        printCustomTypeImport(output)
+
         // There is a generated entity as a type return or a parameter.
         if (hasGeneratedEntity()) {
             output.printImport("${entityPackage()}.${featureEntityName()}")

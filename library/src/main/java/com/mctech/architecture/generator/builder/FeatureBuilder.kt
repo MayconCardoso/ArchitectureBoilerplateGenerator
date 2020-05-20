@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.builder
 
 import com.mctech.architecture.generator.alias.*
 import com.mctech.architecture.generator.class_contract.Parameter
+import com.mctech.architecture.generator.class_contract.customTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.path.ModuleDefaultLayers
 import com.mctech.architecture.generator.path.ModuleFilePath
@@ -26,6 +27,7 @@ import com.mctech.architecture.generator.templates.presentation.module.GradleMod
 import com.mctech.architecture.generator.templates.presentation.resource.ActivityLayoutTemplate
 import com.mctech.architecture.generator.templates.presentation.resource.FragmentLayoutTemplate
 import com.mctech.architecture.generator.templates.presentation.resource.StringTemplate
+import java.io.PrintWriter
 
 /**
  * @author MAYCON CARDOSO on 2019-11-27.
@@ -49,13 +51,22 @@ class FeatureGenerator(
 
     // Architecture layers
     var dataModulePath  = ModuleDefaultLayers.Data.moduleFile
-        set(value) { setUpDataTemplates(value) }
+        set(value) {
+            field = value
+            setUpDataTemplates(value)
+        }
 
     var domainModulePath = ModuleDefaultLayers.Domain.moduleFile
-        set(value) { setUpDomainTemplates(value) }
+        set(value) {
+            field = value
+            setUpDomainTemplates(value)
+        }
 
     var featureModulePath = ModuleDefaultLayers.GeneratedFeature.moduleFile
-        set(value) { setUpFeatureTemplates(value) }
+        set(value) {
+            field = value
+            setUpFeatureTemplates(value)
+        }
 
     var baseArchitecturePath    = ModuleDefaultLayers.BaseArchitecture.moduleFile
 
@@ -154,6 +165,15 @@ class FeatureGenerator(
     }
 
     /**
+     * Return the component state by its name.
+     */
+    fun findStateByName(name : String) : ComponentStateBuilder{
+        return listOfComponentState.first {
+            it.name == name
+        }
+    }
+
+    /**
      * Called in order to perform the code generation and create all of the files.
      */
     fun generate() {
@@ -231,15 +251,21 @@ class FeatureGenerator(
         presentationFragment        = FragmentTemplate(featureModulePath)
         presentationViewModel       = ViewModelTemplate(featureModulePath)
     }
-}
 
-/**
- * Function to facilitate when creating features.
- */
-inline fun FeatureGenerator.newFeature(block: FeatureGenerator.() -> Unit): FeatureGenerator {
-    block()
-    generate()
-    return this
+    /**
+     * Function to facilitate when creating features.
+     */
+    companion object{
+        fun newFeature(
+            settings: FeatureSettings,
+            featureName: FeatureName,
+            block: FeatureGenerator.() -> Unit
+        ){
+            val feature = FeatureGenerator(settings, featureName)
+            feature.block()
+            feature.generate()
+        }
+    }
 }
 
 /**
@@ -266,5 +292,16 @@ inline fun foreachLiveData(block: (useCase : LiveDataBuilder) -> Unit) {
 inline fun foreachComponentState(block: (useCase : ComponentStateBuilder) -> Unit) {
     FeatureContext.featureGenerator.listOfComponentState.forEach {
         block(it)
+    }
+}
+
+fun printCustomTypeImport(output : PrintWriter) {
+    FeatureContext.featureGenerator.listOfUseCases.map { it.parameters }.filter { it.isNotEmpty() }.reduce { acc, list ->
+        mutableListOf<Parameter>().apply {
+            addAll(acc)
+            addAll(list)
+        }
+    }.apply {
+        customTypeImport(output, this)
     }
 }

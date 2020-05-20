@@ -1,7 +1,9 @@
 package com.mctech.architecture.generator.templates.domain.service
 
+import com.mctech.architecture.generator.builder.printCustomTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
+import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.generator.printImport
 import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.path.ModuleFilePath
@@ -20,11 +22,15 @@ open class ServiceInterfaceTemplate(modulePath: ModuleFilePath) : KotlinTemplate
         get() = "${featureEntityName()}Service"
 
     override fun generateImports(output: PrintWriter) {
+        // Print custom types
+        printCustomTypeImport(output)
+
         // There is a generated entity as a type return or a parameter.
         // It is gonna create an import line like this:
         // import your.package.here.newFeature
         if (hasGeneratedEntity()) {
             output.printImport("${entityPackage()}.${featureEntityName()}")
+            output.blankLine()
         }
     }
 

@@ -1,21 +1,17 @@
 package com.mctech.architecture.generator
 
-import com.mctech.architecture.generator.builder.FeatureGenerator
-import com.mctech.architecture.generator.builder.LiveDataBuilder
-import com.mctech.architecture.generator.builder.UseCaseBuilder
-import com.mctech.architecture.generator.builder.newFeature
+import com.mctech.architecture.generator.builder.*
 import com.mctech.architecture.generator.class_contract.Package
 import com.mctech.architecture.generator.class_contract.Parameter
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.path.projectPackage
-import com.mctech.architecture.generator.settings.FeatureSettings
-import com.mctech.architecture.generator.settings.PresentationMode
-import com.mctech.architecture.generator.settings.ProjectSettings
+import com.mctech.architecture.generator.settings.*
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 
 fun main() {
     val projectSettings = ProjectSettings(
+        baseAndroidProjectPath = "sample/",
         basePackageName = Package("com.mctech.architecture")
     )
 
@@ -29,14 +25,14 @@ fun main() {
     )
 
     // Here is an empty feature generated
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
         settings    = featureSettings,
         featureName = "FeatureEmpty"
-    ).newFeature {
-        baseArchitecturePath = ModuleFilePath(
-            moduleLocation      = "sample/sample-architecture",
-            gradleModuleName    = ":sample:sample-architecture",
-            packageValue        = Package("com.mctech.samplesample_architecture")
+    ) {
+         dataModulePath = ModuleFilePath(
+            moduleLocation = "data",
+            gradleModuleName = ":sample:data",
+            packageValue = Package("$projectPackage.data")
         )
 
         domainModulePath = ModuleFilePath(
@@ -45,24 +41,34 @@ fun main() {
             packageValue = Package("$projectPackage.domain")
         )
 
+        featureModulePath = ModuleFilePath(
+            moduleLocation = "features/feature-${featureSegment()}",
+            gradleModuleName = ":sample:features:feature-${featureSegment()}",
+            packageValue = Package("$projectPackage.feature.${featurePackage()}")
+        )
     }
 
     // Here is a complex feature with use cases and different liveData.
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
         settings    = featureSettings,
         featureName = "ComplexFeature"
-    ).newFeature {
-        // Override the domain layer
-        baseArchitecturePath = ModuleFilePath(
-            moduleLocation      = "sample/sample-architecture",
-            gradleModuleName    = ":sample:sample-architecture",
-            packageValue        = Package("com.mctech.samplesample_architecture")
+    ) {
+        dataModulePath = ModuleFilePath(
+            moduleLocation = "data",
+            gradleModuleName = ":sample:data",
+            packageValue = Package("$projectPackage.data")
         )
 
         domainModulePath = ModuleFilePath(
             moduleLocation = "domain",
             gradleModuleName = ":sample:domain",
             packageValue = Package("$projectPackage.domain")
+        )
+
+        featureModulePath = ModuleFilePath(
+            moduleLocation = "features/feature-${featureSegment()}",
+            gradleModuleName = ":sample:features:feature-${featureSegment()}",
+            packageValue = Package("$projectPackage.feature.${featurePackage()}")
         )
 
         // Create an use case that will call the repository and delegate it to the data sources and so on.
@@ -101,5 +107,117 @@ fun main() {
         }
     }
 
+    // Here is a complete feature
+    FeatureGenerator.newFeature(
+        settings    = featureSettings,
+        featureName = "CompleteFeature"
+    ) {
+        dataModulePath = ModuleFilePath(
+            moduleLocation = "data",
+            gradleModuleName = ":sample:data",
+            packageValue = Package("$projectPackage.data")
+        )
+
+        domainModulePath = ModuleFilePath(
+            moduleLocation = "domain",
+            gradleModuleName = ":sample:domain",
+            packageValue = Package("$projectPackage.domain")
+        )
+
+        featureModulePath = ModuleFilePath(
+            moduleLocation = "features/feature-${featureSegment()}",
+            gradleModuleName = ":sample:features:feature-${featureSegment()}",
+            packageValue = Package("$projectPackage.feature.${featurePackage()}")
+        )
+
+        // Add fields on entity
+        addEntityField(Parameter(
+            name = "id", type = Type.Long
+        ))
+
+        addEntityField(Parameter(
+            name = "name", type = Type.String
+        ))
+
+        addEntityField(Parameter(
+            name = "anotherFeature", type = Type.CustomType(
+                packageValue = "com.mctech.architecture.domain.feature_empty.entity",
+                typeReturn = "FeatureEmpty"
+            )
+        ))
+
+
+        // Create an use case that will call the repository and delegate it to the data sources and so on.
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadAllItemsCase",
+                returnType  = Type.ListOfGeneratedEntity,
+                isDaggerInjectable = false
+            )
+        }
+
+        addUseCase {
+            UseCaseBuilder(
+                name        = "LoadItemDetailCase",
+                returnType  = Type.ResultOf(Type.GeneratedEntity),
+                parameters  = listOf(
+                    Parameter(
+                        name = "item",
+                        type = Type.GeneratedEntity
+                    ),
+                    Parameter(
+                        name = "simpleList",
+                        type = Type.CustomType(
+                            packageValue = "com.mctech.architecture.domain.feature_empty.entity",
+                            typeReturn = "FeatureEmpty"
+                        )
+                    )
+                ),
+                isDaggerInjectable = false
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "items",
+                type = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addLiveData {
+            LiveDataBuilder(
+                name = "userName",
+                type = Type.String
+            )
+        }
+
+        addComponentState {
+            ComponentStateBuilder(
+                name = "listEntities",
+                type = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addUserInteraction {
+            UserInteractionBuilder(
+                name = "LoadList",
+                connectedState = findStateByName("listEntities"),
+                connectedUseCase = findUseCaseByName("LoadAllItemsCase")
+            )
+        }
+
+        addUserInteraction {
+            UserInteractionBuilder(
+                name = "OpenDetails",
+                parameters = listOf(
+                    Parameter(
+                        name = "item",
+                        type = Type.GeneratedEntity
+                    )
+                ),
+                connectedUseCase = findUseCaseByName("LoadItemDetailCase")
+            )
+        }
+    }
 
 }

@@ -60,7 +60,14 @@ sealed class Type {
 }
 
 fun customTypeImport(output : PrintWriter, list: List<Parameter>){
+    val types = mutableListOf<String>()
+
     list.filter { it.type is Type.CustomType }.forEach {
-        output.println("import ${(it.type as Type.CustomType).packageValue}" )
+        val importValue = "import ${(it.type as Type.CustomType).packageValue}.${it.type.typeReturn}"
+
+        if(!types.contains(importValue)){
+            output.println(importValue)
+            types.add(importValue)
+        }
     }
 }

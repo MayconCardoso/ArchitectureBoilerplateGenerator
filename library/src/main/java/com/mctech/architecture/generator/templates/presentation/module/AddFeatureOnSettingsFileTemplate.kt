@@ -1,9 +1,9 @@
 package com.mctech.architecture.generator.templates.presentation.module
 
+import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.generator.readFile
 import com.mctech.architecture.generator.generator.writeFile
 import com.mctech.architecture.generator.settings.baseProjectPath
-import com.mctech.architecture.generator.settings.featureSegment
 import com.mctech.architecture.generator.strategy.FileDuplicatedStrategy
 import com.mctech.architecture.generator.templates.Template
 
@@ -13,7 +13,7 @@ import com.mctech.architecture.generator.templates.Template
 class AddFeatureOnSettingsFileTemplate : Template() {
 
     private val moduleName by lazy {
-        "include ':features:feature-${featureSegment()}'"
+        "include '${FeatureContext.featureGenerator.featureModulePath.gradleModuleName}'"
     }
     private val linesOfFile by lazy {
         readFile(this).toMutableList()

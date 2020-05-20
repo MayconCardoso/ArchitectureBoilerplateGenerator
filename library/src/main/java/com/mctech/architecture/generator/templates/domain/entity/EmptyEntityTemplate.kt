@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.templates.domain.entity
 
 import com.mctech.architecture.generator.class_contract.customTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
+import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
 import com.mctech.architecture.generator.templates.KotlinTemplate
@@ -22,6 +23,7 @@ open class EmptyEntityTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modu
 
     override fun generateImports(output: PrintWriter) {
         customTypeImport(output, fields)
+        output.blankLine()
     }
 
     override fun generateClassName(output: PrintWriter) {

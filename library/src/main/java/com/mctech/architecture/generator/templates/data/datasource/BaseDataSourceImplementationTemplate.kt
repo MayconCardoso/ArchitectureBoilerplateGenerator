@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.templates.data.datasource
 
 import com.mctech.architecture.generator.builder.UseCaseBuilder
 import com.mctech.architecture.generator.builder.foreachUseCase
+import com.mctech.architecture.generator.builder.printCustomTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.dataSourceFeatureName
 import com.mctech.architecture.generator.context.entityPackage
@@ -24,6 +25,9 @@ abstract class BaseDataSourceImplementationTemplate(modulePath: ModuleFilePath) 
     abstract fun createClassParameters(): String
 
     override fun generateImports(output: PrintWriter) {
+        // Print custom types
+        printCustomTypeImport(output)
+
         // There is a generated entity as a type return or a parameter.
         if (hasGeneratedEntity()) {
             output.printImport("${entityPackage()}.${featureEntityName()}")

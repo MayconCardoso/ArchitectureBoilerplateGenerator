@@ -2,6 +2,7 @@ package com.mctech.architecture.generator.templates.data.repository
 
 import com.mctech.architecture.generator.builder.UseCaseBuilder
 import com.mctech.architecture.generator.builder.foreachUseCase
+import com.mctech.architecture.generator.builder.printCustomTypeImport
 import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.context.*
 import com.mctech.architecture.generator.generator.blankLine
@@ -29,6 +30,9 @@ open class RepositoryTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modul
         if (FeatureContext.featureGenerator.settings.createBothRemoteAndLocalDataSources) {
             output.printImport("${dataSourcePackage()}.${remoteDataSourceFeatureName()}")
         }
+
+        // Print custom types
+        printCustomTypeImport(output)
 
         // There is a generated entity as a type return or a parameter.
         if (hasGeneratedEntity()) {

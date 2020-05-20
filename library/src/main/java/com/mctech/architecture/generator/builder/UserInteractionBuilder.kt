@@ -9,7 +9,8 @@ import com.mctech.architecture.generator.class_contract.Type
 data class UserInteractionBuilder(
     val name: String,
     val parameters: List<Parameter> = listOf(),
-    val connectedUseCase : UseCaseBuilder? = null
+    val connectedUseCase : UseCaseBuilder? = null,
+    val connectedState : ComponentStateBuilder? = null
 ) {
 
     fun hasGeneratedEntity(): Boolean {

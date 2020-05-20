@@ -47,7 +47,6 @@ open class GradleModuleTemplate(private val moduleFilePath: ModuleFilePath) : Te
         output.blankLine()
         output.println("dependencies {")
         output.printTabulate("implementation project(path: \"$domainModule\")")
-        output.printTabulate("implementation project(path: \"$architectureModuleName\")")
         output.blankLine()
 
         output.printTabulate("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'")
@@ -62,8 +61,13 @@ open class GradleModuleTemplate(private val moduleFilePath: ModuleFilePath) : Te
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03'")
         output.printTabulate("implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'")
         output.blankLine()
-
-        output.printTabulate("implementation 'com.google.dagger:dagger:2.21'")
+        output.printTabulate("// Personal libraries")
+        output.printTabulate("implementation 'com.mctech.library.keyboard:visibilitymonitor:1.+'")
+        output.printTabulate("implementation 'com.mctech.library.keyboard:visibilitymonitor-ktx:1.+'")
+        output.printTabulate("implementation 'com.mctech.architecture.mvvm:x-core:1.+'")
+        output.printTabulate("implementation 'com.mctech.architecture.mvvm:x-core-ktx:1.+'")
+        output.printTabulate("implementation 'com.mctech.architecture.mvvm:x-view-ktx:1.+'")
+        output.printTabulate("implementation 'com.mctech.architecture.mvvm:x-core-databinding:1.+'")
         output.println("}")
     }
 }

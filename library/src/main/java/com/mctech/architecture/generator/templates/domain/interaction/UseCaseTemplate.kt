@@ -27,9 +27,6 @@ open class UseCaseTemplate(val useCase: UseCaseBuilder, modulePath: ModuleFilePa
         get() = useCase.name
 
     override fun generateImports(output: PrintWriter) {
-        // Print custom types
-        customTypeImport(output, useCase.parameters)
-
         // Print dagger dependencies
         if (useCase.isDaggerInjectable) {
             output.printImport("import javax.inject.Inject")
@@ -42,6 +39,9 @@ open class UseCaseTemplate(val useCase: UseCaseBuilder, modulePath: ModuleFilePa
 
             output.printImport(FeatureContext.featureGenerator.domainModulePath.packageValue.getImportLine() + ".Result")
         }
+
+        // Print custom types
+        customTypeImport(output, useCase.parameters)
 
         // There is a generated entity as a type return or a parameter.
         if (useCase.hasGeneratedEntity()) {
