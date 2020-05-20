@@ -6,8 +6,5 @@ include ':library'
 include ':sample:app'
 include ':sample:domain'
 include ':sample:data'
-include ':sample:sample-architecture'
 
 // It was add by the generator
-include ':sample:features:feature-feature-empty'
-include ':sample:features:feature-complex-feature'

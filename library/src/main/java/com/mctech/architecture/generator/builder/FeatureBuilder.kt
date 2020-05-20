@@ -296,12 +296,15 @@ inline fun foreachComponentState(block: (useCase : ComponentStateBuilder) -> Uni
 }
 
 fun printCustomTypeImport(output : PrintWriter) {
-    FeatureContext.featureGenerator.listOfUseCases.map { it.parameters }.filter { it.isNotEmpty() }.reduce { acc, list ->
-        mutableListOf<Parameter>().apply {
-            addAll(acc)
-            addAll(list)
+    FeatureContext.featureGenerator.listOfUseCases
+        .map { it.parameters }
+        .takeIf { it.isNotEmpty() }
+        ?.reduce { acc, list ->
+            mutableListOf<Parameter>().apply {
+                addAll(acc)
+                addAll(list)
+            }
+        }?.apply {
+            customTypeImport(output, this)
         }
-    }.apply {
-        customTypeImport(output, this)
-    }
 }
