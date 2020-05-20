@@ -8,3 +8,5 @@ include ':sample:domain'
 include ':sample:data'
 
 // It was add by the generator
+include ':sample:features:feature-feature-empty'
+include ':sample:features:feature-complex-feature'

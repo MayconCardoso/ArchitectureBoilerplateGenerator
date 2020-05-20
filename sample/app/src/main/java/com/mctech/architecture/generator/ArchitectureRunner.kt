@@ -71,65 +71,6 @@ fun main() {
             packageValue = Package("$projectPackage.feature.${featurePackage()}")
         )
 
-        // Create an use case that will call the repository and delegate it to the data sources and so on.
-        addUseCase {
-            UseCaseBuilder(
-                name        = "LoadAllItemsCase",
-                returnType  = Type.ListOfGeneratedEntity
-            )
-        }
-
-        addUseCase {
-            UseCaseBuilder(
-                name        = "LoadItemDetailCase",
-                returnType  = Type.ResultOf(Type.GeneratedEntity),
-                parameters  = listOf(
-                    Parameter(
-                        name = "item",
-                        type = Type.GeneratedEntity
-                    )
-                )
-            )
-        }
-
-        addLiveData {
-            LiveDataBuilder(
-                name = "items",
-                type = Type.ListOfGeneratedEntity
-            )
-        }
-
-        addLiveData {
-            LiveDataBuilder(
-                name = "userName",
-                type = Type.String
-            )
-        }
-    }
-
-    // Here is a complete feature
-    FeatureGenerator.newFeature(
-        settings    = featureSettings,
-        featureName = "CompleteFeature"
-    ) {
-        dataModulePath = ModuleFilePath(
-            moduleLocation = "data",
-            gradleModuleName = ":sample:data",
-            packageValue = Package("$projectPackage.data")
-        )
-
-        domainModulePath = ModuleFilePath(
-            moduleLocation = "domain",
-            gradleModuleName = ":sample:domain",
-            packageValue = Package("$projectPackage.domain")
-        )
-
-        featureModulePath = ModuleFilePath(
-            moduleLocation = "features/feature-${featureSegment()}",
-            gradleModuleName = ":sample:features:feature-${featureSegment()}",
-            packageValue = Package("$projectPackage.feature.${featurePackage()}")
-        )
-
         // Add fields on entity
         addEntityField(Parameter(
             name = "id", type = Type.Long

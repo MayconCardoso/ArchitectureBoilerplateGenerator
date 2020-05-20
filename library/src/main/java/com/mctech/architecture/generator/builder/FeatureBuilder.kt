@@ -295,6 +295,15 @@ inline fun foreachComponentState(block: (useCase : ComponentStateBuilder) -> Uni
     }
 }
 
+/**
+ * Iterate on each UserInteraction to facilitate routines of generating code with it.
+ */
+inline fun foreachUserInteraction(block: (useCase : UserInteractionBuilder) -> Unit) {
+    FeatureContext.featureGenerator.listOfUserInteraction.forEach {
+        block(it)
+    }
+}
+
 fun printCustomTypeImport(output : PrintWriter) {
     FeatureContext.featureGenerator.listOfUseCases
         .map { it.parameters }

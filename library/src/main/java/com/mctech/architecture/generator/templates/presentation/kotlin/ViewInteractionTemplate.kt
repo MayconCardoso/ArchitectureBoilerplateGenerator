@@ -3,6 +3,7 @@ package com.mctech.architecture.generator.templates.presentation.kotlin
 import com.mctech.architecture.generator.class_contract.customTypeImport
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
+import com.mctech.architecture.generator.generator.blankLine
 import com.mctech.architecture.generator.generator.printImport
 import com.mctech.architecture.generator.generator.printTabulate
 import com.mctech.architecture.generator.path.ModuleFilePath
@@ -34,10 +35,12 @@ open class ViewInteractionTemplate(modulePath: ModuleFilePath) : PresentationKot
             .forEach {
                 customTypeImport(output, it)
             }
+
+        output.blankLine()
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("sealed class $className: UserInteraction(){")
+        output.println("sealed class $className: UserInteraction{")
     }
 
     override fun generateClassBody(output: PrintWriter)  {
@@ -59,6 +62,8 @@ open class ViewInteractionTemplate(modulePath: ModuleFilePath) : PresentationKot
                 )
                 output.printTabulate(") : $className()")
             }
+
+            output.blankLine()
         }
     }
 }

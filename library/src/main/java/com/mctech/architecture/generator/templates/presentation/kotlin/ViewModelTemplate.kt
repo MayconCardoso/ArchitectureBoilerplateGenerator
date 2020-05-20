@@ -3,6 +3,7 @@ package com.mctech.architecture.generator.templates.presentation.kotlin
 import com.mctech.architecture.generator.builder.foreachComponentState
 import com.mctech.architecture.generator.builder.foreachLiveData
 import com.mctech.architecture.generator.builder.foreachUseCase
+import com.mctech.architecture.generator.builder.foreachUserInteraction
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
 import com.mctech.architecture.generator.generator.blankLine
@@ -42,6 +43,10 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
             output.printImport(it.getImportPath())
         }
 
+        if(FeatureContext.featureGenerator.listOfUserInteraction.isNotEmpty()){
+            output.printImport("import com.mctech.architecture.mvvm.x.core.OnInteraction")
+        }
+
         output.blankLine()
     }
 
@@ -63,6 +68,21 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
         foreachComponentState {
             output.printTabulate("private val _${it.name} : MutableLiveData<ComponentState<${it.type.getType()}>> = MutableLiveData(ComponentState.Initializing)")
             output.printTabulate("val ${it.name} : LiveData<ComponentState<${it.type.getType()}>> = _${it.name}")
+            output.blankLine()
+        }
+
+        // Components
+        foreachUserInteraction {
+            val interactionName = "${featureEntityName()}UserInteraction.${it.name}"
+            output.printTabulate("@OnInteraction($interactionName::class)")
+            if(it.parameters.isEmpty()){
+                output.printTabulate("private suspend fun ${it.getMethodName()}(){")
+            }
+            else{
+                output.printTabulate("private suspend fun ${it.getMethodName()}(interaction : $interactionName){")
+            }
+            output.blankLine()
+            output.printTabulate("}")
             output.blankLine()
         }
 
