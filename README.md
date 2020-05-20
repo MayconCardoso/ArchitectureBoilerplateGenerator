@@ -85,16 +85,34 @@ fun main() {
 
     ...
     
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
         settings    = featureSettings,
         featureName = "ComplexFeature"
-    ).newFeature {
+    ) {
+
+        // Add fields on entity
+        addEntityField(Parameter(
+            name = "id", type = Type.Long
+        ))
+
+        addEntityField(Parameter(
+            name = "name", type = Type.String
+        ))
+
+        addEntityField(Parameter(
+            name = "anotherFeature", type = Type.CustomType(
+                packageValue = "com.mctech.architecture.domain.feature_empty.entity",
+                typeReturn = "FeatureEmpty"
+            )
+        ))
+
 
         // Create an use case that will call the repository and delegate it to the data sources and so on.
         addUseCase {
             UseCaseBuilder(
                 name        = "LoadAllItemsCase",
-                returnType  = Type.ListOfGeneratedEntity
+                returnType  = Type.ListOfGeneratedEntity,
+                isDaggerInjectable = false
             )
         }
 
@@ -106,8 +124,16 @@ fun main() {
                     Parameter(
                         name = "item",
                         type = Type.GeneratedEntity
+                    ),
+                    Parameter(
+                        name = "simpleList",
+                        type = Type.CustomType(
+                            packageValue = "com.mctech.architecture.domain.feature_empty.entity",
+                            typeReturn = "FeatureEmpty"
+                        )
                     )
-                )
+                ),
+                isDaggerInjectable = false
             )
         }
 
@@ -124,7 +150,34 @@ fun main() {
                 type = Type.String
             )
         }
-        
+
+        addComponentState {
+            ComponentStateBuilder(
+                name = "listEntities",
+                type = Type.ListOfGeneratedEntity
+            )
+        }
+
+        addUserInteraction {
+            UserInteractionBuilder(
+                name = "LoadList",
+                connectedState = findStateByName("listEntities"),
+                connectedUseCase = findUseCaseByName("LoadAllItemsCase")
+            )
+        }
+
+        addUserInteraction {
+            UserInteractionBuilder(
+                name = "OpenDetails",
+                parameters = listOf(
+                    Parameter(
+                        name = "item",
+                        type = Type.GeneratedEntity
+                    )
+                ),
+                connectedUseCase = findUseCaseByName("LoadItemDetailCase")
+            )
+        }
     }
 }
 ```
