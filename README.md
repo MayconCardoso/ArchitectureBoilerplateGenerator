@@ -18,6 +18,9 @@ However, we know how many boilerplate we need to write to create a new ```featur
 ```groovy
 implementation 'com.mctech.architecture:generator:1.1.4'
 ```
+## Related Library
+
+[Mvvm Architecture Toolkit](https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit) - It is a personal MVVM architecture library that contains the base codebase generated here.
 
 Creating an empty feature
 =
