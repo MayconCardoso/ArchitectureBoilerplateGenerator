@@ -1,7 +1,7 @@
 Overview
 =
 
-[ ![Download](https://api.bintray.com/packages/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/images/download.svg?version=1.1.4) ](https://bintray.com/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/1.1.4/link)
+[ ![Download](https://api.bintray.com/packages/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/images/download.svg?version=2.0.0) ](https://bintray.com/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/2.0.0/link)
 
 Recently I started off working for Unicred Mobile Banking as a Senior Android Engineer.
 
@@ -16,7 +16,7 @@ However, we know how many boilerplate we need to write to create a new ```featur
 ## Download Generator
 
 ```groovy
-implementation 'com.mctech.architecture:generator:1.1.4'
+implementation 'com.mctech.architecture:generator:2.0.0'
 ```
 ## Related Library
 
