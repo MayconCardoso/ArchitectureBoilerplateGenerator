@@ -207,6 +207,7 @@ fun main() {
 * [ComplexFeatureActivity.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureActivity.kt) - With delegation methods of LiveData
 * [ComplexFeatureFragment.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureFragment.kt)  - With delegation methods of LiveData
 * [ComplexFeatureViewModel.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/feature_empty/ComplexFeatureViewModel.kt) - With delegation methods of LiveData
+* [ComplexFeatureUserInteraction.kt](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/sample/features/feature-complex-feature/src/main/java/com/mctech/architecture/feature/complex_feature/ComplexFeatureUserInteraction.kt) 
 
 Roadmap
 =
