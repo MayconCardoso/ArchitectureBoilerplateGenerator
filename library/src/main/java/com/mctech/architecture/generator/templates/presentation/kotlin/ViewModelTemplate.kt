@@ -1,14 +1,10 @@
 package com.mctech.architecture.generator.templates.presentation.kotlin
 
-import com.mctech.architecture.generator.builder.foreachComponentState
-import com.mctech.architecture.generator.builder.foreachLiveData
-import com.mctech.architecture.generator.builder.foreachUseCase
-import com.mctech.architecture.generator.builder.foreachUserInteraction
+import com.mctech.architecture.generator.builder.*
+import com.mctech.architecture.generator.class_contract.Type
 import com.mctech.architecture.generator.context.FeatureContext
 import com.mctech.architecture.generator.context.entityPackage
-import com.mctech.architecture.generator.generator.blankLine
-import com.mctech.architecture.generator.generator.printImport
-import com.mctech.architecture.generator.generator.printTabulate
+import com.mctech.architecture.generator.generator.*
 import com.mctech.architecture.generator.path.ModuleFilePath
 import com.mctech.architecture.generator.settings.featureEntityName
 import com.mctech.architecture.generator.templates.presentation.PresentationKotlinTemplate
@@ -33,6 +29,8 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
         output.printImport("import javax.inject.Inject")
         output.printImport("$baseArchitecturePackage.BaseViewModel")
         output.printImport("$baseArchitecturePackage.ComponentState")
+        output.printImport("$baseArchitecturePackage.ktx.*")
+        output.printImport("import ${FeatureContext.featureGenerator.domainModulePath.packageValue.value}.Result")
         output.blankLine()
 
         if(hasGeneratedEntity()){
@@ -81,11 +79,67 @@ open class ViewModelTemplate(modulePath: ModuleFilePath) : PresentationKotlinTem
             else{
                 output.printTabulate("private suspend fun ${it.getMethodName()}(interaction : $interactionName){")
             }
+            printInteractionBody(output, it)
             output.blankLine()
             output.printTabulate("}")
             output.blankLine()
         }
 
+    }
+
+    private fun printInteractionBody(output: PrintWriter, it: UserInteractionBuilder) {
+        if(it.connectedState != null){
+            if(it.connectedState.type is Type.ListOfGeneratedEntity || it.connectedState.type is Type.ListOfGeneratedEntity){
+                output.printDoubleTabulate("_${it.connectedState.name}.changeToListLoadingState()")
+            }
+            else{
+                output.printDoubleTabulate("_${it.connectedState.name}.changeToLoadingState()")
+            }
+
+            output.blankLine()
+        }
+
+        if(it.connectedUseCase != null){
+            if(it.connectedUseCase.returnType is Type.ResultOf){
+                output.printDoubleTabulate("when(val result = ${it.connectedUseCase.getMethodName()}Case.execute(${bindParameters(it)})){")
+                output.printTripleTabulate("is Result.Success -> {")
+                if(it.connectedState != null){
+                    output.printTabulate(
+                        countTabulate = 4,
+                        value = "_${it.connectedState.name}.changeToSuccessState(result.result)"
+                    )
+                }
+                output.printTripleTabulate("}")
+                output.printTripleTabulate("is Result.Failure -> {")
+                if(it.connectedState != null){
+                    output.printTabulate(
+                        countTabulate = 4,
+                        value = "_${it.connectedState.name}.changeToErrorState(result.throwable)"
+                    )
+                }
+                output.printTripleTabulate("}")
+                output.printDoubleTabulate("}")
+            }
+        }
+    }
+
+    private fun bindParameters(it: UserInteractionBuilder): String {
+        if(it.connectedUseCase != null && it.connectedUseCase.parameters.isNotEmpty()){
+            // Create variable name foreach use case
+            return it.connectedUseCase.parameters
+                .map {
+                    "interaction.${it.name}, "
+                }
+                // Reduce it to an string.
+                .reduce {
+                        acc, useCaseVariable ->  acc + useCaseVariable
+                }
+                // Remove last comma
+                .removeSuffix(", ")
+        }
+        else {
+            return ""
+        }
     }
 
     private fun getConstructorParameters(): String {

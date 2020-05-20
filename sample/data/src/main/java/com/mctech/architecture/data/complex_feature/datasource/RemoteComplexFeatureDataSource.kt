@@ -6,7 +6,7 @@ import com.mctech.architecture.domain.feature_empty.entity.FeatureEmpty
 
 class RemoteComplexFeatureDataSource(private val api : ComplexFeatureAPI) : ComplexFeatureDataSource{
 
-	override suspend fun loadAllItems(): List<ComplexFeature>?{
+	override suspend fun loadAllItems(): List<ComplexFeature>{
 		TODO()
 	}
 

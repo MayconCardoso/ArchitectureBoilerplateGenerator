@@ -11,7 +11,7 @@ class ComplexFeatureRepository(
 	private val remoteDataSource: RemoteComplexFeatureDataSource
 ) : ComplexFeatureService{
 
-	override suspend fun loadAllItems(): List<ComplexFeature>?{
+	override suspend fun loadAllItems(): List<ComplexFeature>{
 		return try{
 			remoteDataSource.loadAllItems().apply {
 				TODO("Here you must call the local dataSource to save it on cache")

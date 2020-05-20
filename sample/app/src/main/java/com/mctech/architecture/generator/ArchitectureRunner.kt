@@ -92,7 +92,7 @@ fun main() {
         addUseCase {
             UseCaseBuilder(
                 name        = "LoadAllItemsCase",
-                returnType  = Type.ListOfGeneratedEntity,
+                returnType  = Type.ResultOf(Type.ListOfGeneratedEntity),
                 isDaggerInjectable = false
             )
         }
@@ -139,6 +139,13 @@ fun main() {
             )
         }
 
+        addComponentState {
+            ComponentStateBuilder(
+                name = "itemDetails",
+                type = Type.GeneratedEntity
+            )
+        }
+
         addUserInteraction {
             UserInteractionBuilder(
                 name = "LoadList",
@@ -154,8 +161,16 @@ fun main() {
                     Parameter(
                         name = "item",
                         type = Type.GeneratedEntity
+                    ),
+                    Parameter(
+                        name = "simpleList",
+                        type = Type.CustomType(
+                            packageValue = "com.mctech.architecture.domain.feature_empty.entity",
+                            typeReturn = "FeatureEmpty"
+                        )
                     )
                 ),
+                connectedState = findStateByName("itemDetails"),
                 connectedUseCase = findUseCaseByName("LoadItemDetailCase")
             )
         }

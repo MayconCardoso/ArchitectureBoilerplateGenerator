@@ -27,6 +27,7 @@ class ComplexFeatureFragment : Fragment() {
 		bindData(viewModel.items){ handleItemsData(it) }
 		bindData(viewModel.userName){ handleUserNameData(it) }
 		bindState(viewModel.listEntities){ handleListEntitiesState(it) }
+		bindState(viewModel.itemDetails){ handleItemDetailsState(it) }
 	}
 
 	private fun handleCommand(it: ViewCommand) {
@@ -44,6 +45,15 @@ class ComplexFeatureFragment : Fragment() {
 	}
 
 	private fun handleListEntitiesState(state: ComponentState<List<ComplexFeature>>) {
+		when(state){
+			is ComponentState.Initializing -> TODO()
+			is ComponentState.Loading -> TODO()
+			is ComponentState.Error -> TODO()
+			is ComponentState.Success -> TODO()
+		}
+	}
+
+	private fun handleItemDetailsState(state: ComponentState<ComplexFeature>) {
 		when(state){
 			is ComponentState.Initializing -> TODO()
 			is ComponentState.Loading -> TODO()
