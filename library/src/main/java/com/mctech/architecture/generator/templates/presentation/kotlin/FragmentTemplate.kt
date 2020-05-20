@@ -22,16 +22,17 @@ open class FragmentTemplate(modulePath: ModuleFilePath)  : PresentationKotlinTem
     override fun generateImports(output: PrintWriter) {
         output.printImport("import android.os.Bundle")
         output.printImport("import android.view.View")
+        output.printImport("import android.view.LayoutInflater")
+        output.printImport("import android.view.ViewGroup")
         output.blankLine()
 
         val baseArchitecturePackage = FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()
-        output.printImport("$baseArchitecturePackage.BaseFragment")
+        output.printImport("import androidx.fragment.app.Fragment")
         output.printImport("$baseArchitecturePackage.ComponentState")
         output.printImport("$baseArchitecturePackage.ViewCommand")
-        output.printImport("$baseArchitecturePackage.extentions.bindState")
-        output.printImport("$baseArchitecturePackage.extentions.bindData")
-        output.printImport("$baseArchitecturePackage.extentions.bindCommand")
-        output.printImport("$baseArchitecturePackage.extentions.sharedViewModel")
+        output.printImport("$baseArchitecturePackage.ktx.bindState")
+        output.printImport("$baseArchitecturePackage.ktx.bindData")
+        output.printImport("$baseArchitecturePackage.ktx.bindCommand")
 
         if(hasGeneratedEntity()){
             output.printImport("${entityPackage()}.${featureEntityName()}")
@@ -41,7 +42,7 @@ open class FragmentTemplate(modulePath: ModuleFilePath)  : PresentationKotlinTem
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class $className : BaseFragment() {")
+        output.println("class $className : Fragment() {")
     }
 
     override fun generateClassBody(output: PrintWriter) {
@@ -50,7 +51,9 @@ open class FragmentTemplate(modulePath: ModuleFilePath)  : PresentationKotlinTem
         output.printTabulate("private val viewModel : $viewModelName by sharedViewModel($viewModelName::class.java)")
         output.blankLine()
 
-        output.printTabulate("override fun getLayoutId() = R.layout.fragment_${featurePackage().toLowerCase()}")
+        output.printTabulate("override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {")
+        output.printDoubleTabulate("return inflater.inflate(R.layout.fragment_${featurePackage().toLowerCase()}, container, false)")
+        output.printTabulate("}")
         output.blankLine()
 
         output.printTabulate("override fun onViewCreated(view: View, savedInstanceState: Bundle?) {")

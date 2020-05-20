@@ -50,7 +50,7 @@ open class ViewInteractionTemplate(modulePath: ModuleFilePath) : PresentationKot
                 output.println(
                     it.parameters
                         .map {
-                            "\tval ${it.name} : ${it.type.getType()},\n"
+                            "\t\tval ${it.name} : ${it.type.getType()},\n"
                         }
                         .reduce {
                                 acc, useCaseVariable ->  acc + useCaseVariable

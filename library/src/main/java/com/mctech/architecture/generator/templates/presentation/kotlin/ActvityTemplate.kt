@@ -24,13 +24,12 @@ open class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTempl
         output.blankLine()
 
         val baseArchitecturePackage = FeatureContext.featureGenerator.baseArchitecturePath.packageValue.getImportLine()
-        output.printImport("$baseArchitecturePackage.BaseActivity")
+        output.printImport("import androidx.appcompat.app.AppCompatActivity")
         output.printImport("$baseArchitecturePackage.ComponentState")
         output.printImport("$baseArchitecturePackage.ViewCommand")
-        output.printImport("$baseArchitecturePackage.extentions.bindState")
-        output.printImport("$baseArchitecturePackage.extentions.bindData")
-        output.printImport("$baseArchitecturePackage.extentions.bindCommand")
-        output.printImport("$baseArchitecturePackage.extentions.daggerViewModel")
+        output.printImport("$baseArchitecturePackage.ktx.bindState")
+        output.printImport("$baseArchitecturePackage.ktx.bindData")
+        output.printImport("$baseArchitecturePackage.ktx.bindCommand")
 
         if(hasGeneratedEntity()){
             output.printImport("${entityPackage()}.${featureEntityName()}")
@@ -40,7 +39,7 @@ open class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTempl
     }
 
     override fun generateClassName(output: PrintWriter) {
-        output.println("class $className : BaseActivity() {")
+        output.println("class $className : AppCompatActivity() {")
     }
 
     override fun generateClassBody(output: PrintWriter) {
