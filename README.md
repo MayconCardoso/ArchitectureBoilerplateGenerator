@@ -22,6 +22,10 @@ implementation 'com.mctech.architecture:generator:2.0.0'
 
 [Mvvm Architecture Toolkit](https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit) - It is a personal MVVM architecture library that contains the base codebase generated here.
 
+## Sample
+
+Here is a [Real Android App](https://github.com/MayconCardoso/StockTradeTracking) implementing this library to define its architecture.
+
 Creating an empty feature
 =
 
@@ -42,10 +46,10 @@ fun main() {
     )
 
     // Here is an empty feature generated
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
         settings    = featureSettings,
         featureName = "FeatureEmpty"
-    ).newFeature {}
+    ){}
 }
 ```
 
