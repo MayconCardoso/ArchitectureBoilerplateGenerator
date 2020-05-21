@@ -46,10 +46,10 @@ fun main() {
     )
 
     // Here is an empty feature generated
-    FeatureGenerator(
+    FeatureGenerator.newFeature(
         settings    = featureSettings,
         featureName = "FeatureEmpty"
-    ).newFeature {}
+    ){}
 }
 ```
 
