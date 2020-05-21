@@ -259,7 +259,7 @@ class FeatureGenerator(
         fun newFeature(
             settings: FeatureSettings,
             featureName: FeatureName,
-            block: FeatureGenerator.() -> Unit
+            block: FeatureGenerator.() -> Unit = {}
         ){
             val feature = FeatureGenerator(settings, featureName)
             feature.block()
