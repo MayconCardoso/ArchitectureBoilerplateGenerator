@@ -1,12 +1,12 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.presentation.resource
 
-import io.github.mayconcardoso.boilerplate.generator.generator.FileGenerator
-import io.github.mayconcardoso.boilerplate.generator.generator.blankLine
-import io.github.mayconcardoso.boilerplate.generator.generator.writeFile
-import io.github.mayconcardoso.boilerplate.generator.path.FilePath
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.baseProjectPath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureSegment
+import io.github.mayconcardoso.boilerplate.generator.core.generator.FileGenerator
+import io.github.mayconcardoso.boilerplate.generator.core.generator.blankLine
+import io.github.mayconcardoso.boilerplate.generator.core.generator.writeFile
+import io.github.mayconcardoso.boilerplate.generator.core.path.FilePath
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.baseProjectPath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureSegment
 
 /**
  * @author MAYCON CARDOSO on 2019-12-02.

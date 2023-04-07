@@ -1,15 +1,15 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.domain.entity
 
-import io.github.mayconcardoso.boilerplate.generator.class_contract.customTypeImport
-import io.github.mayconcardoso.boilerplate.generator.context.FeatureContext
-import io.github.mayconcardoso.boilerplate.generator.generator.blankLine
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureEntityName
+import io.github.mayconcardoso.boilerplate.generator.core.class_contract.customTypeImport
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.FeatureContext
+import io.github.mayconcardoso.boilerplate.generator.core.generator.blankLine
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureEntityName
 import io.github.mayconcardoso.boilerplate.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
- * @author MAYCON CARDOSO on 2019-11-27.
+ * @author MAYCON CARDOSO
  */
 open class EmptyEntityTemplate(modulePath: ModuleFilePath) : KotlinTemplate(modulePath, false) {
 

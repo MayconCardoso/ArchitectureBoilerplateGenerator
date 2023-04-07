@@ -1,19 +1,19 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.presentation.kotlin
 
-import io.github.mayconcardoso.boilerplate.generator.builder.foreachComponentState
-import io.github.mayconcardoso.boilerplate.generator.builder.foreachLiveData
-import io.github.mayconcardoso.boilerplate.generator.context.FeatureContext
-import io.github.mayconcardoso.boilerplate.generator.context.entityPackage
-import io.github.mayconcardoso.boilerplate.generator.generator.*
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureEntityName
-import io.github.mayconcardoso.boilerplate.generator.settings.featurePackage
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.FeatureContext
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.entityPackage
+import io.github.mayconcardoso.boilerplate.generator.core.generator.*
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureEntityName
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featurePackage
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.foreachComponentState
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.foreachLiveData
 import io.github.mayconcardoso.boilerplate.generator.templates.presentation.PresentationKotlinTemplate
 import java.io.PrintWriter
 import java.util.*
 
 /**
- * @author MAYCON CARDOSO on 2019-11-27.
+ * @author MAYCON CARDOSO
  */
 open class ActvityTemplate(modulePath: ModuleFilePath) : PresentationKotlinTemplate(modulePath) {
 

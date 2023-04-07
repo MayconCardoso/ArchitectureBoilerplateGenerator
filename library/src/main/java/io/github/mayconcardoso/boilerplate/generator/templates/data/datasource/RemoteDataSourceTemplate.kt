@@ -1,14 +1,14 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.data.datasource
 
-import io.github.mayconcardoso.boilerplate.generator.context.retrofitAPIPackage
-import io.github.mayconcardoso.boilerplate.generator.context.retrofitApiFeatureName
-import io.github.mayconcardoso.boilerplate.generator.generator.printImport
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureEntityName
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.retrofitAPIPackage
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.retrofitApiFeatureName
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printImport
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureEntityName
 import java.io.PrintWriter
 
 /**
- * @author MAYCON CARDOSO on 2019-11-28.
+ * @author MAYCON CARDOSO
  */
 open class RemoteDataSourceTemplate(modulePath: ModuleFilePath) :
   BaseDataSourceImplementationTemplate(modulePath) {

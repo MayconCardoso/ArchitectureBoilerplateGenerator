@@ -1,12 +1,12 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.domain.interaction
 
-import io.github.mayconcardoso.boilerplate.generator.context.FeatureContext
-import io.github.mayconcardoso.boilerplate.generator.generator.printTabulate
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.FeatureContext
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printTabulate
 import io.github.mayconcardoso.boilerplate.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
- * @author MAYCON CARDOSO on 2019-11-28.
+ * @author MAYCON CARDOSO
  */
 open class ResultTemplate :
   KotlinTemplate(FeatureContext.featureGenerator.domainModulePath) {

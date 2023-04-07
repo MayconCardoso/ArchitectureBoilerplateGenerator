@@ -1,11 +1,11 @@
 package io.github.mayconcardoso.boilerplate.generator.templates
 
-import io.github.mayconcardoso.boilerplate.generator.class_contract.Package
-import io.github.mayconcardoso.boilerplate.generator.generator.printPackage
-import io.github.mayconcardoso.boilerplate.generator.generator.writeFile
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.baseProjectPath
-import io.github.mayconcardoso.boilerplate.generator.settings.featurePackage
+import io.github.mayconcardoso.boilerplate.generator.core.class_contract.Package
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printPackage
+import io.github.mayconcardoso.boilerplate.generator.core.generator.writeFile
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.baseProjectPath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featurePackage
 import java.io.PrintWriter
 
 /**

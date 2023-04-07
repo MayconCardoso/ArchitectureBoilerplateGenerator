@@ -1,9 +1,9 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.presentation.resource
 
-import io.github.mayconcardoso.boilerplate.generator.generator.blankLine
-import io.github.mayconcardoso.boilerplate.generator.generator.printTabulate
-import io.github.mayconcardoso.boilerplate.generator.generator.writeFile
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.generator.blankLine
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printTabulate
+import io.github.mayconcardoso.boilerplate.generator.core.generator.writeFile
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
 import io.github.mayconcardoso.boilerplate.generator.templates.Template
 
 /**

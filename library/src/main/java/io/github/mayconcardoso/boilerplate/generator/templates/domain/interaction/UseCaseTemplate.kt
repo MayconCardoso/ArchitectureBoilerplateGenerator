@@ -1,22 +1,22 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.domain.interaction
 
-import io.github.mayconcardoso.boilerplate.generator.builder.UseCaseBuilder
-import io.github.mayconcardoso.boilerplate.generator.class_contract.Type
-import io.github.mayconcardoso.boilerplate.generator.class_contract.customTypeImport
-import io.github.mayconcardoso.boilerplate.generator.context.FeatureContext
-import io.github.mayconcardoso.boilerplate.generator.context.entityPackage
-import io.github.mayconcardoso.boilerplate.generator.context.serviceFeatureName
-import io.github.mayconcardoso.boilerplate.generator.context.servicePackage
-import io.github.mayconcardoso.boilerplate.generator.generator.blankLine
-import io.github.mayconcardoso.boilerplate.generator.generator.printImport
-import io.github.mayconcardoso.boilerplate.generator.generator.printTabulate
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureEntityName
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.builder.UseCaseBuilder
+import io.github.mayconcardoso.boilerplate.generator.core.class_contract.Type
+import io.github.mayconcardoso.boilerplate.generator.core.class_contract.customTypeImport
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.FeatureContext
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.entityPackage
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.serviceFeatureName
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.servicePackage
+import io.github.mayconcardoso.boilerplate.generator.core.generator.blankLine
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printImport
+import io.github.mayconcardoso.boilerplate.generator.core.generator.printTabulate
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureEntityName
 import io.github.mayconcardoso.boilerplate.generator.templates.KotlinTemplate
 import java.io.PrintWriter
 
 /**
- * @author MAYCON CARDOSO on 2019-11-28.
+ * @author MAYCON CARDOSO
  */
 open class UseCaseTemplate(val useCase: UseCaseBuilder, modulePath: ModuleFilePath) :
   KotlinTemplate(modulePath) {

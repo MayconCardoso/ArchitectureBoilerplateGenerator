@@ -1,10 +1,10 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.presentation.module
 
-import io.github.mayconcardoso.boilerplate.generator.context.FeatureContext
-import io.github.mayconcardoso.boilerplate.generator.generator.readFile
-import io.github.mayconcardoso.boilerplate.generator.generator.writeFile
-import io.github.mayconcardoso.boilerplate.generator.settings.baseProjectPath
-import io.github.mayconcardoso.boilerplate.generator.strategy.FileDuplicatedStrategy
+import io.github.mayconcardoso.boilerplate.generator.generators.feature.context.FeatureContext
+import io.github.mayconcardoso.boilerplate.generator.core.generator.readFile
+import io.github.mayconcardoso.boilerplate.generator.core.generator.writeFile
+import io.github.mayconcardoso.boilerplate.generator.core.settings.baseProjectPath
+import io.github.mayconcardoso.boilerplate.generator.core.strategy.FileDuplicatedStrategy
 import io.github.mayconcardoso.boilerplate.generator.templates.Template
 
 /**

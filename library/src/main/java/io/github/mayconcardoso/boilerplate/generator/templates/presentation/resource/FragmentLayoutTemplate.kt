@@ -1,9 +1,9 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.presentation.resource
 
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.baseProjectPath
-import io.github.mayconcardoso.boilerplate.generator.settings.featurePackage
-import io.github.mayconcardoso.boilerplate.generator.settings.featureSegment
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.baseProjectPath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featurePackage
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureSegment
 import java.util.*
 
 /**

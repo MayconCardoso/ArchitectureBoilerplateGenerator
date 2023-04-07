@@ -1,10 +1,10 @@
 package io.github.mayconcardoso.boilerplate.generator.templates.data.datasource
 
-import io.github.mayconcardoso.boilerplate.generator.path.ModuleFilePath
-import io.github.mayconcardoso.boilerplate.generator.settings.featureEntityName
+import io.github.mayconcardoso.boilerplate.generator.core.path.ModuleFilePath
+import io.github.mayconcardoso.boilerplate.generator.core.settings.featureEntityName
 
 /**
- * @author MAYCON CARDOSO on 2019-11-28.
+ * @author MAYCON CARDOSO
  */
 open class LocalDataSourceTemplate(modulePath: ModuleFilePath) :
   BaseDataSourceImplementationTemplate(modulePath) {
