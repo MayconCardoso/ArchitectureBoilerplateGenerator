@@ -1,0 +1,14 @@
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                compileSdkVersion targets.compileSdk
+                defaultConfig {
+                    minSdkVersion targets.minSdk
+                    targetSdkVersion targets.targetSdk
+                    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+                }
+            }
+        }
+    }
+}

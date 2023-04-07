@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mctech.architecture.generator">
+    package="io.github.mayconcardoso.boilerplate.generator">
 
     <application
         android:allowBackup="true"

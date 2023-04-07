@@ -1,7 +1,7 @@
 Overview
 =
 
-[ ![Download](https://api.bintray.com/packages/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/images/download.svg?version=2.0.0) ](https://bintray.com/mayconcardoso/ArchitectureBoilerplateGenerator/com.mctech.architecture.generator/2.0.0/link)
+[ ![Download](https://api.bintray.com/packages/mayconcardoso/ArchitectureBoilerplateGenerator/io.github.mayconcardoso.boilerplate.generator/images/download.svg?version=2.0.0) ](https://bintray.com/mayconcardoso/ArchitectureBoilerplateGenerator/io.github.mayconcardoso.boilerplate.generator/2.0.0/link)
 
 Recently I started off working for Unicred Mobile Banking as a Senior Android Engineer.
 

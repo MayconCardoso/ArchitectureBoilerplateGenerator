@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.mctech.architecture.generator"
+        applicationId "io.github.mayconcardoso.boilerplate.generator"
         minSdkVersion 14
-        targetSdkVersion 29
+        targetSdkVersion targets.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,7 +21,5 @@ android {
 
 dependencies {
     implementation project(path: ':library')
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 }

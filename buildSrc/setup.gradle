@@ -1,0 +1,12 @@
+// Defines SDK variables.
+ext.targets = [
+    minSdk                  : 21,
+    compileSdk              : 33,
+    targetSdk               : 33,
+    kotlinJvmTarget         : 11,
+]
+
+// Defines Library variables.
+ext.versions = [
+    'kotlin'                : '1.8.10',
+]

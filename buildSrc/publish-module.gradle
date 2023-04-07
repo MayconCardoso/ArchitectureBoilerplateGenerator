@@ -1,0 +1,77 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+ext {
+    PUBLISH_GROUP_ID = 'io.github.mayconcardoso'
+    PUBLISH_VERSION = '3.0.0'
+}
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        // For android libraries
+        from android.sourceSets.main.java.srcDirs
+        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        // For pure kotlin libraries, in case you have them
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+artifacts {
+    archives androidSourcesJar
+}
+
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+
+                artifact androidSourcesJar
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = "This is only a personal implementation of MVVM architecture that makes your life easier by helping you to keep your screen components independently. It also has a concept of \"interaction\" defining exactly what the user can do on your screen turning the testing process extremely easier, once now you are able to test the \"state\" of your app."
+                    url = 'https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit'
+                    licenses {
+                        license {
+                            name = 'MIT license'
+                            url = 'https://opensource.org/licenses/MIT'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'MayconCardoso'
+                            name = 'Maycon Cardoso'
+                            email = 'maycon.santos.cardoso@gmail.com'
+                        }
+                    }
+
+                    // Version control info
+                    scm {
+                        connection = 'scm:git:github.com/MayconCardoso/Mvvm-Architecture-Toolkit.git'
+                        developerConnection = 'scm:git:ssh://github.com/MayconCardoso/Mvvm-Architecture-Toolkit.git'
+                        url = 'https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit/tree/master'
+                    }
+                }
+            }
+        }
+    }
+}
+signing {
+    useGpgCmd()
+    sign publishing.publications
+}

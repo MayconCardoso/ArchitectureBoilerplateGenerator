@@ -1,6 +1,5 @@
 rootProject.name='Architecture Generator'
 
-
 include ':library'
 
 include ':sample:app'
