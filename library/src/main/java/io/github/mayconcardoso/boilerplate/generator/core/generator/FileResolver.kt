@@ -6,7 +6,6 @@ import io.github.mayconcardoso.boilerplate.generator.core.strategy.FileDuplicate
 import java.io.File
 import java.io.PrintWriter
 
-
 fun writeFile(
   filePath: FilePath,
   fileDuplicatedStrategy: FileDuplicatedStrategy = GlobalSettings.fileDuplicatedStrategy,
@@ -42,6 +41,20 @@ fun readFile(filePath: FilePath): List<String> {
 
   // Read file
   return file.readLines()
+}
+
+fun copyFile(
+  file: File,
+  target: File,
+  fileDuplicatedStrategy: FileDuplicatedStrategy = GlobalSettings.fileDuplicatedStrategy,
+) {
+  // Check the strategy of duplicated files
+  if (shouldCancelOperation(target, fileDuplicatedStrategy)) {
+    return
+  }
+
+  // Copy file
+  file.copyTo(target, overwrite = true)
 }
 
 private fun createFileFolder(file: File) {

@@ -4,18 +4,26 @@ import io.github.mayconcardoso.boilerplate.generator.core.class_contract.Package
 import io.github.mayconcardoso.boilerplate.generator.core.settings.GlobalSettings
 
 /**
- * @author MAYCON CARDOSO
+ * Indicates the path for a module that will be generated.
+ *
+ * @property packageValue the module package.
+ * @property gradleModuleName the module name.
+ * @property moduleLocation the module location within the project.
  */
 class ModuleFilePath(
   val packageValue: Package,
   val gradleModuleName: String,
-  val moduleLocation: String
-) : FilePath {
+  val moduleLocation: String,
   val type: ModuleFilePathType = ModuleFilePathType.Java
+) : FilePath {
 
+  /**
+   * Returns the path of the codebase for the module withing the project.
+   */
   override fun getPath(): String {
     return "$moduleLocation/${type.folderName}/${packageValue.getSegmentedPackage()}/"
   }
+
 }
 
 sealed class ModuleFilePathType(val folderName: String) {
@@ -34,7 +42,6 @@ sealed class ModuleFilePathType(val folderName: String) {
    */
   object Kotlin : ModuleFilePathType("src/main/kotlin/")
 }
-
 
 // This is the base package of the architecture.
 val projectPackage = GlobalSettings.projectSettings.projectPackage.value
