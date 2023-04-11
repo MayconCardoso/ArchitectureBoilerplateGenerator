@@ -1,17 +1,16 @@
 Overview
 =
 
-[ ![Download](https://api.bintray.com/packages/mayconcardoso/ArchitectureBoilerplateGenerator/io.github.mayconcardoso.boilerplate.generator/images/download.svg?version=2.0.0) ](https://bintray.com/mayconcardoso/ArchitectureBoilerplateGenerator/io.github.mayconcardoso.boilerplate.generator/2.0.0/link)
+When I joined Unicred Mobile Banking as a Senior Android Engineer back in 2018, the app had a huge monolithic and legacy codebase written in Java. 
+One of my first task at Unicred was to define a modularization strategy to refactor the project. The initial strategy was to modularize based on layers to make it easier to decouple components, then the feature layer would be extract in a second refactor.
 
-Recently I started off working for Unicred Mobile Banking as a Senior Android Engineer.
+However, we all know how many boilerplate we need to write to create a new ```feature-module```, don't we? ```ViewModel```, ```Activity or Fragment```, ```UseCases```, ```Many interfaces```, ```Datasources and Repositories``` and so on. 
+So, in order to make this refactor journey easier and specially faster, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
 
-The app had a huge monolithic and legacy codebase written in Java. So, my first task at Unicred was to define a strategy of modularization and refactoring on the app.
+After that I decided to make the repo public because it may help someone else out there. The code here doesn't look good yet because the initial intention was to handle the problem we had back there. 
 
-We had to separate the app, initially,  into three layers which are: the ```domain```, ```data```, and ```presentation```.
-
-Since the code was very tightly coupled, I decided, at first, to place all application entities within the ```domain layer```.
-
-However, we know how many boilerplate we need to write to create a new ```feature-module```, don't we? ```ViewModel```, ```Activity or Fragment```, ```UseCases```, ```Many interfaces```, ```Datasources and Repositories``` and so on. So in order to turn this process easier, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
+## Next steps
+I am now working to make the codebase scalable enough so it can support any kind of customization the people may need. 
 
 ## Download Generator
 
@@ -24,10 +23,14 @@ implementation 'com.mctech.architecture:generator:2.0.0'
 
 ## Sample
 
-Here is a [Real Android App](https://github.com/MayconCardoso/StockTradeTracking) implementing this library to define its architecture.
+Here are a couple of real android Apps implementing this library to define their architecture.
+* [Poker Grinder](https://github.com/MayconCardoso/poker-grinder)
+* [StockTradeTracking](https://github.com/MayconCardoso/StockTradeTracking)
 
 Creating an empty feature
 =
+
+> NOTE: I am making changes on the codebase to make it scalable, so for a while, the documentation may be outdated.
 
 To start your generator you will need a [ProjectSettings](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/library/src/main/java/com/mctech/architecture/generator/settings/ProjectSettings.kt) instance and a [FeatureSettings](https://github.com/MayconCardoso/ArchitectureBoilerplateGenerator/blob/master/library/src/main/java/com/mctech/architecture/generator/settings/FeatureSettings.kt) instance. Here is an example:
 
