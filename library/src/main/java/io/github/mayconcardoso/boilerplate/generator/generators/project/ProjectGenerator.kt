@@ -54,7 +54,7 @@ class ProjectGenerator private constructor(
     fun generateEmptyProject(
       settings: ProjectSettings,
       fileDuplicatedStrategy: FileDuplicatedStrategy = FileDuplicatedStrategy.Replace,
-      block: ProjectGenerator.() -> Unit,
+      block: ProjectGenerator.() -> Unit = {},
     ) {
       val projectGenerator = ProjectGenerator(settings, fileDuplicatedStrategy)
       projectGenerator.block()
