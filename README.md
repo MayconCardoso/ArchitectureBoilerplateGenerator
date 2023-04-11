@@ -7,25 +7,80 @@ One of my first task at Unicred was to define a modularization strategy to refac
 However, we all know how many boilerplate we need to write to create a new ```feature-module```, don't we? ```ViewModel```, ```Activity or Fragment```, ```UseCases```, ```Many interfaces```, ```Datasources and Repositories``` and so on. 
 So, in order to make this refactor journey easier and specially faster, I built this "architecture-code-generator" to create all of the templates we need on the project for each new feature.
 
-After that I decided to make the repo public because it may help someone else out there. The code here doesn't look good yet because the initial intention was to handle the problem we had back there. 
-
-## Next steps
-I am now working to make the codebase scalable enough so it can support any kind of customization the people may need. 
+After that I decided to make the repo public because it may help someone else out there. The code here doesn't look good yet because the initial intention was to handle the problem we had back there.
 
 ## Download Generator
 
 ```groovy
 implementation 'io.github.mayconcardoso:boilerplate-generator:3.0.0'
 ```
-## Related Library
 
-[Mvvm Architecture Toolkit](https://github.com/MayconCardoso/Mvvm-Architecture-Toolkit) - It is a personal MVVM architecture library that contains the base codebase generated here.
-
-## Sample
+## Real apps using this
 
 Here are a couple of real android Apps implementing this library to define their architecture.
 * [Poker Grinder](https://github.com/MayconCardoso/poker-grinder)
 * [StockTradeTracking](https://github.com/MayconCardoso/StockTradeTracking)
+
+Creating a new App
+=
+You can skip this if you already have an app. 
+However, if the goal is create a new app with the basic architectural structure, well this is now much simpler. Just run the code below and see the magic happens.
+
+```kotlin
+fun main() {
+
+  // Creates base project settings.
+  val projectSettings = ProjectSettings(
+    projectName = "MyGeneratedProject",
+    projectPackage = Package("io.github.mayconcardoso.my_generated_project"),
+    projectAbsolutePath = "C:\\Users\\mayco\\Documents\\Development\\MyGeneratedProject"
+  )
+
+  // Defines the duplication strategy
+  val duplicatedStrategy = FileDuplicatedStrategy.Replace
+
+  // Creates project generator
+  ProjectGenerator.generateEmptyProject(
+    settings = projectSettings,
+    fileDuplicatedStrategy = duplicatedStrategy,
+  )
+}
+```
+
+Customizations are pretty limited right now, but you can a thing or two for your project if you want to. Just keep in mind the goal of this script is just generate them main structure.
+
+```kotlin
+// Creates project generator
+ProjectGenerator.generateEmptyProject(
+  settings = projectSettings,
+  fileDuplicatedStrategy = duplicatedStrategy,
+) {
+
+  withGradleClassPath {
+    GradleClassPath(
+      withJacoco = true,
+      withDaggerHilt = true,
+      withNavigationSafeArgs = true,
+    )
+  }
+
+  withCustomAndroidTargets {
+    AndroidTargets(
+      minSdk = 21,
+      targetSdk = 33,
+      compileSdk = 33,
+      kotlinJvmTarget = 11,
+    )
+  }
+
+  withPresentationFramework {
+    PresentationFramework.Compose
+  }
+}
+```
+
+The code above will generate the entire structure for you as you can see right below here. In the perfect world you just need to open the app on your Android Studio and run it.
+<img src=".art/generated_project.png" alt="with-internet" height="600px"/> <img src=".art/generated_project_app.png" alt="with-internet" height="600px"/>
 
 Creating an empty feature
 =
