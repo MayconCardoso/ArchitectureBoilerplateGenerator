@@ -31,6 +31,14 @@ fun writeFile(
   }
 }
 
+fun writeFileString(
+  filePath: FilePath,
+  fileDuplicatedStrategy: FileDuplicatedStrategy = GlobalSettings.fileDuplicatedStrategy,
+  writerFileBlock: () -> String
+) = writeFile(filePath, fileDuplicatedStrategy) {
+  it.println(writerFileBlock())
+}
+
 fun readFile(filePath: FilePath): List<String> {
   // Create file
   val file = File(filePath.getPath())

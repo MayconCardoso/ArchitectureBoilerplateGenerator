@@ -33,12 +33,12 @@ dependencies {
     return if (presentationFramework == PresentationFramework.Compose) {
       """
       android {
-        buildFeatures {
-            compose true
-        }
-        composeOptions {
-            kotlinCompilerExtensionVersion '1.4.3'
-        }
+          buildFeatures {
+              compose true
+          }
+          composeOptions {
+              kotlinCompilerExtensionVersion '1.4.3'
+          }
       }
       """.trimIndent()
     } else {
@@ -48,13 +48,11 @@ dependencies {
 
   private fun printComposeDependencies(): String {
     return if (presentationFramework == PresentationFramework.Compose) {
-      """
-          implementation libraries.googleMaterialDesign
-          implementation libraries.androidComposeUi
-          implementation libraries.androidComposeMaterial
-          implementation libraries.androidComposeToolingPreview
-          debugImplementation libraries.androidComposeTooling
-      """.trimIndent()
+      """implementation libraries.googleMaterialDesign
+    implementation libraries.androidComposeUi
+    implementation libraries.androidComposeMaterial
+    implementation libraries.androidComposeToolingPreview
+    debugImplementation libraries.androidComposeTooling"""
     } else {
       ""
     }

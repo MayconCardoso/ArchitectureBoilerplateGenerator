@@ -12,9 +12,9 @@ fun main() {
 
   // Creates base project settings.
   val projectSettings = ProjectSettings(
-    projectName = "MyProjectTest",
-    projectPackage = Package("io.github.mayconcardoso.my_test_application"),
-    projectAbsolutePath = "C:\\Users\\mayco\\Documents\\Development\\MyTestApplication"
+    projectName = "MyGeneratedProject",
+    projectPackage = Package("io.github.mayconcardoso.my_generated_project"),
+    projectAbsolutePath = "C:\\Users\\mayco\\Documents\\Development\\MyGeneratedProject"
   )
 
   // Defines the duplication strategy

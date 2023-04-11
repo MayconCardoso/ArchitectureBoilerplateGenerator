@@ -36,6 +36,13 @@ class DependenciesGradle: Template() {
               "googleMaterialDesign": "com.google.android.material:material:1.8.0",
       
               //==========================================================================================
+              // Personal library
+              //==========================================================================================
+              "mvvmCore": "io.github.mayconcardoso:mvvm-core:2.1.0",
+              "mvvmCoreKtx": "io.github.mayconcardoso:mvvm-core-ktx:2.1.0",
+              "mvvmCoreTesting": "io.github.mayconcardoso:mvvm-core-testing:2.1.0",
+      
+              //==========================================================================================
               // Application - Room
               //==========================================================================================
               "androidRoomKtx": "androidx.room:room-ktx:2.5.0",

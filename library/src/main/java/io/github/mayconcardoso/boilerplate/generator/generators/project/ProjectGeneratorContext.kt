@@ -1,17 +1,13 @@
 package io.github.mayconcardoso.boilerplate.generator.generators.project
 
 import io.github.mayconcardoso.boilerplate.generator.generators.project.context.*
+import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.app.*
 import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.build_src.DependenciesGradle
+import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.build_src.JacocoGradle
 import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.build_src.SubProjectGradle
 import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.build_src.TargetSetupGradle
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.design.DesignComposeColors
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.design.DesignComposeTypography
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.design.DesignManifest
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.design.DesignModuleGradle
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.root.GitIgnore
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.root.GradleProperties
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.root.ProjectGradle
-import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.root.SettingsGradle
+import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.design.*
+import io.github.mayconcardoso.boilerplate.generator.generators.project.templates.root.*
 import io.github.mayconcardoso.boilerplate.generator.templates.Template
 
 /**
@@ -45,6 +41,7 @@ class ProjectGeneratorContext {
     ProjectGradle(gradleClassPath),
     SettingsGradle(),
     GradleProperties(),
+    GradleWrapperProperties(),
 
     // BuildSrc
     DependenciesGradle(),
@@ -54,6 +51,14 @@ class ProjectGeneratorContext {
     // Design module
     DesignManifest(),
     DesignModuleGradle(presentationFramework),
+
+    // App module
+    AppManifest(),
+    AppStringFile(),
+    AppApplicationFile(gradleClassPath),
+    AppModuleGradle(gradleClassPath, presentationFramework),
+    AppHomeActivityFile(),
+    AppHomeActivityLayoutFile(),
   )
 
   /**
@@ -64,9 +69,15 @@ class ProjectGeneratorContext {
     addAll(buildStaticFiles())
 
     // Includes compose files if it is enabled
-    if(presentationFramework == PresentationFramework.Compose) {
+    if (presentationFramework == PresentationFramework.Compose) {
+      add(DesignComposeTheme())
       add(DesignComposeColors())
       add(DesignComposeTypography())
+    }
+
+    // Includes jacoco
+    if (gradleClassPath.withJacoco) {
+      add(JacocoGradle())
     }
   }
 
