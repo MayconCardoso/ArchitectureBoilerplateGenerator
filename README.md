@@ -80,6 +80,7 @@ ProjectGenerator.generateEmptyProject(
 ```
 
 The code above will generate the entire structure for you as you can see right below here. In the perfect world you just need to open the app on your Android Studio and run it.
+
 <img src=".art/generated_project.png" alt="with-internet" height="600px"/> <img src=".art/generated_project_app.png" alt="with-internet" height="600px"/>
 
 Creating an empty feature
