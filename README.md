@@ -15,7 +15,7 @@ I am now working to make the codebase scalable enough so it can support any kind
 ## Download Generator
 
 ```groovy
-implementation 'io.github.mayconcardoso.boilerplate-generator:3.0.0'
+implementation 'io.github.mayconcardoso:boilerplate-generator:3.0.0'
 ```
 ## Related Library
 
